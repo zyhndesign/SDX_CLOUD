@@ -1,0 +1,16 @@
+{
+    "sEcho":1,
+    "success":true,
+    "iTotalRecords":4,
+    "iTotalDisplayRecords":4,
+    "aaData": [{
+        "id":1,
+        "productNo": "风景",
+        "brand":"圣德西/商务系列",
+        "type":"西裤",
+        "date":"2016/春",
+        "size":"FF/44",
+        "color":"蓝色",
+        "price":476
+    }]
+}

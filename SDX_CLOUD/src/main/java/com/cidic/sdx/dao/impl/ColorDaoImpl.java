@@ -3,13 +3,12 @@ package com.cidic.sdx.dao.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -25,67 +24,38 @@ public class ColorDaoImpl implements ColorDao {
 	@Qualifier(value = "redisTemplate")
 	private RedisTemplate<String, String> redisTemplate;
 	
+	@Resource(name="redisTemplate")
+    HashOperations<String, String, String> hashOperations;
+	
 	@Override
 	public Map<String, String> getColorDataByKey(String key) {
-		return redisTemplate.execute(new RedisCallback<Map<String, String>>() {
-			@Override
-			public Map<String, String> doInRedis(RedisConnection connection) throws DataAccessException {
-				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				Map<byte[], byte[]> map = connection.hGetAll(ser.serialize(key));
-				Map<String, String> resultMap = new HashMap<>();
-				map.forEach((k, v) -> {
-					resultMap.put(ser.deserialize(k), ser.deserialize(v));
-				});
-				return resultMap;
-			}
+		Map<Object, Object> map = hashOperations.getOperations().boundHashOps(key).entries();
+		Map<String, String> resultMap = new HashMap<>();
+		map.forEach((k, v) -> {
+			resultMap.put(k.toString(), v.toString());
 		});
+		return resultMap;
 	}
 
 	@Override
 	public long insertColorData(String key, String value) {
 		String id_key = RedisVariableUtil.COLOR_PREFIX + "Id";
-
-		return redisTemplate.execute(new RedisCallback<Long>() {
-			@Override
-			public Long doInRedis(RedisConnection connection) throws DataAccessException {
-
-				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-
-				byte[] bIdKey = ser.serialize(id_key);
-
-				long id = connection.incr(bIdKey);
-				connection.hSet(ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + key),
-						ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + id), ser.serialize(value));
-
-				return id;
-			}
-		});
+		long id = redisTemplate.opsForValue().increment(id_key, 1);
+		hashOperations.put(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + key,
+				RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + id, value);
+		return id;
 	}
 
 	@Override
 	public void updateColorData(String parentKey, String key, String value) {
-		redisTemplate.execute(new RedisCallback<Object>() {
-			@Override
-			public Object doInRedis(RedisConnection connection) throws DataAccessException {
-				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				connection.hSet(ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + parentKey),
-						ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + key), ser.serialize(value));
-				return null;
-			}
-		});
+		hashOperations.put(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + parentKey,
+				RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + key, value);
 	}
 
 	@Override
 	public void deleteColorData(String parentKey, String key) {
-		redisTemplate.execute(new RedisCallback<Object>() {
-			@Override
-			public Object doInRedis(RedisConnection connection) throws DataAccessException {
-				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				connection.hDel(ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + parentKey),
-						ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + key));
-				return null;
-			}
-		});
+		hashOperations.delete(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + parentKey,
+				RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + key);
 	}
 
 }

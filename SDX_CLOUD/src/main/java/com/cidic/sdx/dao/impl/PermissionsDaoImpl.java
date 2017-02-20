@@ -1,18 +1,25 @@
 package com.cidic.sdx.dao.impl;
 
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.hash.BeanUtilsHashMapper;
+import org.springframework.data.redis.hash.DecoratingStringHashMapper;
+import org.springframework.data.redis.hash.HashMapper;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.cidic.sdx.dao.PermissionDao;
 import com.cidic.sdx.model.PermissionsModel;
-import com.cidic.sdx.model.RoleModel;
 import com.cidic.sdx.util.RedisVariableUtil;
 
 @Repository
@@ -24,23 +31,23 @@ public class PermissionsDaoImpl implements PermissionDao {
 	@Qualifier(value = "redisTemplate")
 	private RedisTemplate<String, String> redisTemplate;
 	
+	@Resource(name="redisTemplate")
+    HashOperations<String, String, String> hashOperations;
+	
+    private final HashMapper<PermissionsModel, String, String> mapper =
+    	     new DecoratingStringHashMapper<PermissionsModel>(new BeanUtilsHashMapper<PermissionsModel>(PermissionsModel.class));
+    
+    public void writeHash(String key, PermissionsModel permissionsModel) {
+      Map<String, String> mappedHash = mapper.toHash(permissionsModel);
+      hashOperations.putAll(key, mappedHash);
+    }
+    
 	@Override
 	public PermissionsModel createPermission(PermissionsModel permission) {
-		return redisTemplate.execute(new RedisCallback<PermissionsModel>() {
-			@Override
-			public PermissionsModel doInRedis(RedisConnection connection) throws DataAccessException {
-
-				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				long id = connection.incr(ser.serialize(RedisVariableUtil.PERMISSION_PRIFIX + "Id"));
-				permission.setId((int)id);
-				byte[] roleKey = ser.serialize(RedisVariableUtil.PERMISSION_PRIFIX +":"+id);
-				connection.openPipeline();
-				connection.hSet(roleKey, ser.serialize("permission"), ser.serialize(permission.getPermission()));
-				connection.hSet(roleKey, ser.serialize("description"), ser.serialize(permission.getDescription()));
-				connection.closePipeline();
-				return permission;
-			}
-		});
+		long id = redisTemplate.opsForValue().increment(RedisVariableUtil.PERMISSION_PRIFIX + "Id", 1);
+		permission.setId((int)id);
+		writeHash(RedisVariableUtil.PERMISSION_PRIFIX +":"+id, permission);
+		return permission;
 	}
 
 	@Override

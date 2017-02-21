@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.cidic.sdx.model.BrandModel;
-import com.cidic.sdx.service.BrandService;
+import com.cidic.sdx.hpgl.model.BrandModel;
+import com.cidic.sdx.hpgl.service.BrandService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
@@ -22,7 +22,7 @@ public class BrandTest {
 	
 	//@Test
 	public void insertData(){
-		brandServiceImpl.insertBrandData("board", "ÖÐÒâ¹¤ÒµÉè¼Æ£¨ºþÄÏ£©ÓÐÏÞÔðÈÎ¹«Ë¾");
+		brandServiceImpl.insertBrandData("board", "ï¿½ï¿½ï¿½â¹¤Òµï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½Ë¾");
 	}
 	
 	@Test

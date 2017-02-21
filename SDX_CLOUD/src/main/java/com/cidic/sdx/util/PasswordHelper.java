@@ -5,7 +5,7 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
-import com.cidic.sdx.model.UserModel;
+import com.cidic.sdx.hpgl.model.UserModel;
 
 public class PasswordHelper {
 

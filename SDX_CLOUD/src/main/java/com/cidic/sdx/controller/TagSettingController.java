@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.exception.SdxException;
-import com.cidic.sdx.model.ResultModel;
-import com.cidic.sdx.service.TagService;
+import com.cidic.sdx.hpgl.model.ResultModel;
+import com.cidic.sdx.hpgl.service.TagService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller

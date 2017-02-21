@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.exception.SdxException;
-import com.cidic.sdx.model.BrandModel;
-import com.cidic.sdx.model.ResultModel;
-import com.cidic.sdx.model.SizeModel;
-import com.cidic.sdx.service.SizeService;
+import com.cidic.sdx.hpgl.model.BrandModel;
+import com.cidic.sdx.hpgl.model.ResultModel;
+import com.cidic.sdx.hpgl.model.SizeModel;
+import com.cidic.sdx.hpgl.service.SizeService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller

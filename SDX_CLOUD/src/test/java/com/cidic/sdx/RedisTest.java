@@ -19,8 +19,8 @@ import org.springframework.data.redis.hash.ObjectHashMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.cidic.sdx.model.Gender;
-import com.cidic.sdx.model.Student;
+import com.cidic.sdx.hpgl.model.Gender;
+import com.cidic.sdx.hpgl.model.Student;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
@@ -60,7 +60,7 @@ public class RedisTest {
     
     //@Test
     public void test(){
-    	this.addLink("66666666",  "ÄãºÃ");
+    	this.addLink("66666666",  "ï¿½ï¿½ï¿½");
     }
     
     @Test

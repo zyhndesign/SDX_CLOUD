@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.exception.SdxException;
-import com.cidic.sdx.model.HPListModel;
-import com.cidic.sdx.model.HPModel;
-import com.cidic.sdx.model.ListResultModel;
-import com.cidic.sdx.model.ResultModel;
-import com.cidic.sdx.service.HpIndexService;
-import com.cidic.sdx.service.HpManageService;
+import com.cidic.sdx.hpgl.model.HPListModel;
+import com.cidic.sdx.hpgl.model.HPModel;
+import com.cidic.sdx.hpgl.model.ListResultModel;
+import com.cidic.sdx.hpgl.model.ResultModel;
+import com.cidic.sdx.hpgl.service.HpIndexService;
+import com.cidic.sdx.hpgl.service.HpManageService;
 import com.cidic.sdx.util.RedisVariableUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 

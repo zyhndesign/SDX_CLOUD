@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.exception.SdxException;
-import com.cidic.sdx.model.CategoryModel;
-import com.cidic.sdx.model.ResultModel;
-import com.cidic.sdx.service.CategoryService;
+import com.cidic.sdx.hpgl.model.CategoryModel;
+import com.cidic.sdx.hpgl.model.ResultModel;
+import com.cidic.sdx.hpgl.service.CategoryService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller

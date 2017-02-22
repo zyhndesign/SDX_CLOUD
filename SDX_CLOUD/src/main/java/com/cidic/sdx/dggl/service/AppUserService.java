@@ -1,5 +1,7 @@
 package com.cidic.sdx.dggl.service;
 
+import java.util.Optional;
+
 import com.cidic.sdx.dggl.model.User;
 
 public interface AppUserService {
@@ -8,7 +10,9 @@ public interface AppUserService {
 	
     public void updateUser(User user);
     
-    public void deleteUser(Long userId);
+    public void deleteUser(int userId);
     
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
+    
+    Optional<User> authorityCheck(String username, String password);
 }

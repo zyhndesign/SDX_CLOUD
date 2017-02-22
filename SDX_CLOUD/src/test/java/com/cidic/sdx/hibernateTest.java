@@ -1,6 +1,7 @@
 package com.cidic.sdx;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,12 @@ public class hibernateTest {
 	
 	@Test
 	public void getData(){
-		User user = new User("jack", "111111", "http://icon.aliyun.com/asdasdasdasdasdasd", new Date());
-		appUserServiceImpl.createUser(user);
+		//User user = new User("jack", "111111", "http://icon.aliyun.com/asdasdasdasdasdasd", new Date());
+		//appUserServiceImpl.createUser(user);
+		
+		Optional<User> user = appUserServiceImpl.findByUsername("jack bauer");
+		//User userObject = 
+		//System.out.println("=====2:"+userObject);
 	}
+	
 }

@@ -1,5 +1,7 @@
 package com.cidic.sdx.dggl.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -25,20 +27,24 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Override
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
-
+		appUserDaoImpl.updateUser(user);
 	}
 
 	@Override
-	public void deleteUser(Long userId) {
-		// TODO Auto-generated method stub
-
+	public void deleteUser(int userId) {
+		appUserDaoImpl.deleteUser(userId);
 	}
 
 	@Override
-	public User findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<User> findByUsername(String username) {
+		
+		return appUserDaoImpl.findByUsername(username);
+	}
+
+	@Override
+	public Optional<User> authorityCheck(String username, String password) {
+		
+		return appUserDaoImpl.authorityCheck(username, password);
 	}
 
 }

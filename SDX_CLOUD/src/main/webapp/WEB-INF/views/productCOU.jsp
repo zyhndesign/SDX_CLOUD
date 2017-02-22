@@ -18,13 +18,15 @@
 
 <%@ include file="header.jsp"%>
 
+<div class="container">
+
 <div class="left">
     <%@ include file="menu.jsp"%>
 </div>
 
 <div class="right">
     <div class="main">
-        <div class="panel panel-default">
+        <div class="panel panel-default minHeight400">
             <div class="panel-heading">
                 <h1 class="panel-title">货品录入/修改</h1>
             </div>
@@ -117,6 +119,12 @@
                                 <input type="text" class="form-control" value="${hp.price}" name="price">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label  class="control-label col-md-3">链接*</label>
+                            <div class="col-md-9 input-group">
+                                <input type="text" class="form-control" value="${hp.link}" name="link">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -136,10 +144,6 @@
                                     <input type="hidden" id="imageUrl1" value="${hp.imageUrl1}" name="imageUrl1">
                                     </c:if>
                                 </a>
-<<<<<<< HEAD
-                                
-=======
->>>>>>> origin/master
                                 <p class="help-block">2.配装反面图，png格式，1400x2800像素</p>
                                 <a href="#" id="uploadBtn2">
                                     <c:if test="${empty hp.imageUrl2}">
@@ -182,6 +186,8 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>
 
 <!--弹出界面-->

@@ -10,6 +10,8 @@
 
 <%@ include file="header.jsp"%>
 
+<div class="container">
+
 <div class="left">
     <%@ include file="menu.jsp"%>
 </div>
@@ -17,7 +19,7 @@
 
 <div class="right">
     <div class="main">
-        <div class="panel panel-default">
+        <div class="panel panel-default minHeight400">
             <div class="panel-heading">
                 <h1 class="panel-title">货品管理</h1>
             </div>
@@ -33,7 +35,7 @@
                         <div class="input-group tableSearchContainer col-md-6">
                             <input class="form-control" id="searchNo" type="text" placeholder="货号">
                             <span class="input-group-btn">
-                                <button id="searchBtn" class="btn btn-default searchBtn" type="button">搜索</button>
+                                <button id="searchBtn" class="btn btn-primary searchBtn" type="button">搜索</button>
                             </span>
                         </div>
                         <!--<div class="col-md-2">
@@ -86,13 +88,11 @@
                 <table id="myTable" class="dataTable">
                     <thead>
                     <tr>
+                        <th>图片</th>
                         <th>货号</th>
-                        <th>品牌</th>
+                        <th>品牌系列</th>
                         <th>品类</th>
-                        <th>时间</th>
-                        <th>尺码</th>
-                        <th>颜色</th>
-                        <th>吊牌价</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -104,6 +104,33 @@
         </div>
     </div>
 </div>
+
+</div>
+
+<!--弹出界面-->
+<div class="modal fade" id="showDetailModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title mustSetValue" data-name="hp_num"></h4>
+            </div>
+            <div class="modal-body">
+                <p><label class="labelW100">图片:</label>&nbsp;<img class="mustSetSrc" width="100px"><p>
+                <p><label class="labelW100">货号:</label>&nbsp;<span class="mustSetValue" data-name="hp_num"><span><p>
+                <p><label class="labelW100">品牌系列:</label>&nbsp;<span class="mustSetValue" data-name="brandList"><span><p>
+                <p><label class="labelW100">品类:</label>&nbsp;<span class="mustSetValue" data-name="categoryList"><span><p>
+                <p><label class="labelW100">建档日期:</label>&nbsp;<span class="mustSetValue" data-name="createTime"><span><p>
+                <p><label class="labelW100">年份/季节:</label>&nbsp;<span class="mustSetValue" data-name="timeCategory"><span><p>
+                <p><label class="labelW100">颜色:</label>&nbsp;<span class="mustSetValue" data-name="colorList"><span><p>
+                <p><label class="labelW100">尺寸:</label>&nbsp;<span class="mustSetValue" data-name="sizeList"><span><p>
+                <p><label class="labelW100">链接:</label>&nbsp;<span class="mustSetValue" data-name="link"><span><p>
+                <p><label class="labelW100">状态:</label>&nbsp;<span class="mustSetValue" data-name="status"><span><p>
+                <p><label class="labelW100">价格:</label>&nbsp;<span class="mustSetValue" data-name="price"><span><p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 <%@ include file="loading.jsp"%>

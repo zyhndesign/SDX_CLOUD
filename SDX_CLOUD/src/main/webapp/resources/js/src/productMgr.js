@@ -7,6 +7,7 @@ var productMgr=(function(config,functions){
         color:[],
         size:[]
     };
+    var loadedData={};
 
     /**
      * 创建datatable
@@ -28,20 +29,16 @@ var productMgr=(function(config,functions){
                 "sUrl":config.dataTable.langUrl
             },
             "aoColumns": [
+                { "mDataProp": "src"},
                 { "mDataProp": "hp_num"},
                 { "mDataProp": "brandList"},
                 { "mDataProp": "categoryList"},
-                { "mDataProp": "timeCategory"},
-                { "mDataProp": "sizeList"},
-                { "mDataProp": "colorList"},
-                { "mDataProp": "price",
-                    "fnRender":function(oObj){
-                        return oObj.aData.price?oObj.aData.price:"无";
-                    }},
+                { "mDataProp": "status"},
                 { "mDataProp": "opt",
                     "fnRender":function(oObj){
-                        return '<a href="hpManage/productCOU/'+oObj.aData.id+'">查看</a>&nbsp;';
-                            //'<a href="'+oObj.aData.id+'" class="remove">删除</a>';
+                        return  '<a href="'+oObj.aData.id+'" class="check">查看</a>&nbsp;&nbsp;'+
+                            '<a href="hpManage/productCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
+                            '<a href="'+oObj.aData.id+'" class="remove">作废</a>';
                     }
                 }
             ] ,
@@ -85,8 +82,14 @@ var productMgr=(function(config,functions){
                                 "sEcho" : response.sEcho
                             };
 
+                            loadedData={};
+
                             for (var i = 0, iLen = response.aaData.length; i < iLen; i++) {
                                 response.aaData[i].opt="opt";
+                                response.aaData[i].src="";
+                                response.aaData[i].link="";
+                                response.aaData[i].status="";
+                                loadedData[response.aaData[i].id]=response.aaData[i];
                             }
 
                             json.aaData=response.aaData;
@@ -115,6 +118,16 @@ var productMgr=(function(config,functions){
         tableRedraw:function(){
             this.ownTable.fnSettings()._iDisplayStart=0;
             this.ownTable.fnDraw();
+        },
+        showDetail:function(id){
+            var data=loadedData[id];
+            $(".mustSetValue").each(function(index,el){
+                $(this).text(data[$(this).data("name")]);
+            })
+            $(".mustSetSrc").each(function(index,el){
+                $(this).attr("src",data[$(this).data("name")]);
+            })
+            $("#showDetailModal").modal("show");
         },
         delete:function(id){
             functions.showLoading();
@@ -150,7 +163,10 @@ $(document).ready(function(){
             productMgr.delete($(this).attr("href"));
         }
         return false;
-    });
+    }).on("click","a.check",function(){
+            productMgr.showDetail($(this).attr("href"));
+            return false;
+        });
 
     $("#searchBtn").click(function(){
         productMgr.searchParams={

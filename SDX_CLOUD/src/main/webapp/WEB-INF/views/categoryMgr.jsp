@@ -16,13 +16,16 @@
 
 <%@ include file="header.jsp"%>
 
+<div class="container">
+
+
 <div class="left">
     <%@ include file="menu.jsp"%>
 </div>
 
 <div class="right">
     <div class="main">
-        <div class="panel panel-default">
+        <div class="panel panel-default minHeight400">
             <div class="panel-heading">
                 <h1 class="panel-title">品类设置</h1>
             </div>
@@ -31,6 +34,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 

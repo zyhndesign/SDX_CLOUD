@@ -1,0 +1,17 @@
+package com.cidic.sdx.util;
+
+public class ResponseCodeUtil {
+
+	public static final int UESR_CREATE_EXIST = 2;
+	public static final int UESR_OPERATION_SUCESS = 1;
+	public static final int UESR_OPERATION_FAILURE = 0;
+	
+	public static final int FEEDBACK_OPERATION_SUCCESS = 1;
+	public static final int FEEDBACK_OPERATION_FAILURE = 0;
+	
+	public static final int SHARE_OPERATION_SUCCESS = 1;
+	public static final int SHARE_OPERATION_FAILURE = 0;
+	
+	public static final int MATCH_OPERATION_SUCCESS = 1;
+	public static final int MATCH_OPERATION_FAILURE = 0;
+}

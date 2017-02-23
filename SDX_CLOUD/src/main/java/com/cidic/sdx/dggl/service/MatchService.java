@@ -5,11 +5,11 @@ import com.cidic.sdx.dggl.model.Match;
 
 public interface MatchService {
 
-	public void createMatch(Match match);
+	public int createMatch(Match match);
 	
-    public void updateMatch(Match match);
+    public int updateMatch(Match match);
     
-    public void deleteMatch(int matchId);
+    public int deleteMatch(int matchId);
     
-    public List<Match> findMatchByUser(int userId);
+    public List<Match> findMatchByUser(int userId, int offset, int limit);
 }

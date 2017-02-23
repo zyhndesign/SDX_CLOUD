@@ -51,7 +51,7 @@ public class Share implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "matchId", nullable = false)
+	@JoinColumn(name = "matchId")
 	public Match getMatch() {
 		return this.match;
 	}
@@ -61,7 +61,7 @@ public class Share implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "userId")
 	public User getUser() {
 		return this.user;
 	}
@@ -70,7 +70,7 @@ public class Share implements java.io.Serializable {
 		this.user = user;
 	}
 
-	@Column(name = "shareContent", nullable = false, length = 100)
+	@Column(name = "shareContent", length = 100)
 	public String getShareContent() {
 		return this.shareContent;
 	}
@@ -79,7 +79,7 @@ public class Share implements java.io.Serializable {
 		this.shareContent = shareContent;
 	}
 
-	@Column(name = "sharedlist", nullable = false)
+	@Column(name = "sharedlist")
 	public String getSharedlist() {
 		return this.sharedlist;
 	}

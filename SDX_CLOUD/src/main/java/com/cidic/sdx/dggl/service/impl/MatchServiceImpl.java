@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cidic.sdx.dggl.dao.MatchDao;
 import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.service.MatchService;
+import com.cidic.sdx.util.ResponseCodeUtil;
 
 @Repository
 @Transactional
@@ -23,27 +24,42 @@ public class MatchServiceImpl implements MatchService {
 	private MatchDao matchDaoImpl;
 	
 	@Override
-	public void createMatch(Match match) {
-		// TODO Auto-generated method stub
-
+	public int createMatch(Match match) {
+		try{
+			matchDaoImpl.createMatch(match);
+			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
+		}
 	}
 
 	@Override
-	public void updateMatch(Match match) {
-		// TODO Auto-generated method stub
-
+	public int updateMatch(Match match) {
+		try{
+			matchDaoImpl.updateMatch(match);
+			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
+		}
 	}
 
 	@Override
-	public void deleteMatch(int matchId) {
-		// TODO Auto-generated method stub
-
+	public int deleteMatch(int matchId) {
+		try{
+			matchDaoImpl.deleteMatch(matchId);
+			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
+		}
 	}
 
 	@Override
-	public List<Match> findMatchByUser(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Match> findMatchByUser(int userId, int offset, int limit) {
+		
+		return matchDaoImpl.findMatchByUser(userId, offset, limit);
 	}
 
 }

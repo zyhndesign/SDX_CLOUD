@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.dao.impl;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,8 +23,8 @@ public class ShareDaoImpl implements ShareDao {
 	
 	@Override
 	public void createShare(Share share) {
-		// TODO Auto-generated method stub
-
+		Session session = sessionFactory.getCurrentSession();
+		session.save(session);
 	}
 
 }

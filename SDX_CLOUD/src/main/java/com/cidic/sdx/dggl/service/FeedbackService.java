@@ -7,9 +7,7 @@ import com.cidic.sdx.dggl.model.Matchlist;
 
 public interface FeedbackService {
 	
-	public void createFeedback(Feedback feedback);
+	public int createFeedback(Feedback feedback);
 	
-	public void getFeedbackListByUserId(int userId);
-	
-	public List<Matchlist> getHotMatchListByUserId(int userId);
+	public List<Feedback> getFeedbackListByUserId(int userId);
 }

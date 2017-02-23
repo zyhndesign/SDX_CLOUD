@@ -88,4 +88,16 @@ public class AppUserDaoImpl implements AppUserDao {
         }
 	}
 
+	@Override
+	public List<User> getUserListByPage(int limit, int offset) {
+		Session session = this.getSessionFactory().getCurrentSession();
+		final String hql = " from User order by createTime desc"; 
+        final Query query = session.createQuery(hql);   
+        query.setFirstResult(offset);    
+        query.setMaxResults(limit); 
+        @SuppressWarnings("unchecked")
+		final List<User> list = query.list(); 
+		return list;
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.cidic.sdx.controller;
+package com.cidic.sdx.hpgl.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +20,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.exception.SdxException;
-import com.cidic.sdx.hpgl.model.CategoryModel;
+import com.cidic.sdx.hpgl.model.ColorModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
-import com.cidic.sdx.hpgl.service.CategoryService;
+import com.cidic.sdx.hpgl.service.ColorService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/category")
-public class CategorySettingController {
-	private static final Logger logger = LoggerFactory.getLogger(CategorySettingController.class);
+@RequestMapping("/color")
+public class ColorSettingController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ColorSettingController.class);
 	
 	@Autowired
-	@Qualifier(value = "categoryServiceImpl")
-	private CategoryService categoryServiceImpl;
+	@Qualifier(value = "colorServiceImpl")
+	private ColorService colorServiceImpl;
 	
 	private ResultModel resultModel = null;
 	
@@ -45,9 +46,9 @@ public class CategorySettingController {
 		return resultModel;
 	}
 	
-	@RequestMapping(value = "/categoryMgr", method = RequestMethod.GET)
+	@RequestMapping(value = "/colorMgr", method = RequestMethod.GET)
 	public String userMgr(Locale locale, Model model) {
-		return "categoryMgr";
+		return "colorMgr";
 	}
 	
 	@RequestMapping(value = "/getData", method = RequestMethod.GET)  
@@ -59,16 +60,16 @@ public class CategorySettingController {
 		try{
 			resultModel = new ResultModel();
 			if (id == null){
-				List<CategoryModel> list = new ArrayList<>();
-				CategoryModel categoryModel = new CategoryModel();
-				categoryModel.setId(0);
-				categoryModel.setName("品类");
-				list.add(categoryModel);
+				List<ColorModel> list = new ArrayList<>();
+				ColorModel colorModel = new ColorModel();
+				colorModel.setId(0);
+				colorModel.setName("颜色");
+				list.add(colorModel);
 				resultModel.setObject(list);
 			}
 			else{
 				
-				List<CategoryModel> list = categoryServiceImpl.getCategoryData(id);
+				List<ColorModel> list = colorServiceImpl.getColorData(id);
 				resultModel.setObject(list);
 			}
 			
@@ -89,7 +90,7 @@ public class CategorySettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			Long back_id = categoryServiceImpl.insertCategoryData(id, name);
+			Long back_id = colorServiceImpl.insertColorData(id, name);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setObject(back_id);
@@ -109,7 +110,7 @@ public class CategorySettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			categoryServiceImpl.updateCategoryData(parentId, id, name);
+			colorServiceImpl.updateColorData(parentId, id, name);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
@@ -128,7 +129,7 @@ public class CategorySettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			categoryServiceImpl.deleteCategoryData(parentId, id);
+			colorServiceImpl.deleteColorData(parentId, id);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

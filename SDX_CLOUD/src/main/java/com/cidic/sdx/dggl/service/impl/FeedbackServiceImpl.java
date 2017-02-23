@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.cidic.sdx.dggl.dao.FeedbackDao;
 import com.cidic.sdx.dggl.model.Feedback;
-import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.FeedbackService;
+import com.cidic.sdx.util.ResponseCodeUtil;
 
 @Repository
 @Component
@@ -22,19 +22,19 @@ public class FeedbackServiceImpl implements FeedbackService {
 	private FeedbackDao feedbackDaoImpl;
 	
 	@Override
-	public void createFeedback(Feedback feedback) {
-		
+	public int createFeedback(Feedback feedback) {
+		try{
+			feedbackDaoImpl.createFeedback(feedback);
+			return ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.FEEDBACK_OPERATION_FAILURE;
+		}
 	}
 
 	@Override
-	public void getFeedbackListByUserId(int userId) {
-		
-	}
-
-	@Override
-	public List<Matchlist> getHotMatchListByUserId(int userId) {
-		
-		return null;
+	public List<Feedback> getFeedbackListByUserId(int userId) {
+		return feedbackDaoImpl.getFeedbackListByUserId(userId);
 	}
 
 }

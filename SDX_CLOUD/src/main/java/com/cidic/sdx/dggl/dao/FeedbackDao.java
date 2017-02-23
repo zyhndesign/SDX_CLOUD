@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.cidic.sdx.dggl.model.Feedback;
 import com.cidic.sdx.dggl.model.Matchlist;
+import com.cidic.sdx.dggl.model.User;
 
 public interface FeedbackDao {
 
 	public void createFeedback(Feedback feedback);
 	
-	public void getFeedbackListByUserId(int userId);
-	
-	public List<Matchlist> getHotMatchListByUserId(int userId);
+	public List<Feedback> getFeedbackListByUserId(int userId);
+
 }

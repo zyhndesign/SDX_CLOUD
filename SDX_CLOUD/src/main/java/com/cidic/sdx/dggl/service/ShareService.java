@@ -4,5 +4,5 @@ import com.cidic.sdx.dggl.model.Share;
 
 public interface ShareService {
 
-	public void createShare(Share share);
+	public int createShare(Share share);
 }

@@ -2,6 +2,8 @@ package com.cidic.sdx.dggl.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,22 +26,33 @@ public class MatchDaoImpl implements MatchDao {
 	
 	@Override
 	public void createMatch(Match match) {
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.save(match);
 	}
 
 	@Override
 	public void updateMatch(Match match) {
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.update(match);
 	}
 
 	@Override
 	public void deleteMatch(int matchId) {
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(session);
 	}
 
 	@Override
-	public List<Match> findMatchByUser(int userId) {
-		return null;
+	public List<Match> findMatchByUser(int userId, int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Match where id = ? ";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, userId);
+        query.setFirstResult(offset);    
+        query.setMaxResults(limit);
+        @SuppressWarnings("unchecked")
+        List<Match> list = query.list();
+		return list;
 	}
 
 }

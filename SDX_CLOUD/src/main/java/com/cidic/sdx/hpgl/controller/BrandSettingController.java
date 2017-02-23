@@ -1,4 +1,4 @@
-package com.cidic.sdx.controller;
+package com.cidic.sdx.hpgl.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +22,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.model.BrandModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
-import com.cidic.sdx.hpgl.model.SizeModel;
-import com.cidic.sdx.hpgl.service.SizeService;
+import com.cidic.sdx.hpgl.service.BrandService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/size")
-public class SizeSettingController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(SizeSettingController.class);
+@RequestMapping("/brand")
+public class BrandSettingController {
+
+	private static final Logger logger = LoggerFactory.getLogger(BrandSettingController.class);
 	
 	@Autowired
-	@Qualifier(value = "sizeServiceImpl")
-	private SizeService sizeServiceImpl;
+	@Qualifier(value = "brandServiceImpl")
+	private BrandService brandServiceImpl;
 	
 	private ResultModel resultModel = null;
 	
@@ -47,9 +46,9 @@ public class SizeSettingController {
 		return resultModel;
 	}
 	
-	@RequestMapping(value = "/sizeMgr", method = RequestMethod.GET)
+	@RequestMapping(value = "/brandMgr", method = RequestMethod.GET)
 	public String userMgr(Locale locale, Model model) {
-		return "sizeMgr";
+		return "brandMgr";
 	}
 	
 	@RequestMapping(value = "/getData", method = RequestMethod.GET)  
@@ -61,16 +60,16 @@ public class SizeSettingController {
 		try{
 			resultModel = new ResultModel();
 			if (id == null){
-				List<SizeModel> list = new ArrayList<>();
-				SizeModel sizeModel = new SizeModel();
-				sizeModel.setId(0);
-				sizeModel.setName("尺码");
-				list.add(sizeModel);
+				List<BrandModel> list = new ArrayList<>();
+				BrandModel brandModel = new BrandModel();
+				brandModel.setId(0);
+				brandModel.setName("品牌系列");
+				list.add(brandModel);
 				resultModel.setObject(list);
 			}
 			else{
 				
-				List<SizeModel> list = sizeServiceImpl.getSizeData(id);
+				List<BrandModel> list = brandServiceImpl.getBrandData(id);
 				resultModel.setObject(list);
 			}
 			
@@ -91,7 +90,7 @@ public class SizeSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			Long back_id = sizeServiceImpl.insertSizeData(id, name);
+			Long back_id = brandServiceImpl.insertBrandData(id, name);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setObject(back_id);
@@ -111,7 +110,7 @@ public class SizeSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			sizeServiceImpl.updateSizeData(parentId, id, name);
+			brandServiceImpl.updateBrandData(parentId, id, name);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
@@ -130,7 +129,7 @@ public class SizeSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			sizeServiceImpl.deleteSizeData(parentId, id);
+			brandServiceImpl.deleteBrandData(parentId, id);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

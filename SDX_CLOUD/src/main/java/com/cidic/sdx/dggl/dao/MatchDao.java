@@ -12,5 +12,5 @@ public interface MatchDao {
     
     public void deleteMatch(int matchId);
     
-    public List<Match> findMatchByUser(int userId);
+    public List<Match> findMatchByUser(int userId, int offset, int limit);
 }

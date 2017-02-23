@@ -1,4 +1,4 @@
-package com.cidic.sdx.controller;
+package com.cidic.sdx.hpgl.controller;
 
 import java.util.Locale;
 

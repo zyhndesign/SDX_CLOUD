@@ -1,4 +1,4 @@
-package com.cidic.sdx.controller;
+package com.cidic.sdx.hpgl.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +20,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.exception.SdxException;
-import com.cidic.sdx.hpgl.model.BrandModel;
+import com.cidic.sdx.hpgl.model.CategoryModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
-import com.cidic.sdx.hpgl.service.BrandService;
+import com.cidic.sdx.hpgl.service.CategoryService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/brand")
-public class BrandSettingController {
-
-	private static final Logger logger = LoggerFactory.getLogger(BrandSettingController.class);
+@RequestMapping("/category")
+public class CategorySettingController {
+	private static final Logger logger = LoggerFactory.getLogger(CategorySettingController.class);
 	
 	@Autowired
-	@Qualifier(value = "brandServiceImpl")
-	private BrandService brandServiceImpl;
+	@Qualifier(value = "categoryServiceImpl")
+	private CategoryService categoryServiceImpl;
 	
 	private ResultModel resultModel = null;
 	
@@ -46,9 +45,9 @@ public class BrandSettingController {
 		return resultModel;
 	}
 	
-	@RequestMapping(value = "/brandMgr", method = RequestMethod.GET)
+	@RequestMapping(value = "/categoryMgr", method = RequestMethod.GET)
 	public String userMgr(Locale locale, Model model) {
-		return "brandMgr";
+		return "categoryMgr";
 	}
 	
 	@RequestMapping(value = "/getData", method = RequestMethod.GET)  
@@ -60,16 +59,16 @@ public class BrandSettingController {
 		try{
 			resultModel = new ResultModel();
 			if (id == null){
-				List<BrandModel> list = new ArrayList<>();
-				BrandModel brandModel = new BrandModel();
-				brandModel.setId(0);
-				brandModel.setName("品牌系列");
-				list.add(brandModel);
+				List<CategoryModel> list = new ArrayList<>();
+				CategoryModel categoryModel = new CategoryModel();
+				categoryModel.setId(0);
+				categoryModel.setName("品类");
+				list.add(categoryModel);
 				resultModel.setObject(list);
 			}
 			else{
 				
-				List<BrandModel> list = brandServiceImpl.getBrandData(id);
+				List<CategoryModel> list = categoryServiceImpl.getCategoryData(id);
 				resultModel.setObject(list);
 			}
 			
@@ -90,7 +89,7 @@ public class BrandSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			Long back_id = brandServiceImpl.insertBrandData(id, name);
+			Long back_id = categoryServiceImpl.insertCategoryData(id, name);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setObject(back_id);
@@ -110,7 +109,7 @@ public class BrandSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			brandServiceImpl.updateBrandData(parentId, id, name);
+			categoryServiceImpl.updateCategoryData(parentId, id, name);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
@@ -129,7 +128,7 @@ public class BrandSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			brandServiceImpl.deleteBrandData(parentId, id);
+			categoryServiceImpl.deleteCategoryData(parentId, id);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

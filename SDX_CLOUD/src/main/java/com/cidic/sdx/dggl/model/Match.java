@@ -69,7 +69,7 @@ public class Match implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "userId")
 	public User getUser() {
 		return this.user;
 	}
@@ -78,7 +78,7 @@ public class Match implements java.io.Serializable {
 		this.user = user;
 	}
 
-	@Column(name = "seriesname", nullable = false, length = 30)
+	@Column(name = "seriesname", length = 30)
 	public String getSeriesname() {
 		return this.seriesname;
 	}
@@ -87,7 +87,7 @@ public class Match implements java.io.Serializable {
 		this.seriesname = seriesname;
 	}
 
-	@Column(name = "status", nullable = false)
+	@Column(name = "status")
 	public byte getStatus() {
 		return this.status;
 	}
@@ -97,7 +97,7 @@ public class Match implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createtime", nullable = false, length = 19)
+	@Column(name = "createtime", length = 19)
 	public Date getCreatetime() {
 		return this.createtime;
 	}

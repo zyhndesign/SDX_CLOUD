@@ -1,4 +1,4 @@
-package com.cidic.sdx.controller;
+package com.cidic.sdx.hpgl.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +20,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.exception.SdxException;
-import com.cidic.sdx.hpgl.model.ColorModel;
+import com.cidic.sdx.hpgl.model.BrandModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
-import com.cidic.sdx.hpgl.service.ColorService;
+import com.cidic.sdx.hpgl.model.SizeModel;
+import com.cidic.sdx.hpgl.service.SizeService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/color")
-public class ColorSettingController {
+@RequestMapping("/size")
+public class SizeSettingController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ColorSettingController.class);
+	private static final Logger logger = LoggerFactory.getLogger(SizeSettingController.class);
 	
 	@Autowired
-	@Qualifier(value = "colorServiceImpl")
-	private ColorService colorServiceImpl;
+	@Qualifier(value = "sizeServiceImpl")
+	private SizeService sizeServiceImpl;
 	
 	private ResultModel resultModel = null;
 	
@@ -46,9 +47,9 @@ public class ColorSettingController {
 		return resultModel;
 	}
 	
-	@RequestMapping(value = "/colorMgr", method = RequestMethod.GET)
+	@RequestMapping(value = "/sizeMgr", method = RequestMethod.GET)
 	public String userMgr(Locale locale, Model model) {
-		return "colorMgr";
+		return "sizeMgr";
 	}
 	
 	@RequestMapping(value = "/getData", method = RequestMethod.GET)  
@@ -60,16 +61,16 @@ public class ColorSettingController {
 		try{
 			resultModel = new ResultModel();
 			if (id == null){
-				List<ColorModel> list = new ArrayList<>();
-				ColorModel colorModel = new ColorModel();
-				colorModel.setId(0);
-				colorModel.setName("颜色");
-				list.add(colorModel);
+				List<SizeModel> list = new ArrayList<>();
+				SizeModel sizeModel = new SizeModel();
+				sizeModel.setId(0);
+				sizeModel.setName("尺码");
+				list.add(sizeModel);
 				resultModel.setObject(list);
 			}
 			else{
 				
-				List<ColorModel> list = colorServiceImpl.getColorData(id);
+				List<SizeModel> list = sizeServiceImpl.getSizeData(id);
 				resultModel.setObject(list);
 			}
 			
@@ -90,7 +91,7 @@ public class ColorSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			Long back_id = colorServiceImpl.insertColorData(id, name);
+			Long back_id = sizeServiceImpl.insertSizeData(id, name);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setObject(back_id);
@@ -110,7 +111,7 @@ public class ColorSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			colorServiceImpl.updateColorData(parentId, id, name);
+			sizeServiceImpl.updateSizeData(parentId, id, name);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
@@ -129,7 +130,7 @@ public class ColorSettingController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 	    
 		try{
-			colorServiceImpl.deleteColorData(parentId, id);
+			sizeServiceImpl.deleteSizeData(parentId, id);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

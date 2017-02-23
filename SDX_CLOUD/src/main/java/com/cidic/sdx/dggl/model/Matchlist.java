@@ -99,7 +99,7 @@ public class Matchlist implements java.io.Serializable {
 		this.outClothId = outClothId;
 	}
 
-	@Column(name = "trousersId", nullable = false)
+	@Column(name = "trousersId")
 	public int getTrousersId() {
 		return this.trousersId;
 	}
@@ -108,7 +108,7 @@ public class Matchlist implements java.io.Serializable {
 		this.trousersId = trousersId;
 	}
 
-	@Column(name = "modelurl", nullable = false)
+	@Column(name = "modelurl")
 	public String getModelurl() {
 		return this.modelurl;
 	}
@@ -118,7 +118,7 @@ public class Matchlist implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createtime", nullable = false, length = 19)
+	@Column(name = "createtime", length = 19)
 	public Date getCreatetime() {
 		return this.createtime;
 	}

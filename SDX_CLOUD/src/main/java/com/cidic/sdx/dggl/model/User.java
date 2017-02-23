@@ -66,7 +66,7 @@ public class User implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "username", nullable = false, length = 20)
+	@Column(name = "username", length = 20)
 	public String getUsername() {
 		return this.username;
 	}
@@ -75,7 +75,7 @@ public class User implements java.io.Serializable {
 		this.username = username;
 	}
 
-	@Column(name = "password", nullable = false, length = 30)
+	@Column(name = "password", length = 30)
 	public String getPassword() {
 		return this.password;
 	}
@@ -84,7 +84,7 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "headicon", nullable = false, length = 100)
+	@Column(name = "headicon", length = 100)
 	public String getHeadicon() {
 		return this.headicon;
 	}
@@ -94,7 +94,7 @@ public class User implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createtime", nullable = false, length = 19)
+	@Column(name = "createtime", length = 19)
 	public Date getCreatetime() {
 		return this.createtime;
 	}

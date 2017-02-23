@@ -47,7 +47,7 @@ public class Feedback implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "matchlistId", nullable = false)
+	@JoinColumn(name = "matchlistId")
 	public Matchlist getMatchlist() {
 		return this.matchlist;
 	}
@@ -56,7 +56,7 @@ public class Feedback implements java.io.Serializable {
 		this.matchlist = matchlist;
 	}
 
-	@Column(name = "likeId", nullable = false)
+	@Column(name = "likeId")
 	public int getLikeId() {
 		return this.likeId;
 	}

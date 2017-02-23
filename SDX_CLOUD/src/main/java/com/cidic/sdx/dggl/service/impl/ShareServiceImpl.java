@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cidic.sdx.dggl.dao.ShareDao;
 import com.cidic.sdx.dggl.model.Share;
 import com.cidic.sdx.dggl.service.ShareService;
+import com.cidic.sdx.util.ResponseCodeUtil;
 
 @Repository
 @Transactional
@@ -21,8 +22,14 @@ public class ShareServiceImpl implements ShareService {
 	private ShareDao shareDaoImpl;
 	
 	@Override
-	public void createShare(Share share) {
-		
+	public int createShare(Share share) {
+		try{
+			shareDaoImpl.createShare(share);
+			return ResponseCodeUtil.SHARE_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.SHARE_OPERATION_FAILURE;
+		}
 	}
 
 }

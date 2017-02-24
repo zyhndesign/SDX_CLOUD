@@ -1,6 +1,7 @@
 package com.cidic.sdx.dggl.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -41,4 +42,21 @@ public class FeedbackDaoImpl implements FeedbackDao {
         return list;
 	}
 
+	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId){
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Feedback where likeId = ? and matchlistId = ?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, userId); 
+        query.setParameter(1, matchlistId); 
+        query.setMaxResults(1);
+        Optional<Feedback> optFeedback = Optional.ofNullable((Feedback)query.uniqueResult());
+        return optFeedback;
+	}
+	
+	public int deleteFeedback(int userId, int matchlistId){
+		Session session = sessionFactory.getCurrentSession();
+		String sql = " delete from feedback where likeId= " + userId + " and matchlistId=" + matchlistId;
+		Query query = session.createSQLQuery(sql);
+		return query.executeUpdate();
+	}
 }

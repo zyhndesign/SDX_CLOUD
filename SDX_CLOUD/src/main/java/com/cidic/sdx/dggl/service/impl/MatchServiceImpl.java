@@ -52,6 +52,8 @@ public class MatchServiceImpl implements MatchService {
 			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
 		}
 		catch(Exception e){
+			System.out.println("========:"+e.getMessage());
+			e.printStackTrace();
 			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
 		}
 	}

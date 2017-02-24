@@ -1,10 +1,9 @@
 package com.cidic.sdx.dggl.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cidic.sdx.dggl.model.Feedback;
-import com.cidic.sdx.dggl.model.Matchlist;
-import com.cidic.sdx.dggl.model.User;
 
 public interface FeedbackDao {
 
@@ -12,4 +11,7 @@ public interface FeedbackDao {
 	
 	public List<Feedback> getFeedbackListByUserId(int userId);
 
+	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId);
+	
+	public int deleteFeedback(int userId, int matchlistId);
 }

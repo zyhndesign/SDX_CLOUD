@@ -10,4 +10,6 @@ public interface FeedbackService {
 	public int createFeedback(Feedback feedback);
 	
 	public List<Feedback> getFeedbackListByUserId(int userId);
+	
+	public int updateFeedback(Feedback feedback);
 }

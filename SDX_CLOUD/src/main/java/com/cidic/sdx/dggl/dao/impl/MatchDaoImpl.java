@@ -39,13 +39,15 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public void deleteMatch(int matchId) {
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(session);
+		Match match = new Match();
+		match.setId(matchId);
+		session.delete(match);
 	}
 
 	@Override
 	public List<Match> findMatchByUser(int userId, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Match where id = ? ";
+		String hql = " from Match where userId = ? ";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId);
         query.setFirstResult(offset);    

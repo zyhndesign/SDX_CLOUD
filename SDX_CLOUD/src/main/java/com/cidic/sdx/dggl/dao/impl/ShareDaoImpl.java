@@ -24,7 +24,7 @@ public class ShareDaoImpl implements ShareDao {
 	@Override
 	public void createShare(Share share) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(session);
+		session.save(share);
 	}
 
 }

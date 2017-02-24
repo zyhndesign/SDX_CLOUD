@@ -4,6 +4,8 @@ package com.cidic.sdx.dggl.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,9 +26,6 @@ import javax.persistence.TemporalType;
 @Table(name = "matchlist", catalog = "sdx_cloud")
 public class Matchlist implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Match match;
@@ -127,7 +126,7 @@ public class Matchlist implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "matchlist")
+	@OneToMany(fetch = FetchType.LAZY,cascade={CascadeType.ALL}, mappedBy = "matchlist")
 	public Set<Feedback> getFeedbacks() {
 		return this.feedbacks;
 	}

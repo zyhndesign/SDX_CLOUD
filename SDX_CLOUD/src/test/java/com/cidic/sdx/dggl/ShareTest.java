@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.cidic.sdx.dggl.model.Match;
+import com.cidic.sdx.dggl.model.Share;
+import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.service.ShareService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,6 +22,15 @@ public class ShareTest {
 	
 	@Test
 	public void createShare(){
-		
+		Match match = new Match();
+		match.setId(6);
+		Share share = new Share();
+		share.setMatch(match);
+		share.setShareContent("getSession()方法从当前事务或者一个新的事务中获得session,如果想从一个新的事务中获得session");
+		User user = new User();
+		user.setId(6);
+		share.setUser(user);
+		share.setSharedlist("jack,jhon,bill,mark,page");
+		shareServiceImpl.createShare(share);
 	}
 }

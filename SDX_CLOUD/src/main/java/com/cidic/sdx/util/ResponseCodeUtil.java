@@ -8,6 +8,7 @@ public class ResponseCodeUtil {
 	
 	public static final int FEEDBACK_OPERATION_SUCCESS = 1;
 	public static final int FEEDBACK_OPERATION_FAILURE = 0;
+	public static final int FEEDBACK_OPERATION_EXIST = 2; //已经点赞了
 	
 	public static final int SHARE_OPERATION_SUCCESS = 1;
 	public static final int SHARE_OPERATION_FAILURE = 0;

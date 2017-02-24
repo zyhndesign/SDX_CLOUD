@@ -46,7 +46,7 @@ public class Feedback implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "matchlistId")
 	public Matchlist getMatchlist() {
 		return this.matchlist;

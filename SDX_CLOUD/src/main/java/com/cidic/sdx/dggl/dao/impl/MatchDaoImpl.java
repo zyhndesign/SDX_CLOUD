@@ -52,6 +52,7 @@ public class MatchDaoImpl implements MatchDao {
         query.setParameter(0, userId);
         query.setFirstResult(offset);    
         query.setMaxResults(limit);
+        query.setCacheable(true);
         @SuppressWarnings("unchecked")
         List<Match> list = query.list();
 		return list;

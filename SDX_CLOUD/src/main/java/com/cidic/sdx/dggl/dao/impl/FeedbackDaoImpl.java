@@ -49,6 +49,7 @@ public class FeedbackDaoImpl implements FeedbackDao {
 		query.setParameter(0, userId); 
         query.setParameter(1, matchlistId); 
         query.setMaxResults(1);
+        query.setCacheable(true);
         Optional<Feedback> optFeedback = Optional.ofNullable((Feedback)query.uniqueResult());
         return optFeedback;
 	}

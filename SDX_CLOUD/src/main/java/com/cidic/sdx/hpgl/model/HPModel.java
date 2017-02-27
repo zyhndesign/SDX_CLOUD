@@ -61,6 +61,8 @@ public class HPModel implements Serializable{
 	private String sizeList;
 	private String colorList;
 	
+	private String productUrl; //商品URL
+	
 	public String getHp_num() {
 		return hp_num;
 	}
@@ -337,6 +339,10 @@ public class HPModel implements Serializable{
 	public void setF3Price(String f3Price) {
 		this.f3Price = f3Price;
 	}
-	
-	
+	public String getProductUrl() {
+		return productUrl;
+	}
+	public void setProductUrl(String productUrl) {
+		this.productUrl = productUrl;
+	}
 }

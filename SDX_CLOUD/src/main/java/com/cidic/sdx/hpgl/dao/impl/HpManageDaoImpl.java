@@ -92,6 +92,7 @@ public class HpManageDaoImpl implements HpManageDao {
 				connection.hSet(hKey,ser.serialize("failurePerson"), ser.serialize(hpModel.getFailurePerson()));
 				connection.hSet(hKey,ser.serialize("failureTime"), ser.serialize(hpModel.getFailureTime()));
 				connection.hSet(hKey,ser.serialize("timeCategory"), ser.serialize(hpModel.getTimeCategory()));
+				connection.hSet(hKey,ser.serialize("productURL"), ser.serialize(hpModel.getProductUrl()));
 				
 				if (hpModel.getImageUrl1() != null && !hpModel.getImageUrl1().equals("")){
 					connection.hSet(hKey,ser.serialize("imageUrl1"), ser.serialize(hpModel.getImageUrl1()));
@@ -132,11 +133,24 @@ public class HpManageDaoImpl implements HpManageDao {
 				
 				connection.hSet(ser.serialize("HpIDNum"),  ser.serialize(hpModel.getHp_num()), ser.serialize(String.valueOf(id)));
 
+				//链接缺失
+				if (hpModel.getProductUrl() == null || hpModel.getProductUrl().equals("")){
+					connection.sAdd(ser.serialize(RedisVariableUtil.LOST_URL_SET), ser.serialize(String.valueOf(id)));
+				}
+				
+				//图片缺失
+				if (hpModel.getImageUrl1() == null || hpModel.getImageUrl1().equals("")
+						|| hpModel.getImageUrl2() == null || hpModel.getImageUrl2().equals("")
+						|| hpModel.getImageUrl3() == null || hpModel.getImageUrl3().equals("")){
+					connection.sAdd(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET), ser.serialize(String.valueOf(id)));
+				}
+				
+				
 				List<Object> resultList = connection.exec();
 				
-				System.out.println("执行命令数量�?"+ resultList.size());
+				System.out.println("执行命令数量:"+ resultList.size());
 				resultList.stream().forEach((o)->{
-					System.out.println("命令执行结果�?"+o.toString());
+					System.out.println("命令执行结果:"+o.toString());
 				});
 				
 				return id;
@@ -164,6 +178,18 @@ public class HpManageDaoImpl implements HpManageDao {
 						ser.serialize("imageUrl2"), ser.serialize(hpModel.getImageUrl2()));
 				connection.hSet(ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id),
 						ser.serialize("imageUrl3"), ser.serialize(hpModel.getImageUrl3()));
+				connection.hSet(ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id),
+						ser.serialize("productURL"), ser.serialize(hpModel.getProductUrl()));
+				
+				if (hpModel.getImageUrl1() != null && !hpModel.getImageUrl1().equals("")
+						&& hpModel.getImageUrl2() != null && !hpModel.getImageUrl2().equals("")
+						&& hpModel.getImageUrl3() != null && !hpModel.getImageUrl3().equals("")){
+					connection.sRem(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET), ser.serialize(String.valueOf(id)));
+				}
+				
+				if (hpModel.getProductUrl() != null && !hpModel.getProductUrl().equals("")){
+					connection.sRem(ser.serialize(RedisVariableUtil.LOST_URL_SET), ser.serialize(String.valueOf(id)));
+				}
 				
 				List<Object> resultList = connection.exec();
 				logger.info("执行命令数量�?", resultList.size());
@@ -186,6 +212,9 @@ public class HpManageDaoImpl implements HpManageDao {
 				connection.multi();
 				connection.del(ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id));
 				connection.lRem(ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + "Id"), 0, ser.serialize(id));
+				connection.sRem(ser.serialize(RedisVariableUtil.LOST_URL_SET), ser.serialize(id));
+				connection.sRem(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET), ser.serialize(id));
+				
 				Set<byte[]> tagKeys = connection.keys(ser.serialize("tag_*"));
 				for (byte[] tagKey : tagKeys){
 					connection.sRem(tagKey, ser.serialize(id));

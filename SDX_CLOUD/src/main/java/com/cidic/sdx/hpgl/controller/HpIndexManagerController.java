@@ -140,4 +140,47 @@ public class HpIndexManagerController {
 		return listResultModel;
 	}
 	
+	@RequestMapping(value = "/getLostUrlData", method = RequestMethod.GET, produces="application/json")  
+	@ResponseBody
+	public ListResultModel getLostUrlData(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam int iDisplayLength, @RequestParam int iDisplayStart,@RequestParam String sEcho){
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ListResultModel listResultModel = new ListResultModel();
+		try{
+			
+			HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart,iDisplayLength);
+			listResultModel.setAaData(resultData.getList());
+			listResultModel.setsEcho(sEcho);
+			listResultModel.setiTotalRecords((int)resultData.getCount());
+			listResultModel.setiTotalDisplayRecords((int)resultData.getCount());
+			listResultModel.setSuccess(true);
+		}
+		
+		catch(Exception e){
+			listResultModel.setSuccess(false);
+		}
+		return listResultModel;
+	}
+	
+	@RequestMapping(value = "/getLostImageData", method = RequestMethod.GET, produces="application/json")  
+	@ResponseBody
+	public ListResultModel getLostImageData(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam int iDisplayLength, @RequestParam int iDisplayStart,@RequestParam String sEcho){
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ListResultModel listResultModel = new ListResultModel();
+		try{
+			
+			HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart,iDisplayLength);
+			listResultModel.setAaData(resultData.getList());
+			listResultModel.setsEcho(sEcho);
+			listResultModel.setiTotalRecords((int)resultData.getCount());
+			listResultModel.setiTotalDisplayRecords((int)resultData.getCount());
+			listResultModel.setSuccess(true);
+		}
+		
+		catch(Exception e){
+			listResultModel.setSuccess(false);
+		}
+		return listResultModel;
+	}
 }

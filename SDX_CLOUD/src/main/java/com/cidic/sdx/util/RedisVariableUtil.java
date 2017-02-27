@@ -25,5 +25,8 @@ public class RedisVariableUtil {
 	public final static String ROLE_PRIFIX = "role";
 	public final static String PERMISSION_PRIFIX = "permission";
 	
+	public final static String LOST_IMAGE_SET = "lostImageSet";
+	public final static String LOST_URL_SET = "lostURLSet";
+	public final static String PRODUCT_Unshelve_SET = "ProductUnshelveSet";
 	
 }

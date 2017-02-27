@@ -25,4 +25,16 @@ public class HpIndexServiceImpl implements HpIndexService {
 		return hpIndexDaoImpl.getIndexDataByTag(tagList,iDisplayStart,iDisplayLength);
 	}
 
+	@Override
+	public HPListModel getLostImageData(int iDisplayStart, int iDisplayLength) {
+		// TODO Auto-generated method stub
+		return hpIndexDaoImpl.getLostImageData(iDisplayStart, iDisplayLength);
+	}
+
+	@Override
+	public HPListModel getLostURLData(int iDisplayStart, int iDisplayLength) {
+		// TODO Auto-generated method stub
+		return hpIndexDaoImpl.getLostURLData(iDisplayStart, iDisplayLength);
+	}
+
 }

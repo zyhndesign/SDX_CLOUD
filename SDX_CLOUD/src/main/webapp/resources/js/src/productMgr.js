@@ -1,126 +1,17 @@
 var productMgr=(function(config,functions){
 
-    var searchParams={
-        brand:[],
-        category:[],
-        date:[],
-        color:[],
-        size:[]
-    };
-    var loadedData={};
-
-    /**
-     * 创建datatable
-     * @returns {*|jQuery}
-     */
-    function createTable(){
-
-        var ownTable=$("#myTable").dataTable({
-            "bServerSide": true,
-            "sAjaxSource": config.ajaxUrls.productGetAll,
-            "bInfo":true,
-            "bLengthChange": false,
-            "bFilter": false,
-            "bSort":false,
-            "bAutoWidth": false,
-            "iDisplayLength":config.perLoadCounts.table,
-            "sPaginationType":"full_numbers",
-            "oLanguage": {
-                "sUrl":config.dataTable.langUrl
-            },
-            "aoColumns": [
-                { "mDataProp": "src"},
-                { "mDataProp": "hp_num"},
-                { "mDataProp": "brandList"},
-                { "mDataProp": "categoryList"},
-                { "mDataProp": "status"},
-                { "mDataProp": "opt",
-                    "fnRender":function(oObj){
-                        return  '<a href="'+oObj.aData.id+'" class="check">查看</a>&nbsp;&nbsp;'+
-                            '<a href="hpManage/productCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
-                            '<a href="'+oObj.aData.id+'" class="remove">作废</a>';
-                    }
-                }
-            ] ,
-            "fnServerParams": function ( aoData ) {
-                aoData.push({
-                    name:"hp_num",
-                    value:$("#searchNo").val()
-                },{
-                    name:"status",
-                    value:$("#searchStatus").val()
-                },{
-                    name:"brand",
-                    value:searchParams.brand.join(",")
-                },{
-                    name:"category",
-                    value:searchParams.category.join(",")
-                },{
-                    name:"date",
-                    value:searchParams.date.join(",")
-                },{
-                    name:"size",
-                    value:searchParams.size.join(",")
-                },{
-                    name:"color",
-                    value:searchParams.color.join(",")
-                })
-            },
-            "fnServerData": function(sSource, aoData, fnCallback) {
-
-                //回调函数
-                $.ajax({
-                    "dataType":'json',
-                    "type":"get",
-                    "url":sSource,
-                    "data":aoData,
-                    "success": function (response) {
-                        if(response.success===false){
-                            functions.ajaxReturnErrorHandler(response.message);
-                        }else{
-                            var json = {
-                                "sEcho" : response.sEcho
-                            };
-
-                            loadedData={};
-
-                            for (var i = 0, iLen = response.aaData.length; i < iLen; i++) {
-                                response.aaData[i].opt="opt";
-                                response.aaData[i].src="";
-                                response.aaData[i].link="";
-                                response.aaData[i].status="";
-                                loadedData[response.aaData[i].id]=response.aaData[i];
-                            }
-
-                            json.aaData=response.aaData;
-                            json.iTotalRecords = response.iTotalRecords;
-                            json.iTotalDisplayRecords = response.iTotalDisplayRecords;
-                            fnCallback(json);
-                        }
-
-                    }
-                });
-            },
-            "fnFormatNumber":function(iIn){
-                return iIn;
-            }
-        });
-
-        return ownTable;
-    }
 
     return {
-        searchParams:searchParams,
-        ownTable:null,
-        createTable:function(){
-            this.ownTable=createTable();
+        searchParams:{
+            brand:[],
+            category:[],
+            date:[],
+            color:[],
+            size:[]
         },
-        tableRedraw:function(){
-            this.ownTable.fnSettings()._iDisplayStart=0;
-            this.ownTable.fnDraw();
-        },
+        loadedData:{},
         showDetail:function(id){
-            var data=loadedData[id];
+            var data=this.loadedData[id];
             $(".mustSetValue").each(function(index,el){
                 $(this).text(data[$(this).data("name")]);
             })
@@ -128,39 +19,118 @@ var productMgr=(function(config,functions){
                 $(this).attr("src",data[$(this).data("name")]);
             })
             $("#showDetailModal").modal("show");
-        },
-        delete:function(id){
-            functions.showLoading();
-            var me=this;
-            $.ajax({
-                url:config.ajaxUrls.brandDelete.replace(":id",id),
-                type:"post",
-                dataType:"json",
-                success:function(response){
-                    if(response.success){
-                        functions.hideLoading();
-                        $().toastmessage("showSuccessToast",config.messages.optSuccess);
-                        me.ownTable.fnDraw();
-                    }else{
-                        functions.ajaxReturnErrorHandler(response.message);
-                    }
-
-                },
-                error:function(){
-                    functions.ajaxErrorHandler();
-                }
-            });
         }
     }
 })(config,functions);
 
 $(document).ready(function(){
 
-    productMgr.createTable();
+    var table=new ZYTableHandler({
+        ownTable:function(){
+            var ownTable=$("#myTable").dataTable({
+                "bServerSide": true,
+                "sAjaxSource": config.ajaxUrls.productGetAll,
+                "bInfo":true,
+                "bLengthChange": false,
+                "bFilter": false,
+                "bSort":false,
+                "bAutoWidth": false,
+                "iDisplayLength":config.perLoadCounts.table,
+                "sPaginationType":"full_numbers",
+                "oLanguage": {
+                    "sUrl":config.dataTable.langUrl
+                },
+                "aoColumns": [
+                    { "mDataProp": "imageUrl1"},
+                    { "mDataProp": "hp_num"},
+                    { "mDataProp": "brandList"},
+                    { "mDataProp": "categoryList"},
+                    { "mDataProp": "dataStatus",
+                        "fnRender":function(oObj){
+                            return  config.status.product[oObj.aData.dataStatus];
+                        }
+                    },
+                    { "mDataProp": "opt",
+                        "fnRender":function(oObj){
+                            return  '<a href="'+oObj.aData.id+'" class="check">查看</a>&nbsp;&nbsp;'+
+                                '<a href="hpManage/productCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
+                                '<a href="'+oObj.aData.id+'" class="remove">作废</a>';
+                        }
+                    }
+                ] ,
+                "fnServerParams": function ( aoData ) {
+                    aoData.push({
+                        name:"dataCategory",
+                        value:1
+                    },{
+                        name:"hp_num",
+                        value:$("#searchNo").val()
+                    },{
+                        name:"status",
+                        value:$("#searchStatus").val()
+                    },{
+                        name:"brand",
+                        value:productMgr.searchParams.brand.join(",")
+                    },{
+                        name:"category",
+                        value:productMgr.searchParams.category.join(",")
+                    },{
+                        name:"date",
+                        value:productMgr.searchParams.date.join(",")
+                    },{
+                        name:"size",
+                        value:productMgr.searchParams.size.join(",")
+                    },{
+                        name:"color",
+                        value:productMgr.searchParams.color.join(",")
+                    })
+                },
+                "fnServerData": function(sSource, aoData, fnCallback) {
+
+                    //回调函数
+                    $.ajax({
+                        "dataType":'json',
+                        "type":"get",
+                        "url":sSource,
+                        "data":aoData,
+                        "success": function (response) {
+                            if(response.success===false){
+                                functions.ajaxReturnErrorHandler(response.message);
+                            }else{
+                                var json = {
+                                    "sEcho" : response.sEcho
+                                };
+
+                                productMgr.loadedData={};
+
+                                for (var i = 0, iLen = response.aaData.length; i < iLen; i++) {
+                                    response.aaData[i].opt="opt";
+                                    response.aaData[i].dataStatus=0;
+                                    productMgr.loadedData[response.aaData[i].id]=response.aaData[i];
+                                }
+
+                                json.aaData=response.aaData;
+                                json.iTotalRecords = response.iTotalRecords;
+                                json.iTotalDisplayRecords = response.iTotalDisplayRecords;
+                                fnCallback(json);
+                            }
+
+                        }
+                    });
+                },
+                "fnFormatNumber":function(iIn){
+                    return iIn;
+                }
+            });
+
+            return ownTable;
+        },
+        removeUrl:"#"
+    });
 
     $("#myTable").on("click","a.remove",function(){
         if(confirm(config.messages.confirmDelete)){
-            productMgr.delete($(this).attr("href"));
+            table.delete($(this).attr("href"));
         }
         return false;
     }).on("click","a.check",function(){
@@ -176,7 +146,7 @@ $(document).ready(function(){
             color:[],
             size:[]
         };
-        productMgr.tableRedraw();
+        table.tableRedraw();
     });
 
     $("#searchPanel").on("click",".item",function(){
@@ -195,7 +165,7 @@ $(document).ready(function(){
             productMgr.searchParams[type].push(id);
             el.addClass("active");
         }
-        productMgr.tableRedraw();
+        table.tableRedraw();
     });
 
     $("#searchPanelCtrl").click(function(){

@@ -61,26 +61,6 @@ var productCOU=(function(config,functions){
                 }
             }
         },
-        submitForm:function(form){
-            var me=this;
-            functions.showLoading();
-            $(form).ajaxSubmit({
-                dataType:"json",
-                success:function(response){
-                    if(response.success){
-                        $().toastmessage("showSuccessToast",config.messages.optSuccess);
-                        setTimeout(function(){
-                            window.location.href="hpManage/productMgr";
-                        },3000);
-                    }else{
-                        functions.ajaxReturnErrorHandler(response.message);
-                    }
-                },
-                error:function(){
-                    functions.ajaxErrorHandler();
-                }
-            });
-        },
         showTree:function(type){
             var me=this;
             var zTree=$.fn.zTree.getZTreeObj("treeDemo");
@@ -161,7 +141,7 @@ var productCOU=(function(config,functions){
                         fileAddCb:null,
                         progressCb:null,
                         uploadedCb:function(info,file,up){
-                            if(i==3){
+                            /*if(i==3){
                                 if(info.w!=800&&info.h!=1200){
                                     $().toastmessage("showErrorToast",config.messages.imageSizeError);
                                     return ;
@@ -171,7 +151,7 @@ var productCOU=(function(config,functions){
                                     $().toastmessage("showErrorToast",config.messages.imageSizeError);
                                     return ;
                                 }
-                            }
+                            }*/
                             $("#imageUrl"+i).val(info.url);
 
                             $("#image"+i).attr("src",info.url);
@@ -193,6 +173,10 @@ var productCOU=(function(config,functions){
 })(config,functions);
 
 $(document).ready(function(){
+    var formHandler=new ZYFormHandler({
+        redirectUrl:"hpManage/productMgr",
+        submitUrl:"#"
+    })
     if(id){
         productCOU.initValues();
     }
@@ -251,7 +235,7 @@ $(document).ready(function(){
             }
         },
         submitHandler:function(form) {
-            productCOU.submitForm(form);
+            formHandler.submitForm(form);
         }
     });
 });

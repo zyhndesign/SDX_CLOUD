@@ -13,6 +13,14 @@ var config={
         bucketDomain:"http://oaycvzlnh.bkt.clouddn.com/",
         swfUrl:"resources/js/lib/Moxie.swf"
     },
+    status:{
+        product:{
+            0:"完整",
+            1:"图片缺失",
+            2:"连接缺失",
+            3:"图片链接都缺失"
+        }
+    },
     ajaxUrls:{
         brandGetAll:"brand/getData",
         brandAdd:"brand/insert",

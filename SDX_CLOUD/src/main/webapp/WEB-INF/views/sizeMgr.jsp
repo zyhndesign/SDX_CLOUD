@@ -45,6 +45,7 @@
 <script src="resources/js/lib/jquery.toastmessage.js"></script>
 <script src="resources/js/src/config.js"></script>
 <script src="resources/js/src/functions.js"></script>
+    <script src="resources/js/src/ZYTreeHandler.js"></script>
 <script src="resources/js/src/sizeMgr.js"></script>
 </body>
 </html>

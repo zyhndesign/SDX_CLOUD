@@ -1,7 +1,6 @@
 package com.cidic.sdx.hpgl.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class HPModel implements Serializable{
 
@@ -62,6 +61,7 @@ public class HPModel implements Serializable{
 	private String colorList;
 	
 	private String productUrl; //商品URL
+	private int dataStatus;//数据状态（完整 0，图片缺失 1，连接缺失 2，图片链接都缺失3）
 	
 	public String getHp_num() {
 		return hp_num;
@@ -345,4 +345,11 @@ public class HPModel implements Serializable{
 	public void setProductUrl(String productUrl) {
 		this.productUrl = productUrl;
 	}
+	public int getDataStatus() {
+		return dataStatus;
+	}
+	public void setDataStatus(int dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	
 }

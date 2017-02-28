@@ -59,7 +59,7 @@
                                 </c:if>
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-default showTreePanel" data-type="brand">
-                                    <span class="sd-icon sd-icon-edit" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-edit sdxIcon" aria-hidden="true"></span>
                                 </button>
                                 </span>
                             </div>
@@ -75,7 +75,7 @@
                                 </c:if>
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-default showTreePanel" data-type="category">
-                                    <span class="sd-icon sd-icon-edit" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-edit sdxIcon" aria-hidden="true"></span>
                                 </button>
                             </span>
                             </div>
@@ -91,7 +91,7 @@
                                 </c:if>
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-default showTreePanel" data-type="size">
-                                    <span class="sd-icon sd-icon-edit" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-edit sdxIcon" aria-hidden="true"></span>
                                 </button>
                             </span>
                             </div>
@@ -107,7 +107,7 @@
                                 </c:if>
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-default showTreePanel" data-type="color">
-                                    <span class="sd-icon sd-icon-edit" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-edit sdxIcon" aria-hidden="true"></span>
                                 </button>
                             </span>
                             </div>
@@ -122,7 +122,7 @@
                         <div class="form-group">
                             <label  class="control-label col-md-3">链接*</label>
                             <div class="col-md-9 input-group">
-                                <input type="text" class="form-control" value="${hp.link}" name="link">
+                                <input type="text" class="form-control" value="${hp.productUrl}" name="productUrl">
                             </div>
                         </div>
                     </div>

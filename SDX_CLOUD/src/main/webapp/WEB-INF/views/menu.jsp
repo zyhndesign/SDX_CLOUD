@@ -2,24 +2,24 @@
 
 <ul class="menu">
     <!--<li class="item">
-        <span class="sd-icon sd-icon-item-search"></span>
+        <span class="glyphicon glyphicon-th-list"></span>
         <a class="link" href="hpManage/productMgr">货品管理</a>
     </li>-->
     <li class="item">
-            <span class="sd-icon sd-icon-setting"></span>
-            <a class="link">功能</a>
-            <!--<span class="sd-icon sd-icon-arrow-down rightIcon"></span>-->
-            <ul class="subMenu">
-                <li class="sItem">
-                    <!--<span class="circle">原点</span>-->
-                    <a class="sLink" href="hpManage/productMgr">货品管理</a>
-                </li>
-            </ul>
-        </li>
+        <span class="glyphicon glyphicon-th-large sdxIcon"></span>
+        <a class="link">功能</a>
+        <!--<span class="glyphicon glyphicon-arrow-down rightIcon"></span>-->
+        <ul class="subMenu">
+            <li class="sItem">
+                <!--<span class="circle">原点</span>-->
+                <a class="sLink" href="hpManage/productMgr">货品管理</a>
+            </li>
+        </ul>
+    </li>
     <li class="item">
-        <span class="sd-icon sd-icon-setting"></span>
+        <span class="glyphicon glyphicon-cog sdxIcon"></span>
         <a class="link">基础设置</a>
-        <!--<span class="sd-icon sd-icon-arrow-down rightIcon"></span>-->
+        <!--<span class="glyphicon glyphicon-chevron-down sdxIcon rightIcon"></span>-->
         <ul class="subMenu">
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->

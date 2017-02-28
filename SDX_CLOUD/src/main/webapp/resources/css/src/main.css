@@ -18,6 +18,9 @@ ul{
 a{
     text-decoration: none!important;
 }
+label{
+    font-weight: normal;
+}
 label.error{
     color: red;
 }
@@ -31,6 +34,21 @@ label.error{
     width: 100px;
     text-align: right;
     font-weight: normal;
+}
+.sdxIcon{
+    clear: both;
+    display: inline-block;
+    width:40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: top;
+    font-size: 20px;
+    color: #ccc;
+    position: static;
+}
+form .control-label .sdxIcon{
+    color:#333;
 }
 /**
 *复写datatable
@@ -229,7 +247,7 @@ table.dataTable .thumb{
 }
 .ztree li span.button{
     height: 30px;
-    font-family: 'sundance' !important;
+    font-family: 'Glyphicons Halflings' !important;
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -242,7 +260,8 @@ table.dataTable .thumb{
   -moz-osx-font-smoothing: grayscale;
     
     background: none;
-    font-size: 0;
+    font-size: 0px;
+    color: #ccc;
 }
 .ztree li span.button.add,
 .ztree li span.button.edit,
@@ -256,52 +275,49 @@ table.dataTable .thumb{
     width: 30px;
     height: 30px;
     line-height: 30px;
-    font-size: 20px;
+    font-size: 12px;
 }
 .ztree li span.button.switch{
     width:30px;
     height: 30px;
-    font-size: 20px;
+    font-size: 12px;
 }
 .ztree li span.button.root_open::before{
-    content:"\e906";
-    font-size: 0.7em;
+    content:"\2212";
 }
 .ztree li span.button.bottom_open::before{
-    content:"\e906";
-    font-size: 0.7em;
+    content:"\2212";
 }
 .ztree li span.button.center_open::before{
-    content:"\e906";
-    font-size: 0.7em;
+    content:"\2212";
 }
 .ztree li span.button.root_close::before{
-    content:"\e903";
-    font-size: 0.7em;
+    content:"\002b";
 }
 .ztree li span.button.bottom_close::before{
-    content:"\e903";
-    font-size: 0.7em;
+    content:"\002b";
 }
 .ztree li span.button.center_close::before{
-    content:"\e903";
-    font-size: 0.7em;
+    content:"\002b";
 }
 .ztree li span.button.ico_open::before{
-    content:"\e909";
+    content:"\e118";
 }
 .ztree li span.button.ico_close::before{
-    content:"\e909";
+    content:"\e117";
 }
 
 .ztree li span.button.add::before{
-    content:"\e90c";
+    content:"\002b";
+    padding: 5px;
 }
 .ztree li span.button.edit::before{
-    content:"\e907";
+    content:"\270f";
+    padding: 5px;
 }
 .ztree li span.button.remove::before{
-    content:"\e902";
+    content:"\e020";
+    padding: 5px;
 }
 .ztree li span.button.add:hover::before{
     color: #fff;
@@ -473,7 +489,6 @@ table.dataTable .thumb{
     border-bottom: 1px solid #ddd;
     line-height: 40px;
     position: relative;
-    font-size: 0;
     padding: 20px 0px;
 }
 /*.menu .item .glyphicon{
@@ -488,12 +503,9 @@ table.dataTable .thumb{
     font-size: 16px;
     color: #ccc;
     display: inline-block;
-    position: absolute;
-    left:50px;
-    top:20px;
-    bottom: 0px;
-    right:0px;
-    height: 100%;
+    /*width: -moz-calc(100% - 40px);
+    width: -webkit-calc(100% - 40px);
+    width: calc(100% - 40px);*/
 }
 /*.menu .item:hover{
     background: #ffffff;
@@ -528,12 +540,12 @@ table.dataTable .thumb{
     color: #030303;
     display: inline-block;
     position: absolute;
-    left:50px;
+    left:0px;
     top:0px;
     bottom: 0px;
     right:0px;
-    height: 100%;
     cursor: pointer;
+    padding-left: 45px;
 }
 .menu .subMenu .sItem:hover{
     background: #fed817;

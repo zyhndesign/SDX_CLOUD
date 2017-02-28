@@ -35,17 +35,17 @@ import com.cidic.sdx.util.WebRequestUtil;
 public class HpIndexManagerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HpIndexManagerController.class);
-	
+
 	@Autowired
 	@Qualifier(value = "hpIndexServiceImpl")
 	private HpIndexService hpIndexServiceImpl;
-	
+
 	@Autowired
 	@Qualifier(value = "hpManageServiceImpl")
 	private HpManageService hpManageServiceImpl;
-	
+
 	private ResultModel resultModel = null;
-	
+
 	@ExceptionHandler(SdxException.class)
 	public @ResponseBody ResultModel handleCustomException(SdxException ex) {
 		ResultModel resultModel = new ResultModel();
@@ -54,131 +54,106 @@ public class HpIndexManagerController {
 		resultModel.setSuccess(false);
 		return resultModel;
 	}
-	
+
 	@RequestMapping(value = "/hpIndex", method = RequestMethod.GET)
 	public String userMgr(Locale locale, Model model) {
 		return "hpIndex";
 	}
-	
-	@RequestMapping(value = "/getData", method = RequestMethod.GET, produces="application/json")  
+
+	@RequestMapping(value = "/getData", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public ListResultModel getDate(HttpServletRequest request,HttpServletResponse response,@RequestParam(required=false) String brand,
-			@RequestParam(required=false) String color,@RequestParam(required=false) String size,@RequestParam(required=false) String category,
-			@RequestParam int iDisplayLength, @RequestParam int iDisplayStart,@RequestParam String sEcho, @RequestParam(required=false) String hp_num){
-		
+	public ListResultModel getDate(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(required = true) int dataCategory, @RequestParam(required = false) String brand,
+			@RequestParam(required = false) String color, @RequestParam(required = false) String size,
+			@RequestParam(required = false) String category, @RequestParam int iDisplayLength,
+			@RequestParam int iDisplayStart, @RequestParam String sEcho,
+			@RequestParam(required = false) String hp_num) {
+
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
-		try{
-			if (hp_num == null || hp_num.equals("")){
-				List<String> tagList = new ArrayList<>();
-				
-				if (brand != null && !brand.equals("")){
-					String[] brandArray = brand.split("\\,");
-					String prefix = RedisVariableUtil.BRAND_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
-					Arrays.asList(brandArray).stream().forEach((b)->{
-						tagList.add(prefix + b);
-					});
-				}
-				
-				if (color != null && !color.equals("")){
-					String[] colorArray = color.split("\\,");
-					String prefix = RedisVariableUtil.COLOR_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
-					Arrays.asList(colorArray).stream().forEach((b)->{
-						tagList.add(prefix + b);
-					});
-				}
-				
-				if (size != null && !size.equals("")){
-					String[] sizeArray = size.split("\\,");
-					String prefix = RedisVariableUtil.SIZE_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
-					Arrays.asList(sizeArray).stream().forEach((b)->{
-						tagList.add(prefix + b);
-					});
-				}
-				
-				if (category != null && !category.equals("")){
-					String[] categoryArray = category.split("\\,");
-					String prefix = RedisVariableUtil.CATEGORY_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
-					Arrays.asList(categoryArray).stream().forEach((b)->{
-						tagList.add(prefix + b);
-					});
-				}
 
-				HPListModel resultData = hpIndexServiceImpl.getIndexDataByTag(tagList,iDisplayStart,iDisplayLength);
-				
+		try {
+			if (dataCategory == 0) {
+				if (hp_num == null || hp_num.equals("")) {
+					List<String> tagList = new ArrayList<>();
+
+					if (brand != null && !brand.equals("")) {
+						String[] brandArray = brand.split("\\,");
+						String prefix = RedisVariableUtil.BRAND_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
+						Arrays.asList(brandArray).stream().forEach((b) -> {
+							tagList.add(prefix + b);
+						});
+					}
+
+					if (color != null && !color.equals("")) {
+						String[] colorArray = color.split("\\,");
+						String prefix = RedisVariableUtil.COLOR_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
+						Arrays.asList(colorArray).stream().forEach((b) -> {
+							tagList.add(prefix + b);
+						});
+					}
+
+					if (size != null && !size.equals("")) {
+						String[] sizeArray = size.split("\\,");
+						String prefix = RedisVariableUtil.SIZE_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
+						Arrays.asList(sizeArray).stream().forEach((b) -> {
+							tagList.add(prefix + b);
+						});
+					}
+
+					if (category != null && !category.equals("")) {
+						String[] categoryArray = category.split("\\,");
+						String prefix = RedisVariableUtil.CATEGORY_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
+						Arrays.asList(categoryArray).stream().forEach((b) -> {
+							tagList.add(prefix + b);
+						});
+					}
+
+					HPListModel resultData = hpIndexServiceImpl.getIndexDataByTag(tagList, iDisplayStart,
+							iDisplayLength);
+
+					listResultModel.setAaData(resultData.getList());
+					listResultModel.setsEcho(sEcho);
+					listResultModel.setiTotalRecords((int) resultData.getCount());
+					listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+					listResultModel.setSuccess(true);
+				} else {
+					HPModel hpModel = hpManageServiceImpl.getHpDataByHpNum(hp_num);
+
+					List<HPModel> list = new ArrayList<>(1);
+					if (hpModel != null) {
+						list.add(hpModel);
+						listResultModel.setiTotalRecords(1);
+						listResultModel.setiTotalDisplayRecords(1);
+					} else {
+						listResultModel.setiTotalRecords(0);
+						listResultModel.setiTotalDisplayRecords(0);
+					}
+
+					listResultModel.setAaData(list);
+					listResultModel.setsEcho(sEcho);
+
+					listResultModel.setSuccess(true);
+				}
+			} else if (dataCategory == 1) { // URL缺失
+				HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
 				listResultModel.setAaData(resultData.getList());
 				listResultModel.setsEcho(sEcho);
-				listResultModel.setiTotalRecords((int)resultData.getCount());
-				listResultModel.setiTotalDisplayRecords((int)resultData.getCount());
+				listResultModel.setiTotalRecords((int) resultData.getCount());
+				listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
 				listResultModel.setSuccess(true);
-			}
-			else{
-				HPModel hpModel = hpManageServiceImpl.getHpDataByHpNum(hp_num);
-				
-				List<HPModel> list = new ArrayList<>(1);
-				if (hpModel != null){
-					list.add(hpModel);
-					listResultModel.setiTotalRecords(1);
-					listResultModel.setiTotalDisplayRecords(1);
-				}
-				else{
-					listResultModel.setiTotalRecords(0);
-					listResultModel.setiTotalDisplayRecords(0);
-				}
-				
-				listResultModel.setAaData(list);
+			} else if (dataCategory == 2) { // 图片缺失
+				HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
+				listResultModel.setAaData(resultData.getList());
 				listResultModel.setsEcho(sEcho);
-				
+				listResultModel.setiTotalRecords((int) resultData.getCount());
+				listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
 				listResultModel.setSuccess(true);
 			}
-			
+
 		}
-		
-		catch(Exception e){
-			listResultModel.setSuccess(false);
-		}
-		return listResultModel;
-	}
-	
-	@RequestMapping(value = "/getLostUrlData", method = RequestMethod.GET, produces="application/json")  
-	@ResponseBody
-	public ListResultModel getLostUrlData(HttpServletRequest request,HttpServletResponse response,
-			@RequestParam int iDisplayLength, @RequestParam int iDisplayStart,@RequestParam String sEcho){
-		WebRequestUtil.AccrossAreaRequestSet(request, response);
-		ListResultModel listResultModel = new ListResultModel();
-		try{
-			
-			HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart,iDisplayLength);
-			listResultModel.setAaData(resultData.getList());
-			listResultModel.setsEcho(sEcho);
-			listResultModel.setiTotalRecords((int)resultData.getCount());
-			listResultModel.setiTotalDisplayRecords((int)resultData.getCount());
-			listResultModel.setSuccess(true);
-		}
-		
-		catch(Exception e){
-			listResultModel.setSuccess(false);
-		}
-		return listResultModel;
-	}
-	
-	@RequestMapping(value = "/getLostImageData", method = RequestMethod.GET, produces="application/json")  
-	@ResponseBody
-	public ListResultModel getLostImageData(HttpServletRequest request,HttpServletResponse response,
-			@RequestParam int iDisplayLength, @RequestParam int iDisplayStart,@RequestParam String sEcho){
-		WebRequestUtil.AccrossAreaRequestSet(request, response);
-		ListResultModel listResultModel = new ListResultModel();
-		try{
-			
-			HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart,iDisplayLength);
-			listResultModel.setAaData(resultData.getList());
-			listResultModel.setsEcho(sEcho);
-			listResultModel.setiTotalRecords((int)resultData.getCount());
-			listResultModel.setiTotalDisplayRecords((int)resultData.getCount());
-			listResultModel.setSuccess(true);
-		}
-		
-		catch(Exception e){
+
+		catch (Exception e) {
 			listResultModel.setSuccess(false);
 		}
 		return listResultModel;

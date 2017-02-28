@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.dggl.model.User;
+import com.cidic.sdx.dggl.model.UserListModel;
 import com.cidic.sdx.dggl.service.AppUserService;
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.controller.BrandSettingController;
+import com.cidic.sdx.hpgl.model.ListResultModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
+import com.cidic.sdx.util.ResponseCodeUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
@@ -59,6 +62,88 @@ public class AppUserController {
 		else{
 			throw new SdxException(500, "权限验证失败");
 		}
+	}
+	
+	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel createUser(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam String username, @RequestParam String password) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		User userObject = new User();
+		userObject.setPassword(password);
+		userObject.setUsername(username);
+		userObject.setValid(1);
+		int result = appUserServiceImpl.createUser(userObject);
+		if (result == ResponseCodeUtil.UESR_CREATE_EXIST){
+			throw new SdxException(300, "用户已存在");
+		}
+		else if(result == ResponseCodeUtil.UESR_OPERATION_SUCESS){
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		}
+		else{
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel updateUser(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam String username, @RequestParam String password, @RequestParam String headIcon) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		User userObject = new User();
+		userObject.setPassword(password);
+		userObject.setUsername(username);
+		userObject.setHeadicon(headIcon);
+		int result = appUserServiceImpl.updateUser(userObject);
+		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS){
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		}
+		else{
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel deleteUser(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		int result = appUserServiceImpl.deleteUser(userId);
+		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS){
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		}
+		else{
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/getData", method = RequestMethod.GET)
+	@ResponseBody
+	public ListResultModel getData(HttpServletRequest request, HttpServletResponse response, @RequestParam int iDisplayLength, @RequestParam int iDisplayStart,@RequestParam String sEcho) {
 
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ListResultModel listResultModel = new ListResultModel();
+		try {
+			UserListModel userListModel= appUserServiceImpl.getUserListByPage(iDisplayStart, iDisplayLength);
+			listResultModel.setAaData(userListModel.getList());
+			listResultModel.setsEcho(sEcho);
+			listResultModel.setiTotalRecords((int)userListModel.getCount());
+			listResultModel.setiTotalDisplayRecords((int)userListModel.getCount());
+			listResultModel.setSuccess(true);
+		}
+
+		catch (Exception e) {
+			listResultModel.setSuccess(false);
+		}
+		return listResultModel;
 	}
 }

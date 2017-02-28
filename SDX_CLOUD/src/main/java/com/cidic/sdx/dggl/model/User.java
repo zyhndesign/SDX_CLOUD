@@ -31,6 +31,7 @@ public class User implements java.io.Serializable {
 	private String password;
 	private String headicon;
 	private Date createtime;
+	private int valid; //用户有效标志
 	private Set<Share> shares = new HashSet<Share>(0);
 	private Set<Match> matches = new HashSet<Match>(0);
 
@@ -91,6 +92,15 @@ public class User implements java.io.Serializable {
 
 	public void setHeadicon(String headicon) {
 		this.headicon = headicon;
+	}
+	
+	@Column(name = "valid")
+	public int getValid() {
+		return valid;
+	}
+
+	public void setValid(int valid) {
+		this.valid = valid;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

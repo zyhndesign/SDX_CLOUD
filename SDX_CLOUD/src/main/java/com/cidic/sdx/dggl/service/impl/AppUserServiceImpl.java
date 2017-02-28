@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.AppUserDao;
 import com.cidic.sdx.dggl.model.User;
+import com.cidic.sdx.dggl.model.UserListModel;
 import com.cidic.sdx.dggl.service.AppUserService;
 import com.cidic.sdx.util.ResponseCodeUtil;
 
@@ -74,9 +76,12 @@ public class AppUserServiceImpl implements AppUserService {
 	}
 
 	@Override
-	public List<User> getUserListByPage(int limit, int offset) {
-
-		return appUserDaoImpl.getUserListByPage(limit, offset);
+	@Transactional(rollbackFor=Exception.class)
+	public UserListModel getUserListByPage(int limit, int offset) {
+		UserListModel userListModel = new UserListModel();
+		userListModel.setCount(appUserDaoImpl.getUserCount());
+		userListModel.setList(appUserDaoImpl.getUserListByPage(limit, offset));
+		return userListModel;
 	}
 
 }

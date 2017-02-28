@@ -9,7 +9,7 @@ public interface FeedbackService {
 	
 	public int createFeedback(Feedback feedback);
 	
-	public List<Feedback> getFeedbackListByUserId(int userId);
+	public List<Feedback> getFeedbackListPageByUserId(int userId,int limit, int offse);
 	
 	public int updateFeedback(Feedback feedback);
 }

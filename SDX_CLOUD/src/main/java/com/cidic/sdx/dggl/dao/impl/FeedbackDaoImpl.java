@@ -32,11 +32,13 @@ public class FeedbackDaoImpl implements FeedbackDao {
 	}
 
 	@Override
-	public List<Feedback> getFeedbackListByUserId(int userId) {
+	public List<Feedback> getFeedbackListPageByUserId(int userId,int limit, int offset) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Feedback where likeId = ?";
+		String hql = " from Feedback where likeId = ? order by createtime desc";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId); 
+        query.setFirstResult(offset);    
+        query.setMaxResults(limit); 
         @SuppressWarnings("unchecked")
 		List<Feedback> list = query.list();
         return list;

@@ -1,9 +1,9 @@
 package com.cidic.sdx.dggl.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.cidic.sdx.dggl.model.User;
+import com.cidic.sdx.dggl.model.UserListModel;
 
 public interface AppUserService {
 
@@ -17,5 +17,5 @@ public interface AppUserService {
     
     Optional<User> authorityCheck(String username, String password);
     
-    public List<User> getUserListByPage(int limit, int offset);
+    public UserListModel getUserListByPage(int limit, int offset);
 }

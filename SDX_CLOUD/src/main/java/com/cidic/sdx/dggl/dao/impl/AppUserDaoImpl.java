@@ -50,7 +50,8 @@ public class AppUserDaoImpl implements AppUserDao {
 		Session session = this.getSessionFactory().getCurrentSession();
 		User user = new User();
 		user.setId(userId);
-		session.delete(user);
+		user.setValid(0);
+		session.update(user);
 	}
 
 	@Override
@@ -73,7 +74,7 @@ public class AppUserDaoImpl implements AppUserDao {
 	@Override
 	public Optional<User> authorityCheck(String username, String password) {
 		Session session = this.getSessionFactory().getCurrentSession();
-		String hql = " from User where username = ? and password = ?";
+		String hql = " from User where username = ? and password = ? and valid = 1";
 		Query query = session.createQuery(hql);
         query.setParameter(0, username); 
         query.setParameter(1, password);
@@ -91,7 +92,7 @@ public class AppUserDaoImpl implements AppUserDao {
 	@Override
 	public List<User> getUserListByPage(int limit, int offset) {
 		Session session = this.getSessionFactory().getCurrentSession();
-		final String hql = " from User order by createTime desc"; 
+		final String hql = " from User order by createtime desc"; 
         final Query query = session.createQuery(hql);   
         query.setFirstResult(offset);    
         query.setMaxResults(limit); 
@@ -100,4 +101,12 @@ public class AppUserDaoImpl implements AppUserDao {
 		return list;
 	}
 
+	@Override
+	public Long getUserCount() {
+		Session session = this.getSessionFactory().getCurrentSession();
+		final String hql = " select count(u) from User u"; 
+        final Query query = session.createQuery(hql); 
+        return (Long)query.uniqueResult();
+	}
+	
 }

@@ -9,7 +9,7 @@ public interface FeedbackDao {
 
 	public void createFeedback(Feedback feedback);
 	
-	public List<Feedback> getFeedbackListByUserId(int userId);
+	public List<Feedback> getFeedbackListPageByUserId(int userId,int limit, int offset);
 
 	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId);
 	

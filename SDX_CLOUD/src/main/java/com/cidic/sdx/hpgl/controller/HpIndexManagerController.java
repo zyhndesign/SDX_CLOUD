@@ -150,9 +150,7 @@ public class HpIndexManagerController {
 				listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
 				listResultModel.setSuccess(true);
 			}
-
 		}
-
 		catch (Exception e) {
 			listResultModel.setSuccess(false);
 		}

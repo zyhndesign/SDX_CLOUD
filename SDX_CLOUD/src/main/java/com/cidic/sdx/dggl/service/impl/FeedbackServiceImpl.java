@@ -43,8 +43,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<Feedback> getFeedbackListByUserId(int userId) {
-		return feedbackDaoImpl.getFeedbackListByUserId(userId);
+	public List<Feedback> getFeedbackListPageByUserId(int userId,int limit, int offset) {
+		return feedbackDaoImpl.getFeedbackListPageByUserId(userId, limit, offset);
 	}
 
 	@Override

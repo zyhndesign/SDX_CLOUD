@@ -18,4 +18,6 @@ public interface AppUserDao {
     Optional<User> authorityCheck(String username, String password);
     
     public List<User> getUserListByPage(int limit, int offset);
+    
+    public Long getUserCount();
 }

@@ -1,6 +1,6 @@
 package com.cidic.sdx.dggl.controller;
 
-import java.util.Optional;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.dggl.model.Feedback;
 import com.cidic.sdx.dggl.model.Matchlist;
-import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.service.FeedbackService;
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.model.ResultModel;
@@ -41,7 +40,7 @@ public class FeedbackController {
 		resultModel.setSuccess(false);
 		return resultModel;
 	}
-	
+
 	@RequestMapping(value = "/createFeedback", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel createFeedback(HttpServletRequest request, HttpServletResponse response,
@@ -53,23 +52,21 @@ public class FeedbackController {
 		Matchlist matchList = new Matchlist();
 		matchList.setId(matchId);
 		feedback.setMatchlist(matchList);
-		
+
 		int result = feedbackServiceImpl.createFeedback(feedback);
-		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS){
+		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
 			return resultModel;
-		}
-		else if (result == ResponseCodeUtil.FEEDBACK_OPERATION_EXIST){
-			resultModel.setResultCode(300); //已经点赞
+		} else if (result == ResponseCodeUtil.FEEDBACK_OPERATION_EXIST) {
+			resultModel.setResultCode(300); // 已经点赞
 			resultModel.setSuccess(true);
 			return resultModel;
-		}
-		else{
+		} else {
 			throw new SdxException(500, "操作失败");
 		}
 	}
-	
+
 	@RequestMapping(value = "/deleteFeedback", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel deleteFeedback(HttpServletRequest request, HttpServletResponse response,
@@ -81,38 +78,30 @@ public class FeedbackController {
 		Matchlist matchList = new Matchlist();
 		matchList.setId(matchId);
 		feedback.setMatchlist(matchList);
-		
+
 		int result = feedbackServiceImpl.updateFeedback(feedback);
-		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS){
+		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
 			return resultModel;
-		}
-		else{
+		} else {
 			throw new SdxException(500, "操作失败");
 		}
 	}
-	
+
 	@RequestMapping(value = "/getDataByUserId", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel getDataByUserId(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int userId, @RequestParam int matchId) {
+			@RequestParam int userId, @RequestParam int limit, @RequestParam int offset) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
-		Feedback feedback = new Feedback();
-		feedback.setLikeId(userId);
-		Matchlist matchList = new Matchlist();
-		matchList.setId(matchId);
-		feedback.setMatchlist(matchList);
-		
-		int result = feedbackServiceImpl.updateFeedback(feedback);
-		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS){
-			resultModel.setResultCode(200);
-			resultModel.setSuccess(true);
-			return resultModel;
-		}
-		else{
-			throw new SdxException(500, "操作失败");
-		}
+
+		List<Feedback> feedBackList = feedbackServiceImpl.getFeedbackListPageByUserId(userId, limit, offset);
+
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(feedBackList);
+		return resultModel;
+
 	}
 }

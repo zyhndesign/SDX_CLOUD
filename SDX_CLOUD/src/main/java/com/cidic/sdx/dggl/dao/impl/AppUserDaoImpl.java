@@ -48,10 +48,10 @@ public class AppUserDaoImpl implements AppUserDao {
 	@Override
 	public void deleteUser(int userId) {
 		Session session = this.getSessionFactory().getCurrentSession();
-		User user = new User();
-		user.setId(userId);
-		user.setValid(0);
-		session.update(user);
+		String hql = " update User u set u.valid = 1 where u.id = ? ";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, userId); 
+		query.executeUpdate();
 	}
 
 	@Override

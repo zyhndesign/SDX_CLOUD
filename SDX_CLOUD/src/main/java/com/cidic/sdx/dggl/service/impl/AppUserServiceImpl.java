@@ -46,6 +46,8 @@ public class AppUserServiceImpl implements AppUserService {
 			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
 		}
 		catch(Exception e){
+			
+			e.printStackTrace();
 			return ResponseCodeUtil.UESR_OPERATION_FAILURE;
 		}
 		

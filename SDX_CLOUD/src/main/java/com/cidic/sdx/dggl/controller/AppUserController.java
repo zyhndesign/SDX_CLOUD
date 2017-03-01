@@ -90,7 +90,7 @@ public class AppUserController {
 	
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultModel updateUser(HttpServletRequest request, HttpServletResponse response,
+	public ResultModel updateUser(HttpServletRequest request, HttpServletResponse response,@RequestParam int userId,
 			@RequestParam String username, @RequestParam String password, @RequestParam String headIcon) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
@@ -98,6 +98,7 @@ public class AppUserController {
 		userObject.setPassword(password);
 		userObject.setUsername(username);
 		userObject.setHeadicon(headIcon);
+		userObject.setId(userId);
 		int result = appUserServiceImpl.updateUser(userObject);
 		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS){
 			resultModel.setResultCode(200);

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,14 +46,9 @@ public class MatchController {
 	@RequestMapping(value = "/createMatch", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel createMatch(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int userId, @RequestParam String seriesname) {
+			@RequestBody Match match) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
-		Match match = new Match();
-	    User user = new User();
-	    user.setId(userId);
-	    match.setUser(user);
-	    match.setSeriesname(seriesname);
-		match.setCreatetime(new Date());
+		resultModel = new ResultModel();
 		int result = matchServiceImpl.createMatch(match);
 		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
@@ -66,14 +62,9 @@ public class MatchController {
 	@RequestMapping(value = "/updateMatch", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel updateMatch(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int userId, @RequestParam String seriesname) {
+			@RequestBody Match match) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
-		Match match = new Match();
-	    User user = new User();
-	    user.setId(userId);
-	    match.setUser(user);
-	    match.setSeriesname(seriesname);
-		match.setCreatetime(new Date());
+		resultModel = new ResultModel();
 		int result = matchServiceImpl.updateMatch(match);
 		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
@@ -89,6 +80,7 @@ public class MatchController {
 	public ResultModel deleteMatch(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int matchId) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
 		Match match = new Match();
 		match.setId(matchId);
 		int result = matchServiceImpl.deleteMatch(matchId);

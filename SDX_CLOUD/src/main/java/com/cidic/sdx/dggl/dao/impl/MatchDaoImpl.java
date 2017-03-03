@@ -15,7 +15,6 @@ import com.cidic.sdx.dggl.dao.MatchDao;
 import com.cidic.sdx.dggl.model.Match;
 
 @Repository
-@Transactional
 @Component
 @Qualifier(value = "matchDaoImpl")
 public class MatchDaoImpl implements MatchDao {

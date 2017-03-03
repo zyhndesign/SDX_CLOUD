@@ -134,6 +134,7 @@ public class Matchlist implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY,cascade={CascadeType.ALL}, mappedBy = "matchlist")
+	@JsonIgnore
 	public Set<Feedback> getFeedbacks() {
 		return this.feedbacks;
 	}

@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.MatchDao;
 import com.cidic.sdx.dggl.model.Match;
+import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.MatchService;
 import com.cidic.sdx.util.ResponseCodeUtil;
 
@@ -26,6 +28,10 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public int createMatch(Match match) {
 		try{
+			match.setCreatetime(new Date());
+			for (Matchlist mListObj : match.getMatchlists()){
+				mListObj.setMatch(match);
+			}
 			matchDaoImpl.createMatch(match);
 			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
 		}

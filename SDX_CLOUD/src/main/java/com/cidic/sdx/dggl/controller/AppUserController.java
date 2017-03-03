@@ -134,14 +134,13 @@ public class AppUserController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 		try {
-			UserListModel userListModel= appUserServiceImpl.getUserListByPage(iDisplayStart, iDisplayLength);
+			UserListModel userListModel= appUserServiceImpl.getUserListByPage(iDisplayLength,iDisplayStart);
 			listResultModel.setAaData(userListModel.getList());
 			listResultModel.setsEcho(sEcho);
 			listResultModel.setiTotalRecords((int)userListModel.getCount());
-			listResultModel.setiTotalDisplayRecords((int)userListModel.getCount());
+			listResultModel.setiTotalDisplayRecords((int)userListModel.getList().size());
 			listResultModel.setSuccess(true);
 		}
-
 		catch (Exception e) {
 			listResultModel.setSuccess(false);
 		}

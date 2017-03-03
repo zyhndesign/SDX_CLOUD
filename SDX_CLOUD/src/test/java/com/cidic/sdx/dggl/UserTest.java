@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cidic.sdx.dggl.model.User;
+import com.cidic.sdx.dggl.model.UserListModel;
 import com.cidic.sdx.dggl.service.AppUserService;
 import com.cidic.sdx.util.ResponseCodeUtil;
 
@@ -27,7 +28,6 @@ public class UserTest {
 	public void createUser(){
 		User user = new User("jack", "111111", "http://icon.aliyun.com/asdasdasdasdasdasd", new Date());
 		int createResult = appUserServiceImpl.createUser(user);
-		System.out.println(createResult);
 		switch (createResult){
 			case ResponseCodeUtil.UESR_CREATE_EXIST:
 				System.out.println("用户已经存在！");
@@ -78,8 +78,8 @@ public class UserTest {
 	
 	@Test
 	public void getUserByPage(){
-		List<User> list = appUserServiceImpl.getUserListByPage(10, 0);
-		for (User user : list){
+		UserListModel list = appUserServiceImpl.getUserListByPage(10, 0);
+		for (User user : list.getList()){
 			System.out.println(user.getUsername());
 		}
 	}

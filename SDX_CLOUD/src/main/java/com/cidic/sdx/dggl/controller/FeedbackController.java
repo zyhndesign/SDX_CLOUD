@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,8 @@ public class FeedbackController {
 		Matchlist matchList = new Matchlist();
 		matchList.setId(matchId);
 		feedback.setMatchlist(matchList);
-
+		feedback.setCreatetime(new Date());
+		
 		int result = feedbackServiceImpl.createFeedback(feedback);
 		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);

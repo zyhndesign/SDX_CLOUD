@@ -44,6 +44,7 @@ public class ShareController {
 	@ResponseBody
 	public ResultModel createFeedback(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int userId, @RequestParam int matchId,@RequestParam String shareContent,@RequestParam String sharedlist) {
+		System.out.println(shareContent+"======"+sharedlist);
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		Share share = new Share();

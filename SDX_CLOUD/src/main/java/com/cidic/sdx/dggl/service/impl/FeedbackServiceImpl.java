@@ -38,6 +38,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 			return ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS;
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			return ResponseCodeUtil.FEEDBACK_OPERATION_FAILURE;
 		}
 	}

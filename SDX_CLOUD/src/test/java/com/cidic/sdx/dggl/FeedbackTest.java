@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -23,8 +24,9 @@ public class FeedbackTest {
 	@Qualifier("feedbackServiceImpl")
 	private FeedbackService feedbackServiceImpl;
 	
-	//@Test
+	@Test
 	public void createFeedback(){
+		/*
 		Feedback feedback = new Feedback();
 		feedback.setLikeId(9);
 		
@@ -34,7 +36,7 @@ public class FeedbackTest {
 		
 		System.out.println(feedbackServiceImpl.createFeedback(feedback));
 		
-		/*
+		*/
 		for (int i = 0; i < 100000; i++){
 			Random random1 = new Random();
 			IntStream intStream1 = random1.ints(5, 817);
@@ -47,16 +49,16 @@ public class FeedbackTest {
 			Matchlist matchList = new Matchlist();
 			matchList.setId(intStream1.limit(1).sum());
 			feedback.setMatchlist(matchList);
-			
+			feedback.setCreatetime(new Date());
 			feedbackServiceImpl.createFeedback(feedback);
 		}
-		*/
+		
 	}
 	
 	//@Test
 	public void findFeedback(){
 		int userId = 12;
-		List<Feedback> list = feedbackServiceImpl.getFeedbackListByUserId(userId);
+		List<Feedback> list = feedbackServiceImpl.getFeedbackListPageByUserId(userId,10,0);
 		System.out.println(list.size());
 		for (Feedback feedback : list){
 			Matchlist matchList = feedback.getMatchlist();

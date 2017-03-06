@@ -100,7 +100,7 @@ public class MatchController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 
-		List<Match> feedBackList = matchServiceImpl.findMatchByUser(userId, limit, offset);
+		List<Match> feedBackList = matchServiceImpl.findMatchByUser(userId, offset, limit);
 
 		resultModel.setResultCode(200);
 		resultModel.setSuccess(true);

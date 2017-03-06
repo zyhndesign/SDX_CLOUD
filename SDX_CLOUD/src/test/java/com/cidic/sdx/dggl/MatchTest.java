@@ -148,6 +148,7 @@ public class MatchTest {
 		for (Match match : matchList){
 			System.out.println("***********************************************************");
 			System.out.println(match.getSeriesname());
+			
 			Set<Matchlist> setList = match.getMatchlists();
 			for (Matchlist mList : setList){
 				System.out.println(mList.getModelurl());

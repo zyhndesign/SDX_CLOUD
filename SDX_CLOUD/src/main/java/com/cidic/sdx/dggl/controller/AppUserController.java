@@ -27,7 +27,7 @@ import com.cidic.sdx.util.ResponseCodeUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/appUser")
+@RequestMapping("/dggl/appUser")
 public class AppUserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BrandSettingController.class);

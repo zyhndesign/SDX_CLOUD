@@ -41,14 +41,13 @@ public class HomeController {
 		String msg = "";
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		token.setRememberMe(true);
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(token);
 			if (subject.isAuthenticated()) {
-				return "redirect:/hpManage/productCOU";
+				return "redirect:/hpgl/hpManage/productCOU";
 			} else {
 				return "login";
 			}

@@ -29,7 +29,7 @@
                     <span class="glyphicon glyphicon-save"></span> 导入
                 </a>-->
                 <div class="row">
-                        <a class="btn btn-primary newBtn" href="hpManage/productCOU">
+                        <a class="btn btn-primary newBtn" href="hpgl/hpManage/productCOU">
                             <span class="glyphicon glyphicon-plus"></span> 新建
                         </a>
                         <div class="input-group tableSearchContainer col-md-6">

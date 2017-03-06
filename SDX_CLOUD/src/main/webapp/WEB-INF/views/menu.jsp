@@ -12,7 +12,7 @@
         <ul class="subMenu">
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="hpManage/productMgr">货品管理</a>
+                <a class="sLink" href="hpgl/hpManage/productMgr">货品管理</a>
             </li>
         </ul>
     </li>
@@ -23,19 +23,19 @@
         <ul class="subMenu">
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="brand/brandMgr">品牌系列设置</a>
+                <a class="sLink" href="hpgl/brand/brandMgr">品牌系列设置</a>
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="category/categoryMgr">品类设置</a>
+                <a class="sLink" href="hpgl/category/categoryMgr">品类设置</a>
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="size/sizeMgr">尺码设置</a>
+                <a class="sLink" href="hpgl/size/sizeMgr">尺码设置</a>
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="color/colorMgr">颜色设置</a>
+                <a class="sLink" href="hpgl/color/colorMgr">颜色设置</a>
             </li>
         </ul>
     </li>

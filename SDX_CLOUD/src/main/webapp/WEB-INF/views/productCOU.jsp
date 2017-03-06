@@ -34,10 +34,10 @@
 
                 <c:choose>
                     <c:when test="${empty hp}">
-                    <form class="form-horizontal" id="myForm" action="hpManage/insert" method="post">
+                    <form class="form-horizontal" id="myForm" action="hpgl/hpManage/insert" method="post">
                     </c:when>
                     <c:otherwise>
-                    <form class="form-horizontal" id="myForm" action="hpManage/update" method="post">
+                    <form class="form-horizontal" id="myForm" action="hpgl/hpManage/update" method="post">
                     <input type="hidden" name="id" value="${hp.id}">
                     </c:otherwise>
                 </c:choose>

@@ -174,7 +174,7 @@ var productCOU=(function(config,functions){
 
 $(document).ready(function(){
     var formHandler=new ZYFormHandler({
-        redirectUrl:"hpManage/productMgr",
+        redirectUrl:"hpgl/hpManage/productMgr",
         submitUrl:"#"
     })
     if(id){

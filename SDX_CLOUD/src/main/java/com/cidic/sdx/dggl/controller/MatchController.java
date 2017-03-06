@@ -25,7 +25,7 @@ import com.cidic.sdx.util.ResponseCodeUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/match")
+@RequestMapping("/dggl/match")
 public class MatchController {
 
 	@Autowired

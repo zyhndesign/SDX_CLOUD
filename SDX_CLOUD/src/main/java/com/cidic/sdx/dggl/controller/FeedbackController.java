@@ -24,7 +24,7 @@ import com.cidic.sdx.util.ResponseCodeUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/feedback")
+@RequestMapping("/dggl/feedback")
 public class FeedbackController {
 
 	@Autowired

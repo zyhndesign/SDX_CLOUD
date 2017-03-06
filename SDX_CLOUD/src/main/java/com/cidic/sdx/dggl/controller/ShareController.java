@@ -22,7 +22,7 @@ import com.cidic.sdx.util.ResponseCodeUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/share")
+@RequestMapping("/dggl/share")
 public class ShareController {
 
 	@Autowired

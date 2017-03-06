@@ -27,7 +27,7 @@ import com.cidic.sdx.hpgl.service.SizeService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/size")
+@RequestMapping("/hpgl/size")
 public class SizeSettingController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SizeSettingController.class);

@@ -26,7 +26,7 @@ import com.cidic.sdx.hpgl.service.BrandService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/brand")
+@RequestMapping("/hpgl/brand")
 public class BrandSettingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BrandSettingController.class);

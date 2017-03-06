@@ -44,12 +44,21 @@
 		<property name="credentialsMatcher" ref="credentialsMatcher"/>
 	</bean>
 
+	<bean id="appUserRealm" class="com.cidic.sdx.realm.AppUserRealm">
+		<property name="credentialsMatcher" ref="credentialsMatcher"/>
+	</bean>
+	
 	<!-- 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="userRealm" />
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
 
+	<bean id="appSecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="appUserRealm" />
+		<property name="sessionManager" ref="sessionManager" />
+	</bean>
+	
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- Shiro的核心安全接口，这个属性是必须的 -->
 		<property name="securityManager" ref="securityManager"></property>
@@ -61,14 +70,36 @@
 		<property name="unauthorizedUrl" value="/"></property>
 		<property name="filterChainDefinitions">
 			<value>
-				/security/*=anon
-				/tag/*=authc
-				/hpManage/*=authc
-				/brand/*=authc
-				/category/*=authc
-				/color/*=authc
-				/hpIndexManage/*=authc
-				/size/*=authc
+				/hpgl/security/*=anon
+				/hpgl/tag/*=authc
+				/hpgl/hpManage/*=authc
+				/hpgl/brand/*=authc
+				/hpgl/category/*=authc
+				/hpgl/color/*=authc
+				/hpgl/hpIndexManage/*=authc
+				/hpgl/size/*=authc
+			</value>
+		</property>
+	</bean>	
+	
+	<bean id="appShiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- Shiro的核心安全接口，这个属性是必须的 -->
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 要求登录时的链接(登录页面地址)，非必须的属性，默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
+		<property name="loginUrl" value="/login"></property>
+		<!-- 登录成功后要跳转的连接(本例中此属性用不到，因为登录成功后的处理逻辑在LoginController里硬编码) -->
+		<!-- <property name="successUrl" value="/" ></property> -->
+		<!-- 用户访问未对其授权的资源时，所显示的连接 -->
+		<property name="unauthorizedUrl" value="/"></property>
+		<property name="filterChainDefinitions">
+			<value>
+				/dggl/appUser/createUser=authc
+				/dggl/appUser/updateUser=authc
+				/dggl/appUser/deleteUser=authc
+				/dggl/appUser/getData=authc
+				/dggl/feedback/*=authc
+				/dggl/match/*=authc
+				/dggl/share/*=authc
 			</value>
 		</property>
 	</bean>	

@@ -38,7 +38,7 @@ import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 
 @Controller
-@RequestMapping("/hpManage")
+@RequestMapping("/hpgl/hpManage")
 public class HpManageController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BrandSettingController.class);

@@ -23,7 +23,7 @@ import com.cidic.sdx.hpgl.service.TagService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/tag")
+@RequestMapping("/hpgl/tag")
 public class TagSettingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(TagSettingController.class);

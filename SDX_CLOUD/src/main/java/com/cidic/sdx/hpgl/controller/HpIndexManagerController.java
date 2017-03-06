@@ -31,7 +31,7 @@ import com.cidic.sdx.util.RedisVariableUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/hpIndexManage")
+@RequestMapping("/hpgl/hpIndexManage")
 public class HpIndexManagerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HpIndexManagerController.class);

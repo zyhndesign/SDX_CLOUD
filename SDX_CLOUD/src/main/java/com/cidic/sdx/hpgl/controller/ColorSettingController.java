@@ -26,7 +26,7 @@ import com.cidic.sdx.hpgl.service.ColorService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/color")
+@RequestMapping("/hpgl/color")
 public class ColorSettingController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ColorSettingController.class);

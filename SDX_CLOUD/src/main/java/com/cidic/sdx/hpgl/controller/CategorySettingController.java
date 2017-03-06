@@ -26,7 +26,7 @@ import com.cidic.sdx.hpgl.service.CategoryService;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/hpgl/category")
 public class CategorySettingController {
 	private static final Logger logger = LoggerFactory.getLogger(CategorySettingController.class);
 	

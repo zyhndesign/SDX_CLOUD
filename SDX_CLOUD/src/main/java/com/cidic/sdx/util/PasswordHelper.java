@@ -5,6 +5,7 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
+import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.hpgl.model.UserModel;
 
 public class PasswordHelper {
@@ -27,4 +28,16 @@ public class PasswordHelper {
         user.setPassword(newPassword);
     }
     
+    public static void encryptAppPassword(User user) {
+
+        user.setSlot(randomNumberGenerator.nextBytes().toHex());
+
+        String newPassword = new SimpleHash(
+                algorithmName,
+                user.getPassword(),
+                ByteSource.Util.bytes(user.getCredentialsSalt()),
+                hashIterations).toHex();
+
+        user.setPassword(newPassword);
+    }
 }

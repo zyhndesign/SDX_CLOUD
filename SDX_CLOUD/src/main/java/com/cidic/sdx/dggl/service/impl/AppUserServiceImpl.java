@@ -13,6 +13,7 @@ import com.cidic.sdx.dggl.dao.AppUserDao;
 import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.model.UserListModel;
 import com.cidic.sdx.dggl.service.AppUserService;
+import com.cidic.sdx.util.PasswordHelper;
 import com.cidic.sdx.util.ResponseCodeUtil;
 
 @Repository
@@ -31,6 +32,7 @@ public class AppUserServiceImpl implements AppUserService {
 			if (optUser.isPresent()) {
 				return ResponseCodeUtil.UESR_CREATE_EXIST;
 			} else {
+				PasswordHelper.encryptAppPassword(user);
 				appUserDaoImpl.createUser(user);
 				return ResponseCodeUtil.UESR_OPERATION_SUCESS;
 			}

@@ -24,9 +24,9 @@ public class UserTest {
 	@Qualifier("appUserServiceImpl")
 	private AppUserService appUserServiceImpl;
 	
-	//@Test
+	@Test
 	public void createUser(){
-		User user = new User("jack", "111111", "http://icon.aliyun.com/asdasdasdasdasdasd", new Date());
+		User user = new User("liling", "111111", "http://icon.aliyun.com/asdasdasdasdasdasd", new Date());
 		int createResult = appUserServiceImpl.createUser(user);
 		switch (createResult){
 			case ResponseCodeUtil.UESR_CREATE_EXIST:
@@ -76,7 +76,7 @@ public class UserTest {
 		user2.ifPresent((optUser)->{System.out.println(optUser.getUsername());});
 	}
 	
-	@Test
+	//@Test
 	public void getUserByPage(){
 		UserListModel list = appUserServiceImpl.getUserListByPage(10, 0);
 		for (User user : list.getList()){

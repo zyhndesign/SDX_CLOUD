@@ -36,7 +36,9 @@ public class AppUserRealm extends AuthorizingRealm {
 		
 		String username = (String)token.getPrincipal();
 		
-        Optional<User> user = appUserServiceImpl.findByUsername(username);
+		System.out.println("**************************************************************");
+        
+		Optional<User> user = appUserServiceImpl.findByUsername(username);
         
         if(!user.isPresent()) {
             throw new UnknownAccountException();//没找到帐�?
@@ -46,7 +48,7 @@ public class AppUserRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.get().getUsername(), //用户�?
                 user.get().getPassword(), //密码
-                ByteSource.Util.bytes(user.get().getCreatetime()),
+                ByteSource.Util.bytes(user.get().getCredentialsSalt()),
                 getName()  //realm name
         );
         return authenticationInfo;

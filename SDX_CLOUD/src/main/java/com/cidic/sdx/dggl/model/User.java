@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,6 +35,7 @@ public class User implements java.io.Serializable {
 	private String password;
 	private String headicon;
 	private Date createtime;
+	private String slot;
 	private int valid; //用户有效标志
 	
 	private Set<Share> shares = new HashSet<Share>(0);
@@ -138,5 +140,18 @@ public class User implements java.io.Serializable {
 	public void setMatches(Set<Match> matches) {
 		this.matches = matches;
 	}
+	
+	@Column(name = "slot", length = 40)
+	public String getSlot() {
+		return slot;
+	}
 
+	public void setSlot(String slot) {
+		this.slot = slot;
+	}
+
+	@Transient
+	public String getCredentialsSalt() {
+		return username + slot;
+	}
 }

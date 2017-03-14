@@ -16,9 +16,9 @@ import com.cidic.sdx.dggl.dao.AppUserDao;
 import com.cidic.sdx.dggl.model.User;
 
 @Repository
-@Transactional
 @Component
 @Qualifier(value = "appUserDaoImpl")
+@Transactional
 public class AppUserDaoImpl implements AppUserDao {
 
 	@Autowired

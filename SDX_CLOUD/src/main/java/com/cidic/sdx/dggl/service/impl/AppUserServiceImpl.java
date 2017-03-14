@@ -1,6 +1,5 @@
 package com.cidic.sdx.dggl.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,7 @@ public class AppUserServiceImpl implements AppUserService {
 				return ResponseCodeUtil.UESR_OPERATION_SUCESS;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseCodeUtil.UESR_OPERATION_FAILURE;
 		}
 	}

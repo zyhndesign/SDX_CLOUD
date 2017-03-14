@@ -24,7 +24,7 @@ public class UserTest {
 	@Qualifier("appUserServiceImpl")
 	private AppUserService appUserServiceImpl;
 	
-	@Test
+	//@Test
 	public void createUser(){
 		User user = new User("liling", "111111", "http://icon.aliyun.com/asdasdasdasdasdasd", new Date());
 		int createResult = appUserServiceImpl.createUser(user);

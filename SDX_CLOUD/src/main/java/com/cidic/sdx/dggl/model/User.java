@@ -31,6 +31,11 @@ public class User implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
+	private String serialnumber;
+	private String phone;
+	private String shopname;
+	private Date entrytime;
+	private Byte gender;
 	private String username;
 	private String password;
 	private String headicon;
@@ -42,6 +47,8 @@ public class User implements java.io.Serializable {
 	
 	private Set<Match> matches = new HashSet<Match>(0);
 
+	private Set<Vipuser> vipusers = new HashSet<Vipuser>(0);
+	
 	public User() {
 	}
 
@@ -52,13 +59,19 @@ public class User implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	public User(String username, String password, String headicon, Date createtime, Set<Share> shares,
-			Set<Match> matches) {
+	public User(String username, String password, String headicon, String phone, String shopname, Date entrytime,
+			Byte gender, byte valid, Date createtime, String slot, Set<Vipuser> vipusers, Set<Match> matches) {
 		this.username = username;
 		this.password = password;
 		this.headicon = headicon;
+		this.phone = phone;
+		this.shopname = shopname;
+		this.entrytime = entrytime;
+		this.gender = gender;
+		this.valid = valid;
 		this.createtime = createtime;
-		this.shares = shares;
+		this.slot = slot;
+		this.vipusers = vipusers;
 		this.matches = matches;
 	}
 	
@@ -74,6 +87,15 @@ public class User implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "serialnumber", length = 16)
+	public String getSerialnumber() {
+		return this.serialnumber;
+	}
+
+	public void setSerialnumber(String serialnumber) {
+		this.serialnumber = serialnumber;
+	}
+	
 	@Column(name = "username", length = 20)
 	public String getUsername() {
 		return this.username;
@@ -99,6 +121,43 @@ public class User implements java.io.Serializable {
 
 	public void setHeadicon(String headicon) {
 		this.headicon = headicon;
+	}
+	
+	@Column(name = "phone", length = 11)
+	public String getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	@Column(name = "shopname", length = 40)
+	public String getShopname() {
+		return this.shopname;
+	}
+
+	public void setShopname(String shopname) {
+		this.shopname = shopname;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "entrytime", length = 19)
+	public Date getEntrytime() {
+		return this.entrytime;
+	}
+
+	public void setEntrytime(Date entrytime) {
+		this.entrytime = entrytime;
+	}
+
+	@Column(name = "gender")
+	public Byte getGender() {
+		return this.gender;
+	}
+
+	public void setGender(Byte gender) {
+		this.gender = gender;
 	}
 	
 	@Column(name = "valid")
@@ -153,5 +212,15 @@ public class User implements java.io.Serializable {
 	@Transient
 	public String getCredentialsSalt() {
 		return username + slot;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@JsonIgnore
+	public Set<Vipuser> getVipusers() {
+		return this.vipusers;
+	}
+
+	public void setVipusers(Set<Vipuser> vipusers) {
+		this.vipusers = vipusers;
 	}
 }

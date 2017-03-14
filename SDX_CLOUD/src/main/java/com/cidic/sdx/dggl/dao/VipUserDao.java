@@ -1,0 +1,24 @@
+package com.cidic.sdx.dggl.dao;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.cidic.sdx.dggl.model.Vipuser;
+
+public interface VipUserDao {
+
+	public void createVipUser(Vipuser user);
+	
+    public void updateVipUser(Vipuser user);
+    
+    public void deleteVipUser(int userId);
+    
+    //用于app加载当前导购的客户
+    public List<Vipuser> getVipuserByShoppingGuideId(int shoppingGuideId);
+    
+    //用于后台管理VIP客户
+    public List<Vipuser> getVipuserByPage(int limit, int offset);
+    
+    //根据卡号查询Vip信息
+    public Optional<Vipuser> getVipuserByCardNumber(String cardNumber);
+}

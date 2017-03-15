@@ -36,7 +36,7 @@ public class MatchTest {
 			
 			match.setSeriesname("圣德西时尚系列" + i);
 			match.setCreatetime(new Date());
-			match.setStatus((byte) 1);
+			match.setDatastatus((byte) 1);
 			
 			Set<Matchlist> matchlists = new HashSet<Matchlist>(4);
 			Matchlist matchList1 = new Matchlist();
@@ -93,7 +93,7 @@ public class MatchTest {
 		
 		match.setSeriesname("圣德西欧洲风系列");
 		match.setCreatetime(new Date());
-		match.setStatus((byte) 1);
+		match.setDatastatus((byte) 1);
 		
 		Set<Matchlist> matchlists = new HashSet<Matchlist>(4);
 		Matchlist matchList1 = new Matchlist();

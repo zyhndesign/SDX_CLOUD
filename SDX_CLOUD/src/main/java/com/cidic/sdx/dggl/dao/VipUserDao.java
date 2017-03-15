@@ -21,4 +21,7 @@ public interface VipUserDao {
     
     //根据卡号查询Vip信息
     public Optional<Vipuser> getVipuserByCardNumber(String cardNumber);
+    
+    //统计当前导购有多少客户
+    public int getCountVipuserByShoppingGuideId(int shoppingGuideId);
 }

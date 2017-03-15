@@ -1,6 +1,5 @@
 package com.cidic.sdx.dggl.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.dggl.model.Match;
-import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.service.MatchService;
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.model.ResultModel;

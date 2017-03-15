@@ -56,4 +56,54 @@ public class MatchDaoImpl implements MatchDao {
 		return list;
 	}
 
+	@Override
+	public int getMatchShareCountByUser(int userId, int shareStatus) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " select count(m) from Match where userId = ? and sharestatus = ?";
+		final Query query = session.createQuery(hql); 
+		query.setParameter(0, userId);
+		query.setParameter(1, shareStatus);
+        return (int)query.uniqueResult();
+	}
+
+	@Override
+	public void updateShareStatus(int userId, int shareStatus) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " update from Match set sharestatus = ? where userId = ?";
+		final Query query = session.createQuery(hql); 
+		query.setParameter(1, userId);
+		query.setParameter(0, shareStatus);
+		query.executeUpdate();
+	}
+
+	@Override
+	public List<Match> getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Match where userId = ? and sharestatus = ?";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, userId);
+        query.setParameter(1, shareStatus);
+        query.setFirstResult(offset);    
+        query.setMaxResults(limit);
+        query.setCacheable(true);
+        @SuppressWarnings("unchecked")
+        List<Match> list = query.list();
+		return list;
+	}
+
+	@Override
+	public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Match where userId = ? and datastatus = ?";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, userId);
+        query.setParameter(0, dataStatus);
+        query.setFirstResult(offset);    
+        query.setMaxResults(limit);
+        query.setCacheable(true);
+        @SuppressWarnings("unchecked")
+        List<Match> list = query.list();
+		return list;
+	}
+	
 }

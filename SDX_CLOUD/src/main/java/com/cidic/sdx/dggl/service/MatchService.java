@@ -12,4 +12,10 @@ public interface MatchService {
     public int deleteMatch(int matchId);
     
     public List<Match> findMatchByUser(int userId, int offset, int limit);
+    
+    public void updateShareStatus(int userId, int shareStatus);
+    
+    public List<Match> getMatchByShareStatus(int userId, int shareStatus, int offset, int limit);
+    
+    public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit);
 }

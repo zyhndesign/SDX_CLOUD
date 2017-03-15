@@ -104,6 +104,35 @@ public class MatchController {
 		resultModel.setSuccess(true);
 		resultModel.setObject(feedBackList);
 		return resultModel;
-
 	}
+	
+	@RequestMapping(value = "/getMatchByShareStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId, @RequestParam int shareStatus, @RequestParam int offset, @RequestParam int limit){
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+
+		List<Match> matchList = matchServiceImpl.getMatchByShareStatus(userId, shareStatus, offset, limit);
+
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(matchList);
+		return resultModel;
+	}
+    
+	@RequestMapping(value = "/getMatchByDataStatus", method = RequestMethod.POST)
+	@ResponseBody
+    public ResultModel getMatchByDataStatus(HttpServletRequest request, HttpServletResponse response,
+    		@RequestParam int userId, @RequestParam int dataStatus, @RequestParam int offset, @RequestParam int limit){
+    	WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+
+		List<Match> matchList = matchServiceImpl.getMatchByDataStatus(userId, dataStatus, offset, limit);
+
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(matchList);
+		return resultModel;
+    }
 }

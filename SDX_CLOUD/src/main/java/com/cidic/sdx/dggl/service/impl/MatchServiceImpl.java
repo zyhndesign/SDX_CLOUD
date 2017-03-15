@@ -73,4 +73,19 @@ public class MatchServiceImpl implements MatchService {
 		return matchDaoImpl.findMatchByUser(userId, offset, limit);
 	}
 
+	@Override
+	public void updateShareStatus(int userId, int shareStatus) {
+		matchDaoImpl.updateShareStatus(userId, shareStatus);
+	}
+
+	@Override
+	public List<Match> getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
+		return matchDaoImpl.getMatchByShareStatus(userId, shareStatus, offset, limit);
+	}
+
+	@Override
+	public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit) {
+		return matchDaoImpl.getMatchByDataStatus(userId, dataStatus, offset, limit);
+	}
+
 }

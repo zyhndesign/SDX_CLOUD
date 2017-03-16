@@ -1,5 +1,7 @@
 package com.cidic.sdx.dggl.controller;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +14,9 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,7 @@ import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.controller.BrandSettingController;
 import com.cidic.sdx.hpgl.model.ListResultModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
+import com.cidic.sdx.realm.AppUserRealm;
 import com.cidic.sdx.util.ResponseCodeUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
@@ -63,11 +68,15 @@ public class AppUserController {
 		resultModel = new ResultModel();
 		String msg = "";
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		token.setRememberMe(true);
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(token);
 			if (subject.isAuthenticated()) {
+				msg = "登录成功！";
+				DefaultWebSecurityManager dw = (DefaultWebSecurityManager)SecurityUtils.getSecurityManager();
+				for (Realm realm : dw.getRealms()){
+					resultModel.setObject(((AppUserRealm)realm).getSuccessUser());
+				}
 				resultModel.setResultCode(200);
 				resultModel.setSuccess(true);
 			} else {
@@ -89,7 +98,6 @@ public class AppUserController {
 		} catch (UnauthorizedException e) {
 			msg = "您没有得到相应的授权！";
 		}
-		System.out.println(msg);
 		resultModel.setMessage(msg);
 		return resultModel;
 	}

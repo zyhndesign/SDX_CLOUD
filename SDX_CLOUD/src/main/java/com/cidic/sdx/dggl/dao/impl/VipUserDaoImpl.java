@@ -56,7 +56,7 @@ public class VipUserDaoImpl implements VipUserDao {
 	@Override
 	public List<Vipuser> getVipuserByShoppingGuideId(int shoppingGuideId) {
 		Session session = this.getSessionFactory().getCurrentSession();
-		String hql = " from Vipuser u where u.guideId = ?";
+		String hql = " from Vipuser u where u.user.id = ?";
 		Query query = session.createQuery(hql);
         query.setParameter(0, shoppingGuideId); 
 		return query.list();

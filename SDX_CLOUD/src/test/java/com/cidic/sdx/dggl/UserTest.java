@@ -57,14 +57,15 @@ public class UserTest {
 	
 	//@Test
 	public void updateUser(){
-		User user = new User("jack ma", "111111333", "http://www.geekbang.org/", new Date());
-		user.setId(2);
+		User user = new User();
+		user.setId(6);
+		user.setPassword("111111");
 		int updateResult = appUserServiceImpl.updateUser(user);
 		if (updateResult == ResponseCodeUtil.UESR_OPERATION_SUCESS){
 			System.out.println("更新操作成功!");
 		}
 		else if (updateResult == ResponseCodeUtil.UESR_OPERATION_FAILURE){
-			System.out.println("删除操作失败！");
+			System.out.println("更新操作失败！");
 		}
 	}
 	

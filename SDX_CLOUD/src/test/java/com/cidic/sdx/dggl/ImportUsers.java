@@ -86,7 +86,8 @@ public class ImportUsers {
 					user.setUsername(username);
 
 					String pwd = getValue(cell2);
-					user.setPassword(pwd);
+					
+					user.setPassword("111111");
 
 					String shopName = getValue(cell3);
 					user.setShopname(shopName);
@@ -119,6 +120,9 @@ public class ImportUsers {
 				return String.valueOf(xssfRow.getBooleanCellValue());
 			} else if (xssfRow.getCellType() == xssfRow.CELL_TYPE_NUMERIC) {
 				return String.valueOf(xssfRow.getNumericCellValue());
+			}
+			else if (xssfRow.getCellType() == xssfRow.CELL_TYPE_STRING) {
+				return String.valueOf(xssfRow.getStringCellValue());
 			} else {
 				return String.valueOf(xssfRow.getStringCellValue());
 			}

@@ -29,6 +29,11 @@ public class RedisVariableUtil {
 	public final static String LOST_URL_SET = "lostURLSet";
 	public final static String PRODUCT_Unshelve_SET = "ProductUnshelveSet";
 	
+	public final static String LIST_INNER_CLOTH = "innnerClothList";
+	public final static String LIST_OUTTER_CLOTH = "outterClothList";
+	public final static String LIST_TROUSER_CLOTH = "trouserList";
+	
+	
 	public final static int DATA_STATUS_INTEGRITY = 0;
 	public final static int DATA_STATUS_URL_LOST = 2;
 	public final static int DATA_STATUS_IMAGE_LOST = 1;

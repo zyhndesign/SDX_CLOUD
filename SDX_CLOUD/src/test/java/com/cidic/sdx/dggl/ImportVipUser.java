@@ -40,20 +40,20 @@ public class ImportVipUser {
 		private static final long serialVersionUID = 1L;
 
 		{
-			put("王华英", "22");
-			put("马春", "23");
-			put("彭小康", "24");
-			put("周碧波", "25");
-			put("田美林", "26");
-			put("罗聪", "27");
-			put("黄文军", "28");
-			put("彭煌梅", "29");
-			put("黄艳", "30");
-			put("周云", "31");
-			put("潘金辉", "32");
-			put("颜林", "33");
-			put("刘希", "34");
-			put("冯瑶", "35");
+			put("王华英", "120");
+			put("马春", "121");
+			put("彭小康", "122");
+			put("周碧波", "123");
+			put("田美林", "124");
+			put("罗聪", "125");
+			put("黄文军", "126");
+			put("彭煌梅", "127");
+			put("黄艳", "128");
+			put("周云", "129");
+			put("潘金辉", "130");
+			put("颜林", "131");
+			put("刘希", "132");
+			put("冯瑶", "133");
 
 		}
 	};
@@ -67,6 +67,7 @@ public class ImportVipUser {
 			
 			int i = 0;
 			for (Vipuser user : list) {
+
 				vipUserServiceImpl.createVipUser(user);
 				++i;
 				System.out.println("完成写入第:" + i + "条数据");
@@ -140,13 +141,16 @@ public class ImportVipUser {
 					user.setConsumenumber((short)Double.parseDouble(consumeCount));
 
 					String userId = map.get(getValue(cell10));
+					
 					User dgUser = new User();
-					if (userId == null || userId.equals("")){
-						dgUser.setId(22);
+					if (userId == null || userId.equals("") || userId.equals("null")){
+						dgUser.setId(122);
 					}
 					else{
 						dgUser.setId(Integer.parseInt(userId));
 					}
+					
+					user.setValid(0);
 					user.setUser(dgUser);
 					
 					list.add(user);
@@ -171,7 +175,7 @@ public class ImportVipUser {
 
 	private Date stringToDate(String dateString) {
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(dateString);
 			return date;
 		} catch (ParseException e) {

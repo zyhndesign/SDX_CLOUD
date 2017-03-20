@@ -158,6 +158,16 @@ public class HpManageDaoImpl implements HpManageDao {
 					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_INTEGRITY)));
 				}
 				
+				if (hpModel.getCategory().contains("1,")){ //库装
+					connection.lPush(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), ser.serialize(String.valueOf(id)));
+				}
+				else if (hpModel.getCategory().contains("2,")){ //外套
+					connection.lPush(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), ser.serialize(String.valueOf(id)));
+				}
+				else if (hpModel.getCategory().contains("3,")){ //内搭
+					connection.lPush(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), ser.serialize(String.valueOf(id)));
+				}
+				
 				List<Object> resultList = connection.exec();
 				
 				System.out.println("执行命令数量:"+ resultList.size());
@@ -233,6 +243,9 @@ public class HpManageDaoImpl implements HpManageDao {
 				connection.multi();
 				connection.del(ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id));
 				connection.lRem(ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + "Id"), 0, ser.serialize(id));
+				connection.lRem(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), 0, ser.serialize(id));
+				connection.lRem(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), 0, ser.serialize(id));
+				connection.lRem(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), 0, ser.serialize(id));
 				connection.sRem(ser.serialize(RedisVariableUtil.LOST_URL_SET), ser.serialize(id));
 				connection.sRem(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET), ser.serialize(id));
 				

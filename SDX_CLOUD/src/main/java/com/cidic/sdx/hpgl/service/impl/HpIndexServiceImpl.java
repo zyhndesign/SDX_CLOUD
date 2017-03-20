@@ -37,4 +37,10 @@ public class HpIndexServiceImpl implements HpIndexService {
 		return hpIndexDaoImpl.getLostURLData(iDisplayStart, iDisplayLength);
 	}
 
+	@Override
+	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit) {
+		// TODO Auto-generated method stub
+		return hpIndexDaoImpl.getMatchListByCategoryType(categoryType, offset, limit);
+	}
+
 }

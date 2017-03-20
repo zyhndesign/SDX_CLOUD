@@ -118,6 +118,40 @@ public class HpIndexDaoImpl implements HpIndexDao {
 			}
 		});
 	}
+	
+	@Override
+	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit){
+		
+		return redisTemplate.execute(new RedisCallback<HPListModel>() {
+			@Override
+			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+				HPListModel hpListModel = new HPListModel();
+				
+				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
+
+				List<byte[]> id_list = null;
+				
+				if (categoryType == 1){ //库装
+					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), offset, offset + limit - 1);
+					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
+				}
+				else if (categoryType == 2){ //外套
+					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), offset, offset + limit - 1);
+					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
+				}
+				else if (categoryType == 3){ //内搭
+					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), offset, offset + limit - 1);
+					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
+				}
+				
+				List<HPModel> hpModelList = getListModel(connection,id_list);
+				hpListModel.setList(hpModelList);
+			
+				return hpListModel;
+				
+			}
+		});
+	}
 
 	public List<HPModel> getListModel(RedisConnection connection,List<byte[]> id_list){
 		

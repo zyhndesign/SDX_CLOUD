@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.cidic.sdx.dggl.model.CostumeModel;
-import com.cidic.sdx.dggl.model.HotMatchModel;
 import com.cidic.sdx.hpgl.dao.HpIndexDao;
 import com.cidic.sdx.hpgl.model.HPListModel;
 import com.cidic.sdx.hpgl.model.HPModel;
@@ -129,7 +128,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 	
 	@Override
 	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit){
-		
+
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
 			@Override
 			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {

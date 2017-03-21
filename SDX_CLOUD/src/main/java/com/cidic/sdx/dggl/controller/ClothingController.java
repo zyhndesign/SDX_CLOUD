@@ -38,9 +38,9 @@ public class ClothingController {
 		return resultModel;
 	}
 
-	@RequestMapping(value = "/getDateByCategoryId", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/getDataByCategoryId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ListResultModel getDateByCategoryId(HttpServletRequest request, HttpServletResponse response,
+	public ListResultModel getDataByCategoryId(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int category, @RequestParam int limit, @RequestParam int offset) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();

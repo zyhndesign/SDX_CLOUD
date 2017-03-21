@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.FeedbackDao;
 import com.cidic.sdx.dggl.model.Feedback;
+import com.cidic.sdx.dggl.model.HotMatchModel;
 import com.cidic.sdx.dggl.service.FeedbackService;
+import com.cidic.sdx.hpgl.dao.HpIndexDao;
 import com.cidic.sdx.util.ResponseCodeUtil;
 
 @Repository
@@ -24,11 +26,15 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Qualifier("feedbackDaoImpl")
 	private FeedbackDao feedbackDaoImpl;
 	
+	@Autowired
+	@Qualifier(value = "hpIndexDaoImpl")
+	private HpIndexDao hpIndexDaoImpl;
+	
 	@Override
 	@Transactional(readOnly = false, rollbackFor = Exception.class)
 	public int createFeedback(Feedback feedback) {
 		try{
-			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getLikeId(), feedback.getMatchlist().getId());
+			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getUserId(), feedback.getMatchlist().getId());
 			if(feedbackObj.isPresent()){
 				return ResponseCodeUtil.FEEDBACK_OPERATION_EXIST; //已经点赞过
 			}
@@ -44,16 +50,25 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<Feedback> getFeedbackListPageByUserId(int userId,int limit, int offset) {
-		return feedbackDaoImpl.getFeedbackListPageByUserId(userId, limit, offset);
+	public List<HotMatchModel> getFeedbackListPageByUserId(int userId,int limit, int offset) {
+		
+		List<HotMatchModel> list = feedbackDaoImpl.getFeedbackListPageByUserId(userId, limit, offset);
+		
+		for (HotMatchModel hotMatchModel : list){
+			hotMatchModel.setInnerClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getInnerClothId()));
+			hotMatchModel.setOutClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getOutClothId()));
+			hotMatchModel.setTrousersClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getTrousersId()));
+		}
+		
+		return list;
 	}
 
 	@Override
 	public int updateFeedback(Feedback feedback){
 		try{
-			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getLikeId(), feedback.getMatchlist().getId());
+			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getUserId(), feedback.getMatchlist().getId());
 			feedbackObj.ifPresent((feed)->{
-				feedbackDaoImpl.deleteFeedback(feed.getLikeId(), feed.getMatchlist().getId() );
+				feedbackDaoImpl.deleteFeedback(feed.getUserId(), feed.getMatchlist().getId() );
 			});
 			
 			return ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS;

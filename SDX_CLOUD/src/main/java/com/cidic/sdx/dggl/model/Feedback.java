@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,15 +33,16 @@ public class Feedback implements java.io.Serializable {
 	
 	private Integer id;
 	private Matchlist matchlist;
-	private int likeId;
 	private Date createtime;
+	private int vipId;
+	private int userId;
+	private int countLike;
 	
 	public Feedback() {
 	}
 
-	public Feedback(Matchlist matchlist, int likeId) {
+	public Feedback(Matchlist matchlist) {
 		this.matchlist = matchlist;
-		this.likeId = likeId;
 	}
 
 	@Id
@@ -64,16 +66,6 @@ public class Feedback implements java.io.Serializable {
 		this.matchlist = matchlist;
 	}
 
-	@Column(name = "likeId")
-	@JsonIgnore
-	public int getLikeId() {
-		return this.likeId;
-	}
-
-	public void setLikeId(int likeId) {
-		this.likeId = likeId;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "createtime", length = 19)
 	public Date getCreatetime() {
@@ -83,4 +75,34 @@ public class Feedback implements java.io.Serializable {
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
+
+	@Column(name = "vipId")
+	public int getVipId() {
+		return vipId;
+	}
+
+	public void setVipId(int vipId) {
+		this.vipId = vipId;
+	}
+
+	@Transient
+	public int getCountLike() {
+		return countLike;
+	}
+
+	public void setCountLike(int countLike) {
+		this.countLike = countLike;
+	}
+
+	@Column(name = "userId")
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	
+	
 }

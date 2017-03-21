@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.dggl.model.Feedback;
+import com.cidic.sdx.dggl.model.HotMatchModel;
 import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.FeedbackService;
 import com.cidic.sdx.exception.SdxException;
@@ -49,7 +50,7 @@ public class FeedbackController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		Feedback feedback = new Feedback();
-		feedback.setLikeId(userId);
+		feedback.setUserId(userId);
 		Matchlist matchList = new Matchlist();
 		matchList.setId(matchId);
 		feedback.setMatchlist(matchList);
@@ -76,7 +77,7 @@ public class FeedbackController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		Feedback feedback = new Feedback();
-		feedback.setLikeId(userId);
+		feedback.setUserId(userId);
 		Matchlist matchList = new Matchlist();
 		matchList.setId(matchId);
 		feedback.setMatchlist(matchList);
@@ -98,7 +99,7 @@ public class FeedbackController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 
-		List<Feedback> feedBackList = feedbackServiceImpl.getFeedbackListPageByUserId(userId, limit, offset);
+		List<HotMatchModel> feedBackList = feedbackServiceImpl.getFeedbackListPageByUserId(userId, limit, offset);
 
 		resultModel.setResultCode(200);
 		resultModel.setSuccess(true);

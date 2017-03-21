@@ -39,8 +39,9 @@ public class Match implements java.io.Serializable {
 	private Integer id;
 	private User user;
 	private String seriesname;
-	private byte datastatus;  //0:初始化  1：图片缺失 2：链接缺失 3：图片链接都缺失  
+	//private byte datastatus;  //0:初始化  1：图片缺失 2：链接缺失 3：图片链接都缺失  
 	private byte sharestatus;  //0:未分享 1：已分享
+	private byte draftstatus; //草稿箱标志 1代表为草稿状态
 	private Date createtime;
 	private Set<Matchlist> matchlists = new HashSet<Matchlist>(0);
 	private Set<Share> shares = new HashSet<Share>(0);
@@ -48,19 +49,17 @@ public class Match implements java.io.Serializable {
 	public Match() {
 	}
 
-	public Match(User user, String seriesname, byte datastatus, byte sharestatus, Date createtime) {
+	public Match(User user, String seriesname, byte sharestatus, Date createtime) {
 		this.user = user;
 		this.seriesname = seriesname;
-		this.datastatus = datastatus;
 		this.createtime = createtime;
 		this.sharestatus = sharestatus;
 	}
 
-	public Match(User user, String seriesname, byte datastatus,  byte sharestatus, Date createtime, Set<Matchlist> matchlists,
+	public Match(User user, String seriesname,  byte sharestatus, Date createtime, Set<Matchlist> matchlists,
 			Set<Share> shares) {
 		this.user = user;
 		this.seriesname = seriesname;
-		this.datastatus = datastatus;
 		this.createtime = createtime;
 		this.matchlists = matchlists;
 		this.shares = shares;
@@ -98,7 +97,17 @@ public class Match implements java.io.Serializable {
 	public void setSeriesname(String seriesname) {
 		this.seriesname = seriesname;
 	}
+	
+	@Column(name = "draftstatus")
+	public byte getDraftstatus() {
+		return draftstatus;
+	}
 
+	public void setDraftstatus(byte draftstatus) {
+		this.draftstatus = draftstatus;
+	}
+
+	/*
 	@Column(name = "datastatus")
 	public byte getDatastatus() {
 		return this.datastatus;
@@ -107,7 +116,7 @@ public class Match implements java.io.Serializable {
 	public void setDatastatus(byte status) {
 		this.datastatus = status;
 	}
-
+	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "createtime", length = 19)
 	public Date getCreatetime() {

@@ -1,5 +1,8 @@
 package com.cidic.sdx.dggl.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +30,17 @@ public class ShareDaoImpl implements ShareDao {
 		session.save(share);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Share> getShareList(int matchId, int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Share where userId = ? and matchId = ?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, userId);
+		query.setParameter(1, matchId);
+		
+		return query.list();
+	}
+
+	
 }

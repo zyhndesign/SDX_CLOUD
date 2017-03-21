@@ -2,6 +2,7 @@ package com.cidic.sdx.hpgl.dao;
 
 import java.util.List;
 
+import com.cidic.sdx.dggl.model.CostumeModel;
 import com.cidic.sdx.hpgl.model.HPListModel;
 
 public interface HpIndexDao {
@@ -17,4 +18,6 @@ public interface HpIndexDao {
 	
 	//获取 裤装（1），外套（2），内搭 （3）列表数据
 	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit);
+	
+	public CostumeModel getClothUrl(int id);
 }

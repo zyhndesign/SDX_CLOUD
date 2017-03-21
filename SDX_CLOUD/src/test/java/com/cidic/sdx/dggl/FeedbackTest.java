@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cidic.sdx.dggl.model.Feedback;
+import com.cidic.sdx.dggl.model.HotMatchModel;
 import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.FeedbackService;
 
@@ -24,7 +25,7 @@ public class FeedbackTest {
 	@Qualifier("feedbackServiceImpl")
 	private FeedbackService feedbackServiceImpl;
 	
-	@Test
+	//@Test
 	public void createFeedback(){
 		/*
 		Feedback feedback = new Feedback();
@@ -44,7 +45,7 @@ public class FeedbackTest {
 			Random random2 = new Random();
 			IntStream intStream2 = random2.ints(2, 20);
 			Feedback feedback = new Feedback();
-			feedback.setLikeId(intStream2.limit(1).sum());
+			feedback.setUserId(intStream2.limit(1).sum());
 			
 			Matchlist matchList = new Matchlist();
 			matchList.setId(intStream1.limit(1).sum());
@@ -55,14 +56,13 @@ public class FeedbackTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void findFeedback(){
-		int userId = 12;
-		List<Feedback> list = feedbackServiceImpl.getFeedbackListPageByUserId(userId,10,0);
+		int userId = 15;
+		List<HotMatchModel> list = feedbackServiceImpl.getFeedbackListPageByUserId(userId,10,0);
 		System.out.println(list.size());
-		for (Feedback feedback : list){
-			Matchlist matchList = feedback.getMatchlist();
-			System.out.println(matchList.getModelurl());
+		for (HotMatchModel feedback : list){
+			System.out.println(feedback.getCountLike());
 		}
 	}
 	
@@ -71,7 +71,7 @@ public class FeedbackTest {
 		
 		Feedback feedback = new Feedback();
 		feedback.setId(21);
-		feedback.setLikeId(9);
+		feedback.setUserId(9);
 		
 		Matchlist matchList = new Matchlist();
 		matchList.setId(807);

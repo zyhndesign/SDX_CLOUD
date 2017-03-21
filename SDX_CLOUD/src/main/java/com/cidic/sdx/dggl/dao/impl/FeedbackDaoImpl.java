@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cidic.sdx.dggl.dao.FeedbackDao;
 import com.cidic.sdx.dggl.model.Feedback;
+import com.cidic.sdx.dggl.model.HotMatchModel;
 
 @Repository
 @Component
@@ -30,21 +32,43 @@ public class FeedbackDaoImpl implements FeedbackDao {
 	}
 
 	@Override
-	public List<Feedback> getFeedbackListPageByUserId(int userId,int limit, int offset) {
+	public List<HotMatchModel> getFeedbackListPageByUserId(int userId,int limit, int offset) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Feedback where likeId = ? order by createtime desc";
+		String hql = "select m.innerClothId as innerClothId,m.outClothId as outClothId, m.trousersId as trousersId,f.userId as userId,m.id as matchlistId,"
+				+ " count(*) as countLike from Feedback f inner join f.matchlist m where f.userId = ? group by f.matchlist order by countLike";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId); 
         query.setFirstResult(offset);    
         query.setMaxResults(limit); 
         @SuppressWarnings("unchecked")
-		List<Feedback> list = query.list();
-        return list;
+		List list = query.list();
+        
+        List<HotMatchModel> hotList = new ArrayList<HotMatchModel>(10);
+        HotMatchModel hotMatchModel = null;
+        for(int i=0;i<list.size();i++)
+        {
+        	hotMatchModel = new HotMatchModel();
+            Object []o = (Object[])list.get(i);
+            int innerClothId = (Integer)o[0];
+            int outClothId = (Integer)o[1];
+            int trousersId = (Integer)o[2];
+            int userid = (Integer)o[3];
+            int matchlistId = (Integer)o[4];
+            int countLike = ((Number)o[5]).intValue();
+            
+            hotMatchModel.setInnerClothId(innerClothId);
+            hotMatchModel.setOutClothId(outClothId);
+            hotMatchModel.setTrousersId(trousersId);
+            hotMatchModel.setUserId(userid);
+            hotMatchModel.setMatchlistId(matchlistId);
+            hotMatchModel.setCountLike(countLike);
+        }
+        return hotList;
 	}
 
 	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId){
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Feedback where likeId = ? and matchlistId = ?";
+		String hql = " from Feedback where userId = ? and matchlistId = ?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, userId); 
         query.setParameter(1, matchlistId); 

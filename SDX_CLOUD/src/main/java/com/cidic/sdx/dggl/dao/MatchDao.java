@@ -18,7 +18,11 @@ public interface MatchDao {
     
     public void updateShareStatus(int userId, int shareStatus);
     
+    public void updateDraftStatus(int userId, int draftStatus);
+    
     public List<Match> getMatchByShareStatus(int userId, int shareStatus, int offset, int limit);
     
     public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit);
+    
+    public List<Match> getMatchByDraftStatus(int userId, int offset, int limit);
 }

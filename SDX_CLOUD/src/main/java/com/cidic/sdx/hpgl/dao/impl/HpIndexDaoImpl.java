@@ -6,17 +6,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.cidic.sdx.dggl.model.CostumeModel;
+import com.cidic.sdx.dggl.model.HotMatchModel;
 import com.cidic.sdx.hpgl.dao.HpIndexDao;
 import com.cidic.sdx.hpgl.model.HPListModel;
 import com.cidic.sdx.hpgl.model.HPModel;
@@ -30,6 +35,9 @@ public class HpIndexDaoImpl implements HpIndexDao {
 	@Autowired
 	@Qualifier(value = "redisTemplate")
 	private RedisTemplate<String, String> redisTemplate;
+	
+	@Resource(name="redisTemplate")
+    HashOperations<String, String, String> hashOperations;
 	
 	private String cacheKey;
 	
@@ -269,5 +277,15 @@ public class HpIndexDaoImpl implements HpIndexDao {
 			hpModelList.add(hpModel);
 		}
 		return hpModelList;
+	}
+	
+	@Override
+	public CostumeModel getClothUrl(int id){
+		Map<Object, Object> map = hashOperations.getOperations().boundHashOps(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id).entries();
+		CostumeModel costumeModel = new CostumeModel();
+		costumeModel.setProductImageUrl(map.get("imageUrl1").toString());
+		costumeModel.setFrontViewUrl(map.get("imageUrl2").toString());
+		costumeModel.setBackViewUrl(map.get("imageUrl3").toString());
+		return costumeModel;
 	}
 }

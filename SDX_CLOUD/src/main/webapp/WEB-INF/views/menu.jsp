@@ -39,4 +39,20 @@
             </li>
         </ul>
     </li>
+
+    <li class="item">
+        <span class="glyphicon glyphicon-book sdxIcon"></span>
+        <a class="link">管理</a>
+        <!--<span class="glyphicon glyphicon-chevron-down sdxIcon rightIcon"></span>-->
+        <ul class="subMenu">
+            <li class="sItem">
+                <!--<span class="circle">原点</span>-->
+                <a class="sLink" href="dggl/brand/brandMgr">导购管理</a>
+            </li>
+            <li class="sItem">
+                <!--<span class="circle">原点</span>-->
+                <a class="sLink" href="hpgl/category/categoryMgr">搭配管理</a>
+            </li>
+        </ul>
+    </li>
 </ul>

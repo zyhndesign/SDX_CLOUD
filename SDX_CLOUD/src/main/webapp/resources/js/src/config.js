@@ -41,7 +41,8 @@ var config={
         productTagSet:"hpgl/tag/update",
         productInsert:"hpgl/hpManage/inset",
         productUpdate:"hpgl/hpManage/update",
-        productGetAll:"hpgl/hpIndexManage/getData"
+        productGetAll:"hpgl/hpIndexManage/getData",
+        guideGetAll:"dggl/appUser/getData"
 
     },
     dataTable:{

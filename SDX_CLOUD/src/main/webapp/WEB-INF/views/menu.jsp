@@ -47,6 +47,10 @@
         <ul class="subMenu">
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
+                <a class="sLink" href="dggl/brand/brandMgr">店铺管理</a>
+            </li>
+            <li class="sItem">
+                <!--<span class="circle">原点</span>-->
                 <a class="sLink" href="dggl/brand/brandMgr">导购管理</a>
             </li>
             <li class="sItem">

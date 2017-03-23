@@ -131,6 +131,12 @@ public class HpManageDaoImpl implements HpManageDao {
 					connection.sAdd(ser.serialize(key), ser.serialize(String.valueOf(id)));
 				}
 				
+				String[] timeArray = hpModel.getTimeCategory().split("\\,");
+				for (String s : timeArray){
+					String key = RedisVariableUtil.DATETIME_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR +s;
+					connection.sAdd(ser.serialize(key), ser.serialize(String.valueOf(id)));
+				}
+				
 				connection.hSet(ser.serialize("HpIDNum"),  ser.serialize(hpModel.getHp_num()), ser.serialize(String.valueOf(id)));
 
 				//链接缺失

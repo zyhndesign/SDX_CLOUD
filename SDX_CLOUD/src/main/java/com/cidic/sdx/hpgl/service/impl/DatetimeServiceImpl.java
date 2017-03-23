@@ -23,7 +23,7 @@ public class DatetimeServiceImpl implements DatetimeService {
 	private String datetime_key = RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR;
 	
 	@Autowired
-	@Qualifier(value = "brandDaoImpl")
+	@Qualifier(value = "dateTimeDaoImpl")
 	private DateTimeDao dateTimeDaoImpl;
 	
 	@Override

@@ -18,7 +18,6 @@
 
 
 <div class="right">
-    <div class="main">
         <div class="panel panel-default minHeight400">
             <div class="panel-heading">
                 <h1 class="panel-title">货品管理</h1>
@@ -102,7 +101,6 @@
                 </table>
             </div>
         </div>
-    </div>
 </div>
 
 </div>

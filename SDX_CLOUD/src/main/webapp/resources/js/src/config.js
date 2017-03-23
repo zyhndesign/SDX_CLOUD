@@ -8,7 +8,7 @@
 var config={
     baseUrl:"",
     qiNiu:{
-    	upTokenUrl:"hpManage/getUploadKey",
+    	upTokenUrl:"hpgl/hpManage/getUploadKey",
         uploadDomain:"http://qiniu-plupload.qiniudn.com/",
         bucketDomain:"http://oaycvzlnh.bkt.clouddn.com/",
         swfUrl:"resources/js/lib/Moxie.swf"
@@ -26,6 +26,10 @@ var config={
         brandAdd:"hpgl/brand/insert",
         brandUpdate:"hpgl/brand/update",
         brandDelete:"hpgl/brand/delete",
+        seasonGetAll:"hpgl/datetime/getData",
+        seasonAdd:"hpgl/datetime/insert",
+        seasonUpdate:"hpgl/datetime/update",
+        seasonDelete:"hpgl/datetime/delete",
         categoryGetAll:"hpgl/category/getData",
         categoryAdd:"hpgl/category/insert",
         categoryUpdate:"hpgl/category/update",
@@ -42,7 +46,8 @@ var config={
         productInsert:"hpgl/hpManage/inset",
         productUpdate:"hpgl/hpManage/update",
         productGetAll:"hpgl/hpIndexManage/getData",
-        guideGetAll:"dggl/appUser/getData"
+        guideGetAll:"dggl/appUser/getData",
+        guideDelete:"dggl/appUser/deleteUser"
 
     },
     dataTable:{

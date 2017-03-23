@@ -20,7 +20,6 @@
 </div>
 
 <div class="right">
-    <div class="main">
         <div class="panel panel-default minHeight400">
             <div class="panel-heading">
                 <h1 class="panel-title">颜色设置</h1>
@@ -29,7 +28,6 @@
                 <ul id="treeDemo" class="ztree"></ul>
             </div>
         </div>
-    </div>
 </div>
 
 </div>

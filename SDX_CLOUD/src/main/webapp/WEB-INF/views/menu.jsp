@@ -35,6 +35,10 @@
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
+                <a class="sLink" href="hpgl/datetime/seasonMgr">时间设置</a>
+            </li>
+            <li class="sItem">
+                <!--<span class="circle">原点</span>-->
                 <a class="sLink" href="hpgl/color/colorMgr">颜色设置</a>
             </li>
         </ul>
@@ -47,11 +51,11 @@
         <ul class="subMenu">
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="dggl/brand/brandMgr">店铺管理</a>
+                <a class="sLink" href="dggl/appUser/guideMgr">店铺管理</a>
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="dggl/brand/brandMgr">导购管理</a>
+                <a class="sLink" href="dggl/appUser/guideMgr">导购管理</a>
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->

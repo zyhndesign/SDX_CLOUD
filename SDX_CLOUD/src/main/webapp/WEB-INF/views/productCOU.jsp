@@ -25,7 +25,6 @@
 </div>
 
 <div class="right">
-    <div class="main">
         <div class="panel panel-default minHeight400">
             <div class="panel-heading">
                 <h1 class="panel-title">货品录入/修改</h1>
@@ -185,7 +184,6 @@
                 </form>
             </div>
         </div>
-    </div>
 </div>
 
 </div>

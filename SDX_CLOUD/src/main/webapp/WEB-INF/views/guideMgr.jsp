@@ -63,18 +63,6 @@
                                 <li class="list-group-item list-group-title">全部门店</li>
                                 <li class="list-group-item">长沙五一路店（14）</li>
                                 <li class="list-group-item">长沙五店（10）</li>
-                                <li class="list-group-item">长沙五一路店（14）</li>
-                                <li class="list-group-item">长沙五店（10）</li>
-                                <li class="list-group-item">长沙五一路店（14）</li>
-                                <li class="list-group-item">长沙五店（10）</li>
-                                <li class="list-group-item">长沙五一路店（14）</li>
-                                <li class="list-group-item">长沙五店（10）</li>
-                                <li class="list-group-item">长沙五一路店（14）</li>
-                                <li class="list-group-item">长沙五店（10）</li>
-                                <li class="list-group-item">长沙五一路店（14）</li>
-                                <li class="list-group-item">长沙五店（10）</li>
-                                <li class="list-group-item">长沙五一路店（14）</li>
-                                <li class="list-group-item">长沙五店（10）</li>
                             </ul>
                         </div>
                     </div>

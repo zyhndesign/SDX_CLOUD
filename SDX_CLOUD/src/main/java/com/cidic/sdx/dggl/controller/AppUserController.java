@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.model.UserListModel;
@@ -68,8 +69,10 @@ public class AppUserController {
 	}
 	
 	@RequestMapping(value = "/guideCOU", method = RequestMethod.GET)
-	public String guideCOU(Locale locale, Model model) {
-		return "guideCOU";
+	public ModelAndView guideCOU(Locale locale, Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("guideCOU");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/guidePerformance", method = RequestMethod.GET)

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cidic.sdx.dggl.model.Shop;
 import com.cidic.sdx.dggl.model.ShopListModel;
@@ -56,8 +57,10 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value = "/shopCOU", method = RequestMethod.GET)
-	public String shopCOU(Locale locale, Model model) {
-		return "shopCOU";
+	public ModelAndView shopCOU(Locale locale, Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("shopCOU");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)

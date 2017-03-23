@@ -78,6 +78,7 @@
 				/hpgl/color/*=authc
 				/hpgl/hpIndexManage/*=authc
 				/hpgl/size/*=authc
+				/hpgl/datetime/*=authc
 			</value>
 		</property>
 	</bean>	
@@ -101,6 +102,7 @@
 				/dggl/match/*=authc
 				/dggl/share/*=authc
 				/dggl/appVipUser/*=authc
+				/dggl/shop/*=authc
 			</value>
 		</property>
 	</bean>	

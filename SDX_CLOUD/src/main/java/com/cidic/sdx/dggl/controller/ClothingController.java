@@ -50,7 +50,7 @@ public class ClothingController {
 
 			listResultModel.setAaData(resultData.getList());
 			listResultModel.setiTotalRecords((int) resultData.getCount());
-			listResultModel.setiTotalDisplayRecords((int) resultData.getList().size());
+			listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
 			listResultModel.setSuccess(true);
 			
 			listResultModel.setiTotalRecords(0);

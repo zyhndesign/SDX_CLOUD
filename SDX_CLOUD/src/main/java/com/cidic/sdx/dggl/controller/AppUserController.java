@@ -1,6 +1,5 @@
 package com.cidic.sdx.dggl.controller;
 
-import java.util.Collection;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -205,7 +204,7 @@ public class AppUserController {
 			listResultModel.setAaData(userListModel.getList());
 			listResultModel.setsEcho(sEcho);
 			listResultModel.setiTotalRecords((int) userListModel.getCount());
-			listResultModel.setiTotalDisplayRecords((int) userListModel.getList().size());
+			listResultModel.setiTotalDisplayRecords((int) userListModel.getCount());
 			listResultModel.setSuccess(true);
 		} catch (Exception e) {
 			listResultModel.setSuccess(false);

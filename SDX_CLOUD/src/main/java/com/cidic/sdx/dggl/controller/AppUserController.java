@@ -74,6 +74,19 @@ public class AppUserController {
 		modelAndView.setViewName("guideCOU");
 		return modelAndView;
 	}
+
+	@RequestMapping(value = "/guideCOU/{id}", method = RequestMethod.GET)
+    public ModelAndView updateProductCOU(HttpServletRequest request, @PathVariable int id) {
+
+        User userModel = null;
+        if (id > 0) {
+            userModel = appUserServiceImpl.getById(id);
+        }
+        ModelAndView view = new ModelAndView();
+        view.setViewName("guideCOU");
+        view.addObject("guide", userModel);
+        return view;
+    }
 	
 	@RequestMapping(value = "/guidePerformance", method = RequestMethod.GET)
 	public String guidePerformance(Locale locale, Model model) {

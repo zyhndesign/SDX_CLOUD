@@ -19,4 +19,7 @@ public class ResponseCodeUtil {
 	
 	public static final int MATCH_OPERATION_SUCCESS = 1;
 	public static final int MATCH_OPERATION_FAILURE = 0;
+	
+	public static final int SHOP_OPERATION_SUCCESS = 1;
+	public static final int SHOP_OPERATION_FAILURE = 0;
 }

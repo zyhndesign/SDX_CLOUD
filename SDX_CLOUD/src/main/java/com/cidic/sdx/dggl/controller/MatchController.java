@@ -1,6 +1,7 @@
 package com.cidic.sdx.dggl.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +41,16 @@ public class MatchController {
 		resultModel.setMessage(ex.getErrMsg());
 		resultModel.setSuccess(false);
 		return resultModel;
+	}
+	
+	@RequestMapping(value = "/matchMgr", method = RequestMethod.GET)
+	public String matchMgr(Locale locale, Model model) {
+		return "matchMgr";
+	}
+	
+	@RequestMapping(value = "/matchOfGuide", method = RequestMethod.GET)
+	public String matchOfGuide(Locale locale, Model model) {
+		return "matchOfGuide";
 	}
 	
 	@RequestMapping(value = "/createMatch", method = RequestMethod.POST)

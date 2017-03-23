@@ -46,9 +46,9 @@ private static final Logger logger = LoggerFactory.getLogger(BrandSettingControl
 		return resultModel;
 	}
 	
-	@RequestMapping(value = "/datetimeMgr", method = RequestMethod.GET)
-	public String userMgr(Locale locale, Model model) {
-		return "brandMgr";
+	@RequestMapping(value = "/seasonMgr", method = RequestMethod.GET)
+	public String seasonMgr(Locale locale, Model model) {
+		return "seasonMgr";
 	}
 	
 	@RequestMapping(value = "/getData", method = RequestMethod.GET)  

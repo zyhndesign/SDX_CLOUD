@@ -1,6 +1,7 @@
 package com.cidic.sdx.dggl.controller;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,6 +62,21 @@ public class AppUserController {
 		return resultModel;
 	}
 
+	@RequestMapping(value = "/guideMgr", method = RequestMethod.GET)
+	public String guideMgr(Locale locale, Model model) {
+		return "guideMgr";
+	}
+	
+	@RequestMapping(value = "/guideCOU", method = RequestMethod.GET)
+	public String guideCOU(Locale locale, Model model) {
+		return "guideCOU";
+	}
+	
+	@RequestMapping(value = "/guidePerformance", method = RequestMethod.GET)
+	public String guidePerformance(Locale locale, Model model) {
+		return "guidePerformance";
+	}
+	
 	@RequestMapping(value = "/authorityCheck", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel authorityCheck(HttpServletRequest request, HttpServletResponse response,

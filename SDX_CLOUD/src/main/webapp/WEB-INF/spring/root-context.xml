@@ -113,6 +113,7 @@
 				/dggl/match/createMatch=authc
 				/dggl/share/*=authc
 				/dggl/appVipUser/getVipuserByShoppingGuideId=authc
+				/dggl/appUser/updatePwd=authc
 			</value>
 		</property>
 	</bean>	

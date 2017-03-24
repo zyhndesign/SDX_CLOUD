@@ -21,10 +21,10 @@
         <div class="right">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1 class="panel-title">货品管理</h1>
+                <h1 class="panel-title">搭配管理</h1>
             </div>
             <div class="panel-body" id="opt-body">
-                <div class="row">
+            <!--<div class="row">
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default">周数据</button>
                         <button type="button" class="btn btn-default">月数据</button>
@@ -37,7 +37,7 @@
                                 <button id="searchBtn" class="btn btn-primary searchBtn" type="button">搜索</button>
                             </span>
                     </div>
-                </div>
+                </div>-->
 
                 <table id="myTable" class="dataTable tableShowAsList">
                     <thead>
@@ -48,7 +48,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!--<tr>
                             <td>2017-09-08</td>
                             <td><img class="thumb" src="resources/images/app/short.png"></td>
                             <td><span class="glyphicon glyphicon-heart"></span>24</td>
@@ -82,7 +82,7 @@
                             <td>2017-09-08</td>
                             <td><img class="thumb" src="resources/images/app/short.png"></td>
                             <td><span class="glyphicon glyphicon-heart"></span>24</td>
-                        </tr>
+                        </tr>-->
 
                     </tbody>
                 </table>
@@ -96,13 +96,13 @@
 <%@ include file="loading.jsp"%>
 
 
-<script src="js/lib/jquery-2.0.3.min.js"></script>
-<script src="js/lib/jquery.dataTables.min.js"></script>
-<script src="js/lib/bootstrap.min.js"></script>
-<script src="js/lib/jquery.toastmessage.js"></script>
-<script src="js/src/config.js"></script>
-<script src="js/src/functions.js"></script>
-<script src="js/src/ZYTableHandler.js"></script>
-<script src="js/src/matchMgr.js"></script>
+<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
+<script src="resources/js/lib/jquery.dataTables.min.js"></script>
+<script src="resources/js/lib/bootstrap.min.js"></script>
+<script src="resources/js/lib/jquery.toastmessage.js"></script>
+<script src="resources/js/src/config.js"></script>
+<script src="resources/js/src/functions.js"></script>
+<script src="resources/js/src/ZYTableHandler.js"></script>
+<script src="resources/js/src/matchMgr.js"></script>
 </body>
 </html>

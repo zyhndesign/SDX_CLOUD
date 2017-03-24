@@ -5,26 +5,52 @@ function ZYFormHandler(params){
 /**
  * form控件提交form，form-data
  * @param form
+ * @param data 额外的参数
+ * @param isJsonString 是否采用json字符串形式
  */
-ZYFormHandler.prototype.submitForm=function(form){
+ZYFormHandler.prototype.submitForm=function(form,data,isJsonString){
     var me=this;
     functions.showLoading();
-    $(form).ajaxSubmit({
-        dataType:"json",
-        success:function(response){
-            if(response.success){
-                $().toastmessage("showSuccessToast",config.messages.optSuccess);
-                setTimeout(function(){
-                    window.location.href=me.redirectUrl;
-                },3000);
-            }else{
-                functions.ajaxReturnErrorHandler(response.message);
+    if(isJsonString){
+        $.ajax({
+            dataType:"json",
+            type:"post",
+            contentType :"application/json; charset=UTF-8",
+            url:$(form).attr("action"),
+            data:data,
+            success:function(response){
+                if(response.success){
+                    $().toastmessage("showSuccessToast",config.messages.optSuccess);
+                    setTimeout(function(){
+                        window.location.href=me.redirectUrl;
+                    },3000);
+                }else{
+                    functions.ajaxReturnErrorHandler(response.message);
+                }
+            },
+            error:function(){
+                functions.ajaxErrorHandler();
             }
-        },
-        error:function(){
-            functions.ajaxErrorHandler();
-        }
-    });
+        })
+    }else{
+        $(form).ajaxSubmit({
+            dataType:"json",
+            data:data,
+            success:function(response){
+                if(response.success){
+                    $().toastmessage("showSuccessToast",config.messages.optSuccess);
+                    setTimeout(function(){
+                        window.location.href=me.redirectUrl;
+                    },3000);
+                }else{
+                    functions.ajaxReturnErrorHandler(response.message);
+                }
+            },
+            error:function(){
+                functions.ajaxErrorHandler();
+            }
+        });
+    }
 }
 /**
  * 用ajax提交form，数据以json字符串的形式提交

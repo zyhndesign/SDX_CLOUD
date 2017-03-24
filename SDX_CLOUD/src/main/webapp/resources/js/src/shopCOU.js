@@ -19,7 +19,7 @@ $(document).ready(function(){
             }
         },
         submitHandler:function(form) {
-            formHandler.submitForm(form);
+            formHandler.submitForm(form,JSON.stringify($(form).serializeObject()),true);
         }
     });
 });

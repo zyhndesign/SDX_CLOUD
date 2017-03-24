@@ -5,6 +5,9 @@
         <html>
         <head>
         <%@ include file="head.jsp"%>
+        <script>
+            var shopId="${guide.shop.id}";
+        </script>
         </head>
         <body>
 
@@ -28,37 +31,39 @@
 
                 <c:choose>
                 <c:when test="${empty guide}">
-                <form class="form-horizontal" id="myForm" action="dggl/appUser/create" method="post">
+                <form class="form-horizontal" id="myForm" action="dggl/appUser/createUser" method="post">
                 </c:when>
                 <c:otherwise>
-                <form class="form-horizontal" id="myForm" action="dggl/appUser/update" method="post">
-                <input type="hidden" name="id" value="${guide.id}">
+                <form class="form-horizontal" id="myForm" action="dggl/appUser/updateUser" method="post">
+                <input type="hidden" name="userId" value="${guide.id}">
                 </c:otherwise>
                 </c:choose>
 
+                    <input type="hidden" name="headicon" value="${guide.headicon}">
                     <div class="form-group">
                         <label  class="control-label col-md-2">姓名*</label>
                         <div class="col-md-6 input-group">
-                            <input type="text" class="form-control" value="${guide.name}" name="name">
+                            <input type="text" class="form-control" value="${guide.username}" name="username">
                         </div>
                     </div>
                     <div class="form-group">
                         <label  class="control-label col-md-2">店铺*</label>
                         <div class="col-md-6 input-group">
-                            <select class="form-control" name="shop">
-                                <c:forEach var="s" items="${shops}">
-                                    <c:choose>
-                                    <c:when test="${guide.shop==s.id}">
-                                    <option value="${s.id}" selected="selected">${s.shopname}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <option value="${s.id}">${s.shopname}</option>
-                                    </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
+                            <select id="allShop" class="form-control" name="shopId">
+
                             </select>
                         </div>
                     </div>
+
+                    <c:if test="${empty guide}">
+                    <div class="form-group">
+                    <label  class="control-label col-md-2">密码*</label>
+                    <div class="col-md-6 input-group">
+                    <input type="text" class="form-control" value="${guide.password}" name="password">
+                    </div>
+                    </div>
+                    </c:if>
+
                     <hr>
                     <div class="form-group">
                         <button type="submit" class="col-md-offset-2 btn btn-primary saveBtn">保存</button>
@@ -72,18 +77,16 @@
 </div>
 
 
-<div class="loading hidden" id="loading">
-    <span class="text">Loading...</span>
-</div>
+<%@ include file="loading.jsp"%>
 
-<script src="js/lib/jquery-2.0.3.min.js"></script>
-<script src="js/lib/jquery.form.js"></script>
-<script src="js/lib/jquery.validate.min.js"></script>
-<script src="js/lib/bootstrap.min.js"></script>
-<script src="js/lib/jquery.toastmessage.js"></script>
-<script src="js/src/config.js"></script>
-<script src="js/src/functions.js"></script>
-<script src="js/src/ZYFormHandler.js"></script>
-<script src="js/src/guideCOU.js"></script>
+<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
+<script src="resources/js/lib/jquery.form.js"></script>
+<script src="resources/js/lib/jquery.validate.min.js"></script>
+<script src="resources/js/lib/bootstrap.min.js"></script>
+<script src="resources/js/lib/jquery.toastmessage.js"></script>
+<script src="resources/js/src/config.js"></script>
+<script src="resources/js/src/functions.js"></script>
+<script src="resources/js/src/ZYFormHandler.js"></script>
+<script src="resources/js/src/guideCOU.js"></script>
 </body>
 </html>

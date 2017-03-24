@@ -94,10 +94,17 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public MatchListModel getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
-		MatchListModel matchListModel = new MatchListModel();
-		matchListModel.setList(matchDaoImpl.getMatchByShareStatus(userId,shareStatus, offset, limit));
-		matchListModel.setCount(matchDaoImpl.getMatchShareCountByUser(shareStatus));
-		return matchListModel;
+		try{
+			MatchListModel matchListModel = new MatchListModel();
+			matchListModel.setList(matchDaoImpl.getMatchByShareStatus(userId,shareStatus, offset, limit));
+			matchListModel.setCount(matchDaoImpl.getMatchShareCountByUser(userId,shareStatus));
+			return matchListModel;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 }

@@ -16,7 +16,7 @@ public interface MatchDao {
     
     public int getAppMatchShareCountByUser(int userId, int shareStatus);
     
-    public int getMatchShareCountByUser(int shareStatus);
+    public int getMatchShareCountByUser(int userId,int shareStatus);
     
     public void updateShareStatus(int userId, int shareStatus);
     

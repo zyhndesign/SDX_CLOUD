@@ -139,9 +139,12 @@ public class MatchController {
 	@RequestMapping(value = "/getMatchByShareStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public ListResultModel getMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
-		 @RequestParam int shareStatus, @RequestParam(required=false) int userId, 
+		 @RequestParam int shareStatus, @RequestParam(required=false) Integer userId, 
 		 @RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho){
 		
+		if (userId == null){
+			userId = 0;
+		}
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 		try {

@@ -80,7 +80,7 @@
 				/hpgl/size/*=authc
 				/hpgl/datetime/*=authc
 				/dggl/shop/*=anon
-				/dggl/match/getMatchByShareStatus=authc
+				/dggl/match/getMatchByShareStatus=anon
 				/dggl/appUser/getData=authc
 				/dggl/appUser/createUser=authc
 				/dggl/appUser/updateUser=authc

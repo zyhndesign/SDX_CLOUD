@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cidic.sdx.dggl.model.Shop;
 import com.cidic.sdx.dggl.model.ShopListModel;
+import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.service.ShopService;
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.controller.BrandSettingController;
@@ -61,6 +63,19 @@ public class ShopController {
 		modelAndView.setViewName("shopCOU");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/shopCOU/{id}", method = RequestMethod.GET)
+    public ModelAndView updateShopCOU(HttpServletRequest request, @PathVariable int id) {
+
+        Shop shop = null;
+        if (id > 0) {
+            shop = shopServiceImpl.loadShopById(id);
+        }
+        ModelAndView view = new ModelAndView();
+        view.setViewName("shopCOU");
+        view.addObject("shop", shop);
+        return view;
+    }
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody

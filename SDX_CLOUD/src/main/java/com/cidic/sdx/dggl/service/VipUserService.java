@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cidic.sdx.dggl.model.Vipuser;
+import com.cidic.sdx.dggl.model.VipuserModel;
 
 
 public interface VipUserService {
@@ -18,7 +19,7 @@ public interface VipUserService {
     public List<Vipuser> getVipuserByShoppingGuideId(int shoppingGuideId);
     
     //用于后台管理VIP客户
-    public List<Vipuser> getVipuserByPage(int limit, int offset);
+    public VipuserModel getVipuserByPage(int limit, int offset);
     
     //根据卡号查询Vip信息
     public Optional<Vipuser> getVipuserByCardNumber(String cardNumber);

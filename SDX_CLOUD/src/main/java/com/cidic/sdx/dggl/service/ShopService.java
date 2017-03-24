@@ -12,4 +12,6 @@ public interface ShopService {
 	public int deleteShop(Shop shop);
 	
 	public ShopListModel getShopList(int iDisplayStart,int iDisplayLength);
+	
+	public Shop loadShopById(int id);
 }

@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cidic.sdx.dggl.model.MatchListModel;
 import com.cidic.sdx.dggl.model.Vipuser;
+import com.cidic.sdx.dggl.model.VipuserModel;
 import com.cidic.sdx.dggl.service.VipUserService;
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.controller.BrandSettingController;
+import com.cidic.sdx.hpgl.model.ListResultModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
 import com.cidic.sdx.util.ResponseCodeUtil;
 import com.cidic.sdx.util.WebRequestUtil;
@@ -113,16 +116,23 @@ public class VipUserController {
 	// 用于后台管理VIP客户
 	@RequestMapping(value = "/getVipuserByPage", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultModel getVipuserByPage(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int limit, @RequestParam int offset) {
+	public ListResultModel getVipuserByPage(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
-		resultModel = new ResultModel();
-		List<Vipuser> feedBackList = vipUserServiceImpl.getVipuserByPage(limit, offset);
-
-		resultModel.setResultCode(200);
-		resultModel.setSuccess(true);
-		resultModel.setObject(feedBackList);
-		return resultModel;
+		ListResultModel listResultModel = new ListResultModel();
+		try {
+			VipuserModel vipuserModel = vipUserServiceImpl.getVipuserByPage(iDisplayStart, iDisplayLength);
+			listResultModel.setAaData(vipuserModel.getList());
+			listResultModel.setsEcho(sEcho);
+			listResultModel.setiTotalRecords(vipuserModel.getCount());
+			listResultModel.setiTotalDisplayRecords(vipuserModel.getCount());
+			listResultModel.setSuccess(true);
+		}
+		catch (Exception e) {
+			listResultModel.setSuccess(false);
+		}
+		return listResultModel;
+		
 	}
 
 	// 根据卡号查询Vip信息

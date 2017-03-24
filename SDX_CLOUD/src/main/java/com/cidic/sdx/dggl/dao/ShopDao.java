@@ -15,4 +15,6 @@ public interface ShopDao {
 	public List<Shop> getShopList(int iDisplayStart,int iDisplayLength);
 	
 	public Long getCountShop();
+	
+	public Shop loadShopById(int id);
 }

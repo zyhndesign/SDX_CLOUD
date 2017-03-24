@@ -19,6 +19,8 @@ public interface VipUserDao {
     //用于后台管理VIP客户
     public List<Vipuser> getVipuserByPage(int limit, int offset);
     
+    public int getVipuserCount();
+    
     //根据卡号查询Vip信息
     public Optional<Vipuser> getVipuserByCardNumber(String cardNumber);
     

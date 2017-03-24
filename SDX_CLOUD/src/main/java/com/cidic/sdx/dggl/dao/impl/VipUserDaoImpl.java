@@ -94,6 +94,15 @@ public class VipUserDaoImpl implements VipUserDao {
 	@Override
 	public int getCountVipuserByShoppingGuideId(int shoppingGuideId) {
 		Session session = this.getSessionFactory().getCurrentSession();
+		final String hql = " select count(u) from User u where shopId = ?"; 
+        final Query query = session.createQuery(hql); 
+        query.setParameter(0, shoppingGuideId);
+        return (int)query.uniqueResult();
+	}
+
+	@Override
+	public int getVipuserCount() {
+		Session session = this.getSessionFactory().getCurrentSession();
 		final String hql = " select count(u) from User u"; 
         final Query query = session.createQuery(hql); 
         return (int)query.uniqueResult();

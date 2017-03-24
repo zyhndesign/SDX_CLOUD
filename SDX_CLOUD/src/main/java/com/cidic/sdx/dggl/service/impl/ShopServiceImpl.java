@@ -67,4 +67,9 @@ public class ShopServiceImpl implements ShopService {
 		return shopListModel;
 	}
 
+	@Override
+	public Shop loadShopById(int id) {
+		return shopDaoImpl.loadShopById(id);
+	}
+
 }

@@ -79,6 +79,18 @@
 				/hpgl/hpIndexManage/*=authc
 				/hpgl/size/*=authc
 				/hpgl/datetime/*=authc
+				/dggl/shop/*=authc
+				/dggl/match/getMatchByShareStatus=authc
+				/dggl/appUser/getData=authc
+				/dggl/appUser/createUser=authc
+				/dggl/appUser/updateUser=authc
+				/dggl/appUser/deleteUser=authc
+				/dggl/appUser/getDataByCondition=authc
+				/dggl/appVipUser/create=authc
+				/dggl/appVipUser/update=authc
+				/dggl/appVipUser/delete=authc
+				/dggl/appVipUser/getVipuserByPage=authc
+				/dggl/appVipUser/getVipuserByCardNumber=authc
 			</value>
 		</property>
 	</bean>	
@@ -94,15 +106,13 @@
 		<property name="unauthorizedUrl" value="/dggl/appUser/loginFailure"></property>
 		<property name="filterChainDefinitions">
 			<value>
-				/dggl/appUser/createUser=authc
-				/dggl/appUser/updateUser=authc
-				/dggl/appUser/deleteUser=authc
-				/dggl/appUser/getData=authc
 				/dggl/feedback/*=authc
-				/dggl/match/*=authc
+				/dggl/match/getDataByUserId=authc
+				/dggl/match/deleteMatch=authc
+				/dggl/match/updateMatch=authc
+				/dggl/match/createMatch=authc
 				/dggl/share/*=authc
-				/dggl/appVipUser/*=authc
-				/dggl/shop/*=authc
+				/dggl/appVipUser/getVipuserByShoppingGuideId=authc
 			</value>
 		</property>
 	</bean>	

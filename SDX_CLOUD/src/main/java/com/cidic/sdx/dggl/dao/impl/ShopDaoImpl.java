@@ -58,4 +58,10 @@ public class ShopDaoImpl implements ShopDao {
         return (Long)query.uniqueResult();
 	}
 
+	@Override
+	public Shop loadShopById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		return (Shop)session.get(Shop.class, id);
+	}
+
 }

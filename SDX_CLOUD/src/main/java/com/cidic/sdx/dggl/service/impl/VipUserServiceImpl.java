@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.VipUserDao;
 import com.cidic.sdx.dggl.model.Vipuser;
+import com.cidic.sdx.dggl.model.VipuserModel;
 import com.cidic.sdx.dggl.service.VipUserService;
 import com.cidic.sdx.util.ResponseCodeUtil;
 
@@ -74,16 +75,17 @@ public class VipUserServiceImpl implements VipUserService {
 	}
 
 	@Override
-	public List<Vipuser> getVipuserByPage(int limit, int offset) {
-
+	public VipuserModel getVipuserByPage(int limit, int offset) {
+		VipuserModel vipuserModel = new VipuserModel();
 		try{
-			return vipUserDaoImpl.getVipuserByPage(limit, offset);
+			vipuserModel.setList(vipUserDaoImpl.getVipuserByPage(limit, offset));
+			vipuserModel.setCount(vipUserDaoImpl.getVipuserCount());
 		}
 		catch(Exception e){
 			
 			e.printStackTrace();
-			return Collections.emptyList();
 		}
+		return vipuserModel;
 	}
 
 	@Override

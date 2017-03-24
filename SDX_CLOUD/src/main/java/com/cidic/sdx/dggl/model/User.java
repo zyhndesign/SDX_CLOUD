@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,7 +35,7 @@ public class User implements java.io.Serializable {
 	private Integer id;
 	private String serialnumber;
 	private String phone;
-	private int shopId;
+	private Shop shop;
 	private Date entrytime;
 	private Byte gender;
 	private String username;
@@ -59,13 +61,12 @@ public class User implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	public User(String username, String password, String headicon, String phone, int shopId, Date entrytime,
+	public User(String username, String password, String headicon, String phone, Date entrytime,
 			Byte gender, byte valid, Date createtime, String slot, Set<Vipuser> vipusers, Set<Match> matches) {
 		this.username = username;
 		this.password = password;
 		this.headicon = headicon;
 		this.phone = phone;
-		this.shopId = shopId;
 		this.entrytime = entrytime;
 		this.gender = gender;
 		this.valid = valid;
@@ -132,13 +133,14 @@ public class User implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	@Column(name = "shopId")
-	public int getShopId() {
-		return this.shopId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "shopId", nullable = false)
+	public Shop getShop() {
+		return this.shop;
 	}
 
-	public void setShopId(int shopId) {
-		this.shopId = shopId;
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

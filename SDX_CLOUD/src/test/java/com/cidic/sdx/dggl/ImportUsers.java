@@ -7,7 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.cidic.sdx.dggl.model.Shop;
 import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.service.AppUserService;
 
@@ -31,6 +34,15 @@ public class ImportUsers {
 	@Qualifier("appUserServiceImpl")
 	private AppUserService appUserServiceImpl;
 	
+	private static final Map<String, String> map = new HashMap<String, String>() {
+		
+		private static final long serialVersionUID = 1L;
+
+		{
+			put("439020_柜店_长沙五一广场总店", "1");
+
+		}
+	};
 	
 	@Test
 	public void testInsertUser() {
@@ -90,7 +102,9 @@ public class ImportUsers {
 					user.setPassword("111111");
 
 					String shopName = getValue(cell3);
-					user.setShopId(1);
+					Shop shop = new Shop();
+					shop.setId(Integer.parseInt(map.get(shopName)));
+					user.setShop(shop);
 					
 					String entryTime = getValue(cell4);
 					user.setEntrytime(stringToDate(entryTime));

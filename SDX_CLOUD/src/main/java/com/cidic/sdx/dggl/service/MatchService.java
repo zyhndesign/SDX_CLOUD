@@ -2,6 +2,7 @@ package com.cidic.sdx.dggl.service;
 
 import java.util.List;
 import com.cidic.sdx.dggl.model.Match;
+import com.cidic.sdx.dggl.model.MatchListModel;
 
 public interface MatchService {
 
@@ -15,7 +16,7 @@ public interface MatchService {
     
     public void updateShareStatus(int userId, int shareStatus);
     
-    public List<Match> getMatchByShareStatus(int userId, int shareStatus, int offset, int limit);
+    public MatchListModel getMatchByShareStatus(int userId, int shareStatus, int offset, int limit);
     
     public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit);
 }

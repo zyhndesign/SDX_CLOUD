@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.MatchDao;
 import com.cidic.sdx.dggl.model.Match;
+import com.cidic.sdx.dggl.model.MatchListModel;
 import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.MatchService;
 import com.cidic.sdx.util.ResponseCodeUtil;
@@ -79,8 +80,11 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public List<Match> getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
-		return matchDaoImpl.getMatchByShareStatus(userId, shareStatus, offset, limit);
+	public MatchListModel getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
+		MatchListModel matchListModel = new MatchListModel();
+		matchListModel.setList(matchDaoImpl.getMatchByShareStatus(userId, shareStatus, offset, limit));
+		matchListModel.setCount(matchDaoImpl.getMatchShareCountByUser(userId, shareStatus));
+		return matchListModel;
 	}
 
 	@Override

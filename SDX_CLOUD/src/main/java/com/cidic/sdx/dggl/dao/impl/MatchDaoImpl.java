@@ -88,12 +88,39 @@ public class MatchDaoImpl implements MatchDao {
 	}
 
 	@Override
-	public List<Match> getMatchByShareStatus(int shareStatus, int offset, int limit) {
+	public List<Match> getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Match where sharestatus = ? and draftstatus = ?";
-		Query query = session.createQuery(hql);
-        query.setParameter(0, shareStatus);
-        query.setParameter(1, 0);
+		String hql = "";
+		Query query = null;
+		if (shareStatus == -1){
+			if (userId == 0){
+				hql = " from Match where draftstatus = ?";
+				query = session.createQuery(hql);
+		        query.setParameter(0, 0);
+			}
+			else{
+				hql = " from Match where userId = ? and draftstatus = ?";
+				query = session.createQuery(hql);
+				query.setParameter(0, userId);
+		        query.setParameter(1, 0);
+			}
+		}
+		else{
+			if (userId == 0){
+				hql = " from Match where sharestatus = ? and draftstatus = ?";
+				query = session.createQuery(hql);
+				query.setParameter(0, shareStatus);
+				query.setParameter(1, 0);
+			}
+			else{
+				hql = " from Match where sharestatus = ? and draftstatus = ? and userId = ?";
+				query = session.createQuery(hql);
+				query.setParameter(0, shareStatus);
+				query.setParameter(1, 0);
+				query.setParameter(2, userId);
+			}
+		}
+		
         query.setFirstResult(offset);    
         query.setMaxResults(limit);
         query.setCacheable(true);

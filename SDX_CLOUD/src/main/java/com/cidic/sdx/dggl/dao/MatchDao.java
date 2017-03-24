@@ -22,7 +22,7 @@ public interface MatchDao {
     
     public void updateDraftStatus(int userId, int draftStatus);
     
-    public List<Match> getMatchByShareStatus(int shareStatus, int offset, int limit);
+    public List<Match> getMatchByShareStatus(int userId,int shareStatus, int offset, int limit);
     
     public List<Match> getAppMatchByShareStatus(int userId, int shareStatus, int offset, int limit);
     

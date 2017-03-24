@@ -11,14 +11,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.MatchListModel;
+import com.cidic.sdx.dggl.model.User;
+import com.cidic.sdx.dggl.service.AppUserService;
 import com.cidic.sdx.dggl.service.MatchService;
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.model.ListResultModel;
@@ -34,6 +38,10 @@ public class MatchController {
 	@Qualifier(value = "matchServiceImpl")
 	private MatchService matchServiceImpl;
 
+	@Autowired
+	@Qualifier(value = "appUserServiceImpl")
+	private AppUserService appUserServiceImpl;
+	
 	private ResultModel resultModel = null;
 
 	@ExceptionHandler(SdxException.class)
@@ -50,10 +58,23 @@ public class MatchController {
 		return "matchMgr";
 	}
 	
-	@RequestMapping(value = "/matchOfGuide", method = RequestMethod.GET)
+	@RequestMapping(value = "/matchOfGuide/{id}", method = RequestMethod.GET)
 	public String matchOfGuide(Locale locale, Model model) {
 		return "matchOfGuide";
 	}
+	
+	@RequestMapping(value = "/matchOfGuide/{id}", method = RequestMethod.GET)
+    public ModelAndView matchOfGuide(HttpServletRequest request, @PathVariable int id) {
+
+        User userModel = null;
+        if (id > 0) {
+            userModel = appUserServiceImpl.findUserById(id).get();
+        }
+        ModelAndView view = new ModelAndView();
+        view.setViewName("matchOfGuide");
+        view.addObject("user", userModel);
+        return view;
+    }
 	
 	@RequestMapping(value = "/createMatch", method = RequestMethod.POST)
 	@ResponseBody
@@ -123,13 +144,13 @@ public class MatchController {
 	@RequestMapping(value = "/getMatchByShareStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public ListResultModel getMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
-		 @RequestParam int shareStatus,@RequestParam(required=false) int userId, 
+		 @RequestParam int shareStatus, @RequestParam(required=false) int userId, 
 		 @RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho){
 		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 		try {
-			MatchListModel matchListModel = matchServiceImpl.getMatchByShareStatus(userId,shareStatus, iDisplayStart, iDisplayLength);
+			MatchListModel matchListModel = matchServiceImpl.getMatchByShareStatus(userId, shareStatus, iDisplayStart, iDisplayLength);
 			listResultModel.setAaData(matchListModel.getList());
 			listResultModel.setsEcho(sEcho);
 			listResultModel.setiTotalRecords(matchListModel.getCount());

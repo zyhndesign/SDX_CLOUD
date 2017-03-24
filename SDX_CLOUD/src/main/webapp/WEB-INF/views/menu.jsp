@@ -59,7 +59,7 @@
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="dggl/match/matchMgr">搭配管理</a>
+                <a class="sLink" href="dggl/match/matchMgr">热门搭配</a>
             </li>
         </ul>
     </li>

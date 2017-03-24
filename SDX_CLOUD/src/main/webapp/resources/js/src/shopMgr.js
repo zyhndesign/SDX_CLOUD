@@ -7,6 +7,7 @@ var shopMgr=(function(config,functions){
 $(document).ready(function(){
 
     var table=new ZYTableHandler({
+        removeUrl:config.ajaxUrls.shopDelete,
         ownTable:function(){
             var ownTable=$("#myTable").dataTable({
                 "bServerSide": true,
@@ -68,8 +69,7 @@ $(document).ready(function(){
             });
 
             return ownTable;
-        },
-        removeUrl:config.ajaxUrls.shopDelete
+        }
     });
 
     $("#myTable").on("click","a.remove",function(){

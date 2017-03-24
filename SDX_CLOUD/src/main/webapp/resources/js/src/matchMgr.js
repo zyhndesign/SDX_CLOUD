@@ -34,7 +34,10 @@ $(document).ready(function(){
                     }
                 ] ,
                 "fnServerParams": function ( aoData ) {
-
+                    aoData.push({
+                        name:"shareStatus",
+                        value:-1
+                    })
                 },
                 "fnServerData": function(sSource, aoData, fnCallback) {
 

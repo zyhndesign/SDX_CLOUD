@@ -26,6 +26,7 @@ var productMgr=(function(config,functions){
 $(document).ready(function(){
 
     var table=new ZYTableHandler({
+        removeUrl:"#",
         ownTable:function(){
             var ownTable=$("#myTable").dataTable({
                 "bServerSide": true,
@@ -124,8 +125,7 @@ $(document).ready(function(){
             });
 
             return ownTable;
-        },
-        removeUrl:"#"
+        }
     });
 
     $("#myTable").on("click","a.remove",function(){

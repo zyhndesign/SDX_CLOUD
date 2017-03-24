@@ -21,7 +21,7 @@
         <div class="right">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1 class="panel-title">搭配管理</h1>
+                <h1 class="panel-title">热门搭配</h1>
             </div>
             <div class="panel-body" id="opt-body">
             <!--<div class="row">

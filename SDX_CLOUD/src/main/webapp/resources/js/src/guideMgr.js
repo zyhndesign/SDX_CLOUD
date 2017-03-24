@@ -36,6 +36,7 @@ var guideMgr=(function(config,functions){
 $(document).ready(function(){
 
     var table=new ZYTableHandler({
+        removeUrl:config.ajaxUrls.guideDelete,
         ownTable:function(){
             var ownTable=$("#myTable").dataTable({
                 "bServerSide": true,
@@ -63,7 +64,8 @@ $(document).ready(function(){
                     },
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
-                            return  '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
+                            return  '<a href="dggl/match/matchOfGuide/'+oObj.aData.id+'">搭配</a>&nbsp;&nbsp;'+
+                                '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
                                 '<a href="'+oObj.aData.id+'" class="remove">删除</a>';
                         }
                     }
@@ -112,8 +114,7 @@ $(document).ready(function(){
             });
 
             return ownTable;
-        },
-        removeUrl:config.ajaxUrls.guideDelete
+        }
     });
 
     $("#myTable").on("click","a.remove",function(){

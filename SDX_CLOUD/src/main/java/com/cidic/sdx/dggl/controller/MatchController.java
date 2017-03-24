@@ -59,11 +59,6 @@ public class MatchController {
 	}
 	
 	@RequestMapping(value = "/matchOfGuide/{id}", method = RequestMethod.GET)
-	public String matchOfGuide(Locale locale, Model model) {
-		return "matchOfGuide";
-	}
-	
-	@RequestMapping(value = "/matchOfGuide/{id}", method = RequestMethod.GET)
     public ModelAndView matchOfGuide(HttpServletRequest request, @PathVariable int id) {
 
         User userModel = null;

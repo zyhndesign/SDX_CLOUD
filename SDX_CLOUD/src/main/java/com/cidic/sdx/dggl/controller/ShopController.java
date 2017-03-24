@@ -123,7 +123,7 @@ public class ShopController {
 			listResultModel.setAaData(shopListModel.getList());
 			listResultModel.setsEcho(sEcho);
 			listResultModel.setiTotalRecords((int)shopListModel.getCount().longValue());
-			listResultModel.setiTotalDisplayRecords((int)shopListModel.getList().size());
+			listResultModel.setiTotalDisplayRecords((int)shopListModel.getCount().longValue());
 			listResultModel.setSuccess(true);
 		}
 

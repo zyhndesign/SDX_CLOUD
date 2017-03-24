@@ -123,12 +123,13 @@ public class MatchController {
 	@RequestMapping(value = "/getMatchByShareStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public ListResultModel getMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
-		 @RequestParam int shareStatus, @RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho){
+		 @RequestParam int shareStatus,@RequestParam(required=false) int userId, 
+		 @RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho){
 		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 		try {
-			MatchListModel matchListModel = matchServiceImpl.getMatchByShareStatus(shareStatus, iDisplayStart, iDisplayLength);
+			MatchListModel matchListModel = matchServiceImpl.getMatchByShareStatus(userId,shareStatus, iDisplayStart, iDisplayLength);
 			listResultModel.setAaData(matchListModel.getList());
 			listResultModel.setsEcho(sEcho);
 			listResultModel.setiTotalRecords(matchListModel.getCount());

@@ -83,7 +83,7 @@
 				/dggl/match/getMatchByShareStatus=authc
 				/dggl/appUser/getData=authc
 				/dggl/appUser/createUser=authc
-				/dggl/appUser/updateUser=anon
+				/dggl/appUser/updateUser=authc
 				/dggl/appUser/deleteUser=authc
 				/dggl/appUser/getDataByCondition=authc
 				/dggl/appVipUser/create=authc

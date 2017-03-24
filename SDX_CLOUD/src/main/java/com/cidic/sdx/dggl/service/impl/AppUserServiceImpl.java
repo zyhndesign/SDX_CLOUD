@@ -19,6 +19,7 @@ import com.cidic.sdx.util.ResponseCodeUtil;
 @Repository
 @Component
 @Qualifier(value = "appUserServiceImpl")
+@Transactional
 public class AppUserServiceImpl implements AppUserService {
 
 	@Autowired

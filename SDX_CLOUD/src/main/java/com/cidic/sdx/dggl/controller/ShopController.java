@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.controller;
 
+import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +84,7 @@ public class ShopController {
 			@RequestBody Shop shop) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
+		shop.setCreatetime(new Date());
 		int result = shopServiceImpl.createShop(shop);
 		if (result == ResponseCodeUtil.SHOP_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
@@ -99,6 +101,7 @@ public class ShopController {
 			@RequestBody Shop shop) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
+		shop.setCreatetime(new Date());
 		int result = shopServiceImpl.updateShop(shop);
 		if (result == ResponseCodeUtil.SHOP_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);

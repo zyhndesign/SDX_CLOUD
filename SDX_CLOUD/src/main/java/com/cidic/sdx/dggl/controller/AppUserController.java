@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cidic.sdx.dggl.model.Shop;
 import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.model.UserListModel;
 import com.cidic.sdx.dggl.service.AppUserService;
@@ -138,13 +139,17 @@ public class AppUserController {
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel createUser(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam String username, @RequestParam String password) {
+			@RequestParam String username, @RequestParam String password,@RequestParam(required=false) String headIcon,@RequestParam int shopId) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		User userObject = new User();
 		userObject.setPassword(password);
 		userObject.setUsername(username);
 		userObject.setValid(1);
+		userObject.setHeadicon(headIcon);
+		Shop shop = new Shop();
+		shop.setId(shopId);
+		userObject.setShop(shop);
 		int result = appUserServiceImpl.createUser(userObject);
 		if (result == ResponseCodeUtil.UESR_CREATE_EXIST) {
 			throw new SdxException(300, "用户已存在");
@@ -160,7 +165,7 @@ public class AppUserController {
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel updateUser(HttpServletRequest request, HttpServletResponse response, @RequestParam int userId,
-			@RequestParam String username, @RequestParam String password, @RequestParam String headIcon) {
+			@RequestParam String username, @RequestParam String password, @RequestParam(required=false) String headIcon,@RequestParam int shopId) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		User userObject = new User();
@@ -168,6 +173,9 @@ public class AppUserController {
 		userObject.setUsername(username);
 		userObject.setHeadicon(headIcon);
 		userObject.setId(userId);
+		Shop shop = new Shop();
+		shop.setId(shopId);
+		userObject.setShop(shop);
 		int result = appUserServiceImpl.updateUser(userObject);
 		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
 			resultModel.setResultCode(200);

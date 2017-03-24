@@ -83,7 +83,7 @@
 				/dggl/match/getMatchByShareStatus=authc
 				/dggl/appUser/getData=authc
 				/dggl/appUser/createUser=authc
-				/dggl/appUser/updateUser=authc
+				/dggl/appUser/updateUser=anon
 				/dggl/appUser/deleteUser=authc
 				/dggl/appUser/getDataByCondition=authc
 				/dggl/appVipUser/create=authc
@@ -111,6 +111,7 @@
 				/dggl/match/deleteMatch=authc
 				/dggl/match/updateMatch=authc
 				/dggl/match/createMatch=authc
+				/dggl/match/getAppMatchByShareStatus=authc
 				/dggl/share/*=authc
 				/dggl/appVipUser/getVipuserByShoppingGuideId=authc
 				/dggl/appUser/updatePwd=authc

@@ -16,7 +16,9 @@ public interface MatchService {
     
     public void updateShareStatus(int userId, int shareStatus);
     
-    public MatchListModel getMatchByShareStatus(int userId, int shareStatus, int offset, int limit);
+    public MatchListModel getMatchByShareStatus(int shareStatus, int offset, int limit);
+    
+    public MatchListModel getAppMatchByShareStatus(int userId, int shareStatus, int offset, int limit);
     
     public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit);
 }

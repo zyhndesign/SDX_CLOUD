@@ -57,12 +57,13 @@ public class MatchDaoImpl implements MatchDao {
 	}
 
 	@Override
-	public int getMatchShareCountByUser(int userId, int shareStatus) {
+	public int getAppMatchShareCountByUser(int userId, int shareStatus) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " select count(m) from Match where userId = ? and sharestatus = ?";
+		String hql = " select count(m) from Match where userId = ? and sharestatus = ? and draftstatus = ?";
 		final Query query = session.createQuery(hql); 
 		query.setParameter(0, userId);
 		query.setParameter(1, shareStatus);
+		query.setParameter(2, 0);
         return (int)query.uniqueResult();
 	}
 
@@ -87,7 +88,22 @@ public class MatchDaoImpl implements MatchDao {
 	}
 
 	@Override
-	public List<Match> getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
+	public List<Match> getMatchByShareStatus(int shareStatus, int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Match where sharestatus = ? and draftstatus = ?";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, shareStatus);
+        query.setParameter(1, 0);
+        query.setFirstResult(offset);    
+        query.setMaxResults(limit);
+        query.setCacheable(true);
+        @SuppressWarnings("unchecked")
+        List<Match> list = query.list();
+		return list;
+	}
+	
+	@Override
+	public List<Match> getAppMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = " from Match where userId = ? and sharestatus = ? and draftstatus = ?";
 		Query query = session.createQuery(hql);
@@ -130,6 +146,16 @@ public class MatchDaoImpl implements MatchDao {
         @SuppressWarnings("unchecked")
         List<Match> list = query.list();
 		return list;
+	}
+
+	@Override
+	public int getMatchShareCountByUser(int shareStatus) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " select count(m) from Match where sharestatus = ? and draftstatus = ?";
+		final Query query = session.createQuery(hql); 
+		query.setParameter(0, shareStatus);
+		query.setParameter(1, 0);
+        return (int)query.uniqueResult();
 	}
 	
 }

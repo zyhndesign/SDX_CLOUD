@@ -80,16 +80,24 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public MatchListModel getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
+	public MatchListModel getAppMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
 		MatchListModel matchListModel = new MatchListModel();
-		matchListModel.setList(matchDaoImpl.getMatchByShareStatus(userId, shareStatus, offset, limit));
-		matchListModel.setCount(matchDaoImpl.getMatchShareCountByUser(userId, shareStatus));
+		matchListModel.setList(matchDaoImpl.getAppMatchByShareStatus(userId, shareStatus, offset, limit));
+		matchListModel.setCount(matchDaoImpl.getAppMatchShareCountByUser(userId, shareStatus));
 		return matchListModel;
 	}
 
 	@Override
 	public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit) {
 		return matchDaoImpl.getMatchByDataStatus(userId, dataStatus, offset, limit);
+	}
+
+	@Override
+	public MatchListModel getMatchByShareStatus(int shareStatus, int offset, int limit) {
+		MatchListModel matchListModel = new MatchListModel();
+		matchListModel.setList(matchDaoImpl.getMatchByShareStatus(shareStatus, offset, limit));
+		matchListModel.setCount(matchDaoImpl.getMatchShareCountByUser(shareStatus));
+		return matchListModel;
 	}
 
 }

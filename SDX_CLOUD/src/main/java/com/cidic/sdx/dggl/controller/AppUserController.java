@@ -165,14 +165,14 @@ public class AppUserController {
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel updateUser(HttpServletRequest request, HttpServletResponse response, @RequestParam int userId,
-			@RequestParam String username, @RequestParam(required=false) String password, @RequestParam(required=false) String headIcon,@RequestParam int shopId) {
+			@RequestParam String username, @RequestParam(required=false) String headIcon,@RequestParam int shopId) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		User userObject = new User();
-		//userObject.setPassword(password);
 		userObject.setUsername(username);
 		userObject.setHeadicon(headIcon);
 		userObject.setId(userId);
+		userObject.setValid(0);
 		Shop shop = new Shop();
 		shop.setId(shopId);
 		userObject.setShop(shop);

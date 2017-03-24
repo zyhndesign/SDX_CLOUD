@@ -123,12 +123,12 @@ public class MatchController {
 	@RequestMapping(value = "/getMatchByShareStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public ListResultModel getMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int userId, @RequestParam int shareStatus, @RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho){
+		 @RequestParam int shareStatus, @RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho){
 		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 		try {
-			MatchListModel matchListModel = matchServiceImpl.getMatchByShareStatus(userId, shareStatus, iDisplayStart, iDisplayLength);
+			MatchListModel matchListModel = matchServiceImpl.getMatchByShareStatus(shareStatus, iDisplayStart, iDisplayLength);
 			listResultModel.setAaData(matchListModel.getList());
 			listResultModel.setsEcho(sEcho);
 			listResultModel.setiTotalRecords(matchListModel.getCount());
@@ -141,6 +141,27 @@ public class MatchController {
 		return listResultModel;
 	}
     
+	@RequestMapping(value = "/getAppMatchByShareStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ListResultModel getAppMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId, @RequestParam int shareStatus, @RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho){
+		
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ListResultModel listResultModel = new ListResultModel();
+		try {
+			MatchListModel matchListModel = matchServiceImpl.getAppMatchByShareStatus(userId, shareStatus, iDisplayStart, iDisplayLength);
+			listResultModel.setAaData(matchListModel.getList());
+			listResultModel.setsEcho(sEcho);
+			listResultModel.setiTotalRecords(matchListModel.getCount());
+			listResultModel.setiTotalDisplayRecords(matchListModel.getCount());
+			listResultModel.setSuccess(true);
+		}
+		catch (Exception e) {
+			listResultModel.setSuccess(false);
+		}
+		return listResultModel;
+	}
+	
 	@RequestMapping(value = "/getMatchByDataStatus", method = RequestMethod.POST)
 	@ResponseBody
     public ResultModel getMatchByDataStatus(HttpServletRequest request, HttpServletResponse response,

@@ -40,7 +40,24 @@ public class AppUserDaoImpl implements AppUserDao {
 	@Override
 	public void updateUser(User user) {
 		Session session = this.getSessionFactory().getCurrentSession();
-		session.update(user);
+		String hql = "";
+		Query query = null;
+		if (user.getHeadicon() == null || user.getHeadicon().equals("")){
+			hql = " update User u set u.username = ? , u.shop.id = ? where u.id = ?";
+			query = session.createQuery(hql);
+			query.setParameter(0, user.getUsername());
+			query.setParameter(1, user.getShop().getId());
+			query.setParameter(2, user.getId());
+		}else{
+			hql = " update User u set u.username = ? , u.shop.id = ? , u.headicon = ? where u.id = ?";
+			query = session.createQuery(hql);
+			query.setParameter(0, user.getUsername());
+			query.setParameter(1, user.getShop().getId());
+			query.setParameter(2, user.getHeadicon());
+			query.setParameter(3, user.getId());
+		}
+		
+		query.executeUpdate();
 	}
 
 	@Override

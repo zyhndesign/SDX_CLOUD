@@ -28,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "user", catalog = "sdx_cloud")
-@DynamicUpdate(true)
 public class User implements java.io.Serializable {
 
 	/**

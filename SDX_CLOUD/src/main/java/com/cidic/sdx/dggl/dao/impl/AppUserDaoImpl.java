@@ -108,5 +108,78 @@ public class AppUserDaoImpl implements AppUserDao {
         final Query query = session.createQuery(hql); 
         return (Long)query.uniqueResult();
 	}
+
+	@Override
+	public Optional<User> findUserById(int userId) {
+		Session session = this.getSessionFactory().getCurrentSession();
+		String hql = " from User where Id = ?";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, userId); 
+        @SuppressWarnings("unchecked")
+		List<User> list = query.list();
+        if (list.size() > 0){
+        	Optional<User> user = Optional.ofNullable(list.get(0));
+     		return user;
+        }
+        else{
+        	return Optional.empty();
+        }
+	}
+
+	@Override
+	public List<User> findUserByShopIdAndUsername(int shopId, String username, int iDisplayStart, int iDisplayLength) {
+		Session session = this.getSessionFactory().getCurrentSession();
+		String hql = "";
+		Query query = null;
+		if (shopId == 0 && (username == null || username.equals(""))){
+			hql = " from User";
+			query = session.createQuery(hql);
+		}
+		else if (shopId == 0 && username != null && !username.equals("")){
+			hql = " from User where username = ?";
+			query = session.createQuery(hql);
+			query.setParameter(0, username);
+		}
+		else if (shopId != 0 && (username == null || username.equals(""))){
+			hql = " from User where shopId = ?";
+			query = session.createQuery(hql);
+		}
+		else{
+			hql = " from User where username = ? and shopId = ?";
+			query = session.createQuery(hql);
+			query.setParameter(0, username);
+			query.setParameter(1, shopId);
+		}
+		query.setFirstResult(iDisplayStart);
+		query.setMaxResults(iDisplayLength);
+		return query.list();
+	}
+
+	@Override
+	public Long getUserCountByCondition(int shopId, String username) {
+		Session session = this.getSessionFactory().getCurrentSession();
+		String hql = "";
+		Query query = null;
+		if (shopId == 0 && (username == null || username.equals(""))){
+			hql = " select count(u) from User u";
+			query = session.createQuery(hql);
+		}
+		else if (shopId == 0 && username != null && !username.equals("")){
+			hql = " select count(u) from User u where u.username = ?";
+			query = session.createQuery(hql);
+			query.setParameter(0, username);
+		}
+		else if (shopId != 0 && (username == null || username.equals(""))){
+			hql = " select count(u) from User u where u.shopId = ?";
+			query = session.createQuery(hql);
+		}
+		else{
+			hql = " select count(u) from User u where u.username = ? and u.shopId = ?";
+			query = session.createQuery(hql);
+			query.setParameter(0, username);
+			query.setParameter(1, shopId);
+		}
+        return (Long)query.uniqueResult();
+	}
 	
 }

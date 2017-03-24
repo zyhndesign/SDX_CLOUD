@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,23 @@ public class AppUserServiceImpl implements AppUserService {
 		UserListModel userListModel = new UserListModel();
 		userListModel.setCount(appUserDaoImpl.getUserCount());
 		userListModel.setList(appUserDaoImpl.getUserListByPage(limit, offset));
+		return userListModel;
+	}
+
+	@Override
+	public Optional<User> findUserById(int userId) {
+		// TODO Auto-generated method stub
+		return appUserDaoImpl.findUserById(userId);
+	}
+
+	@Override
+	public UserListModel getUserListByCondition(int shopId, String username, int iDisplayStart, int iDisplayLength) {
+		
+		List<User> list = appUserDaoImpl.findUserByShopIdAndUsername(shopId, username, iDisplayStart, iDisplayLength);
+		Long count = appUserDaoImpl.getUserCountByCondition(shopId, username);
+		UserListModel userListModel = new UserListModel();
+		userListModel.setList(list);
+		userListModel.setCount(count);
 		return userListModel;
 	}
 

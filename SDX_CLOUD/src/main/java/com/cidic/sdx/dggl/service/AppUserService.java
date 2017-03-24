@@ -18,4 +18,8 @@ public interface AppUserService {
     Optional<User> authorityCheck(String username, String password);
     
     public UserListModel getUserListByPage(int limit, int offset);
+    
+    public Optional<User> findUserById(int userId);
+    
+    public UserListModel getUserListByCondition(int shopId, String username, int iDisplayStart, int iDisplayLength);
 }

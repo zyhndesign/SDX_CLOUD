@@ -20,4 +20,10 @@ public interface AppUserDao {
     public List<User> getUserListByPage(int limit, int offset);
     
     public Long getUserCount();
+    
+    public Optional<User> findUserById(int userId);
+    
+    public List<User> findUserByShopIdAndUsername(int shopId, String username,int iDisplayStart,int iDisplayLength);
+    
+    public Long getUserCountByCondition(int shopId, String username);
 }

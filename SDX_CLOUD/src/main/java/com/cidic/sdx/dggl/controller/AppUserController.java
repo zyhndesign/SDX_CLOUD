@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,11 +76,11 @@ public class AppUserController {
 	}
 
 	@RequestMapping(value = "/guideCOU/{id}", method = RequestMethod.GET)
-    public ModelAndView updateProductCOU(HttpServletRequest request, @PathVariable int id) {
+    public ModelAndView updateGuideCOU(HttpServletRequest request, @PathVariable int id) {
 
         User userModel = null;
         if (id > 0) {
-            userModel = appUserServiceImpl.getById(id);
+            userModel = appUserServiceImpl.findUserById(id).get();
         }
         ModelAndView view = new ModelAndView();
         view.setViewName("guideCOU");
@@ -201,6 +202,27 @@ public class AppUserController {
 		ListResultModel listResultModel = new ListResultModel();
 		try {
 			UserListModel userListModel = appUserServiceImpl.getUserListByPage(iDisplayLength, iDisplayStart);
+			listResultModel.setAaData(userListModel.getList());
+			listResultModel.setsEcho(sEcho);
+			listResultModel.setiTotalRecords((int) userListModel.getCount());
+			listResultModel.setiTotalDisplayRecords((int) userListModel.getCount());
+			listResultModel.setSuccess(true);
+		} catch (Exception e) {
+			listResultModel.setSuccess(false);
+		}
+		return listResultModel;
+	}
+	
+	@RequestMapping(value = "/getDataByCondition", method = RequestMethod.GET)
+	@ResponseBody
+	public ListResultModel getData(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(required = false) int shopId, @RequestParam(required = false) String username,
+			@RequestParam int iDisplayLength, @RequestParam int iDisplayStart, @RequestParam String sEcho) {
+
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ListResultModel listResultModel = new ListResultModel();
+		try {
+			UserListModel userListModel = appUserServiceImpl.getUserListByCondition(shopId, username, iDisplayStart, iDisplayLength);
 			listResultModel.setAaData(userListModel.getList());
 			listResultModel.setsEcho(sEcho);
 			listResultModel.setiTotalRecords((int) userListModel.getCount());

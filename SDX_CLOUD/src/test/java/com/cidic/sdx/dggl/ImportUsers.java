@@ -90,7 +90,7 @@ public class ImportUsers {
 					user.setPassword("111111");
 
 					String shopName = getValue(cell3);
-					user.setShopname(shopName);
+					user.setShopId(1);
 					
 					String entryTime = getValue(cell4);
 					user.setEntrytime(stringToDate(entryTime));

@@ -33,7 +33,7 @@ public class User implements java.io.Serializable {
 	private Integer id;
 	private String serialnumber;
 	private String phone;
-	private String shopname;
+	private int shopId;
 	private Date entrytime;
 	private Byte gender;
 	private String username;
@@ -59,13 +59,13 @@ public class User implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	public User(String username, String password, String headicon, String phone, String shopname, Date entrytime,
+	public User(String username, String password, String headicon, String phone, int shopId, Date entrytime,
 			Byte gender, byte valid, Date createtime, String slot, Set<Vipuser> vipusers, Set<Match> matches) {
 		this.username = username;
 		this.password = password;
 		this.headicon = headicon;
 		this.phone = phone;
-		this.shopname = shopname;
+		this.shopId = shopId;
 		this.entrytime = entrytime;
 		this.gender = gender;
 		this.valid = valid;
@@ -132,13 +132,13 @@ public class User implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	@Column(name = "shopname", length = 40)
-	public String getShopname() {
-		return this.shopname;
+	@Column(name = "shopId")
+	public int getShopId() {
+		return this.shopId;
 	}
 
-	public void setShopname(String shopname) {
-		this.shopname = shopname;
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

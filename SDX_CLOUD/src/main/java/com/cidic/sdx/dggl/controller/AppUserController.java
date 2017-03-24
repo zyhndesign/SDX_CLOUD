@@ -169,7 +169,7 @@ public class AppUserController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		User userObject = new User();
-		userObject.setPassword(password);
+		//userObject.setPassword(password);
 		userObject.setUsername(username);
 		userObject.setHeadicon(headIcon);
 		userObject.setId(userId);
@@ -192,6 +192,21 @@ public class AppUserController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		int result = appUserServiceImpl.deleteUser(userId);
+		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel updatePwd(HttpServletRequest request, HttpServletResponse response, @RequestParam String serialnumber, @RequestParam String password) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		int result = appUserServiceImpl.updatePwd(serialnumber, password);
 		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

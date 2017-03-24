@@ -40,4 +40,5 @@ public class PasswordHelper {
 
         user.setPassword(newPassword);
     }
+    
 }

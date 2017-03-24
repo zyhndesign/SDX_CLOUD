@@ -44,25 +44,23 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Override
 	public int updateUser(User user) {
-		try{
+		try {
 			appUserDaoImpl.updateUser(user);
 			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
-		}
-		catch(Exception e){
-			
+		} catch (Exception e) {
+
 			e.printStackTrace();
 			return ResponseCodeUtil.UESR_OPERATION_FAILURE;
 		}
-		
+
 	}
 
 	@Override
 	public int deleteUser(int userId) {
-		try{
+		try {
 			appUserDaoImpl.deleteUser(userId);
 			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			System.out.print(e.getMessage());
 			return ResponseCodeUtil.UESR_OPERATION_FAILURE;
 		}
@@ -81,7 +79,7 @@ public class AppUserServiceImpl implements AppUserService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=Exception.class)
+	@Transactional(rollbackFor = Exception.class)
 	public UserListModel getUserListByPage(int limit, int offset) {
 		UserListModel userListModel = new UserListModel();
 		userListModel.setCount(appUserDaoImpl.getUserCount());
@@ -97,13 +95,30 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Override
 	public UserListModel getUserListByCondition(int shopId, String username, int iDisplayStart, int iDisplayLength) {
-		
+
 		List<User> list = appUserDaoImpl.findUserByShopIdAndUsername(shopId, username, iDisplayStart, iDisplayLength);
 		Long count = appUserDaoImpl.getUserCountByCondition(shopId, username);
 		UserListModel userListModel = new UserListModel();
 		userListModel.setList(list);
 		userListModel.setCount(count);
 		return userListModel;
+	}
+
+	@Override
+	public int updatePwd(String serialnumber, String password) {
+		try {
+			User user = new User();
+			user.setSerialnumber(serialnumber);
+			user.setPassword(password);
+			PasswordHelper.encryptAppPassword(user);
+			appUserDaoImpl.updatePwd(serialnumber, user.getPassword(), user.getSlot());
+			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseCodeUtil.UESR_OPERATION_FAILURE;
+		}
+
 	}
 
 }

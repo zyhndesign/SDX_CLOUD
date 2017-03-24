@@ -22,4 +22,6 @@ public interface AppUserService {
     public Optional<User> findUserById(int userId);
     
     public UserListModel getUserListByCondition(int shopId, String username, int iDisplayStart, int iDisplayLength);
+    
+    public int updatePwd(String serialnumber, String password);
 }

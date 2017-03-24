@@ -26,4 +26,6 @@ public interface AppUserDao {
     public List<User> findUserByShopIdAndUsername(int shopId, String username,int iDisplayStart,int iDisplayLength);
     
     public Long getUserCountByCondition(int shopId, String username);
+    
+    public void updatePwd(String serialnumber, String password, String slot);
 }

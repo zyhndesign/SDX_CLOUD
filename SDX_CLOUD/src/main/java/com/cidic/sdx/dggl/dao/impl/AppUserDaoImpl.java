@@ -181,5 +181,16 @@ public class AppUserDaoImpl implements AppUserDao {
 		}
         return (Long)query.uniqueResult();
 	}
+
+	@Override
+	public void updatePwd(String serialnumber, String password, String slot) {
+		Session session = this.getSessionFactory().getCurrentSession();
+		String hql = " update User u set u.password = ?, u.slot = ? where u.serialnumber = ? ";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, password); 
+		query.setParameter(1, slot); 
+        query.setParameter(2, serialnumber); 
+		query.executeUpdate();
+	}
 	
 }

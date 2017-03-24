@@ -59,10 +59,8 @@
                         </div>
 
                         <div class="col-md-4 pR0">
-                            <ul id="allArea" class="list-group">
+                            <ul id="allShop" class="list-group">
                                 <li class="list-group-item list-group-title">全部门店</li>
-                                <li class="list-group-item">长沙五一路店（14）</li>
-                                <li class="list-group-item">长沙五店（10）</li>
                             </ul>
                         </div>
                     </div>

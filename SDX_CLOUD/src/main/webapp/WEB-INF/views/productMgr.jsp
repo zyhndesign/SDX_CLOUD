@@ -74,7 +74,7 @@
                     <div class="row">
                         <label class="control-label col-md-1">尺码</label>
                         <div class="col-md-11">
-                            <c:forEach var="s" items="${size}">
+                           <c:forEach var="s" items="${size}">
                               <span class="item" data-type="size" data-id="${s.id}">${s.name}</span>
                            </c:forEach>
                         </div>

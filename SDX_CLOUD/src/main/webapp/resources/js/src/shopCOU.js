@@ -1,19 +1,19 @@
 $(document).ready(function(){
     var formHandler=new ZYFormHandler({
-        redirectUrl:"#",
+        redirectUrl:"dggl/shop/shopMgr",
         submitUrl:"#"
     })
 
     $("#myForm").validate({
         ignore:[],
         rules:{
-            name:{
+            shopname:{
                 required:true,
                 maxlength:32
             }
         },
         messages:{
-            name:{
+            shopname:{
                 required:config.validErrors.required,
                 maxlength:config.validErrors.maxLength.replace("${max}",32)
             }

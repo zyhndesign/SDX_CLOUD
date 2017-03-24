@@ -51,7 +51,7 @@
         <ul class="subMenu">
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="dggl/appUser/guideMgr">店铺管理</a>
+                <a class="sLink" href="dggl/shop/shopMgr">店铺管理</a>
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
@@ -59,7 +59,7 @@
             </li>
             <li class="sItem">
                 <!--<span class="circle">原点</span>-->
-                <a class="sLink" href="hpgl/category/categoryMgr">搭配管理</a>
+                <a class="sLink" href="dggl/match/matchMgr">搭配管理</a>
             </li>
         </ul>
     </li>

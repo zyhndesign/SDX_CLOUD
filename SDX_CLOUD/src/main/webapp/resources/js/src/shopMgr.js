@@ -1,35 +1,6 @@
-var guideMgr=(function(config,functions){
+var shopMgr=(function(config,functions){
     return {
-        currentShopId:"",
-        initShop:function(){
-            $.ajax({
-                "dataType":'json',
-                "type":"post",
-                "url":config.ajaxUrls.shopGetAll,
-                "data":{
-                    iDisplayLength:100000,
-                    iDisplayStart:0,
-                    sEcho:1
-                },
-                "success": function (response) {
-                    if(response.success===false){
-                        functions.ajaxReturnErrorHandler(response.message);
-                    }else{
-                        var list=response.aaData,arr=[];
 
-                        for(var i= 0,len=list.length;i<len;i++){
-                            arr.push('<li data-id="'+list[i].id+'" class="list-group-item">'+list[i].shopname+'</li>');
-                        }
-
-                        $("#allShop").append(arr.join(''));
-                    }
-
-                },
-                error:function(){
-                    functions.ajaxErrorHandler();
-                }
-            })
-        }
     }
 })(config,functions);
 
@@ -39,7 +10,7 @@ $(document).ready(function(){
         ownTable:function(){
             var ownTable=$("#myTable").dataTable({
                 "bServerSide": true,
-                "sAjaxSource": config.ajaxUrls.guideGetAll,
+                "sAjaxSource": config.ajaxUrls.shopGetAll,
                 "bInfo":true,
                 "bLengthChange": false,
                 "bFilter": false,
@@ -51,38 +22,23 @@ $(document).ready(function(){
                     "sUrl":config.dataTable.langUrl
                 },
                 "aoColumns": [
-                    { "mDataProp": "headicon",
-                        "fnRender":function(oObj){
-                            return '<img class="thumb" src="'+oObj.aData.headicon+'">';
-                        }
-                    },
-                    { "mDataProp": "username",
-                        "fnRender":function(oObj){
-                            return oObj.aData.username+"<p>"+oObj.aData.shop.shopname+"</p>";
-                        }
-                    },
+                    { "mDataProp": "shopname" },
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
-                            return  '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
+                            return  '<a href="dggl/shop/shopCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
                                 '<a href="'+oObj.aData.id+'" class="remove">删除</a>';
                         }
                     }
                 ] ,
                 "fnServerParams": function ( aoData ) {
-                    aoData.push({
-                        name:"name",
-                        value:$("#searchName").val()
-                    },{
-                        name:"shopId",
-                        value:guideMgr.currentShopId
-                    });
+
                 },
                 "fnServerData": function(sSource, aoData, fnCallback) {
 
                     //回调函数
                     $.ajax({
                         "dataType":'json',
-                        "type":"get",
+                        "type":"post",
                         "url":sSource,
                         "data":aoData,
                         "success": function (response) {
@@ -113,7 +69,7 @@ $(document).ready(function(){
 
             return ownTable;
         },
-        removeUrl:config.ajaxUrls.guideDelete
+        removeUrl:config.ajaxUrls.shopDelete
     });
 
     $("#myTable").on("click","a.remove",function(){
@@ -124,22 +80,6 @@ $(document).ready(function(){
     });
 
     $("#searchBtn").click(function(){
-        table.tableRedraw();
-    });
-
-    guideMgr.initShop();
-
-    $("#allShop").on('click',".list-group-item:not(.list-group-title)",function(){
-        var el=$(this);
-        if(el.hasClass("active")){
-            el.removeClass("active");
-            guideMgr.currentShopId="";
-        }else{
-            $("#allShop .active").removeClass("active");
-            el.addClass("active");
-            guideMgr.currentShopId=el.data("id");
-        }
-
         table.tableRedraw();
     });
 });

@@ -1,94 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta content="webkit" name="renderer">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <title>服装货品数据管理系统</title>
-    <link href="css/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/lib/zTreeStyle.css" rel="stylesheet" type="text/css">
-    <link href="css/lib/jquery.toastmessage.css" rel="stylesheet" type="text/css">
-    <link href="css/src/main.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
+             pageEncoding="UTF-8"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <%@ include file="head.jsp"%>
+        </head>
+        <body>
 
-<div class="header">
-    <h1 class="logo">
+        <%@ include file="header.jsp"%>
 
-        <span class="icon"></span>服装货品数据管理系统
+        <div class="container">
 
-    </h1>
-    <nav class="topNav">
-        <ul class="userMenu">
-            <!--<li class="item"><a class="link">管理员</a></li>
-            <li class="item"><a href="#" class="link">修改密码</a></li>-->
-            <li class="item"><a href="#" class="logout">退出</a></li>
-        </ul>
-    </nav>
-
-</div>
-
-<div class="container">
-
-    <div class="left">
-        <ul class="menu">
-            <!--<li class="item">
-                <span class="glyphicon glyphicon-th-list"></span>
-                <a class="link" href="hpManage/productMgr">货品管理</a>
-            </li>-->
-            <li class="item">
-                <span class="glyphicon glyphicon-th-large sdxIcon"></span>
-                <a class="link">功能</a>
-                <!--<span class="glyphicon glyphicon-arrow-down rightIcon"></span>-->
-                <ul class="subMenu">
-                    <li class="sItem">
-                        <!--<span class="circle">原点</span>-->
-                        <a class="sLink" href="hpgl/hpManage/productMgr">货品管理</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="item">
-                <span class="glyphicon glyphicon-cog sdxIcon"></span>
-                <a class="link">基础设置</a>
-                <!--<span class="glyphicon glyphicon-chevron-down sdxIcon rightIcon"></span>-->
-                <ul class="subMenu">
-                    <li class="sItem">
-                        <!--<span class="circle">原点</span>-->
-                        <a class="sLink" href="hpgl/brand/brandMgr">品牌系列设置</a>
-                    </li>
-                    <li class="sItem">
-                        <!--<span class="circle">原点</span>-->
-                        <a class="sLink" href="hpgl/category/categoryMgr">品类设置</a>
-                    </li>
-                    <li class="sItem">
-                        <!--<span class="circle">原点</span>-->
-                        <a class="sLink" href="hpgl/size/sizeMgr">尺码设置</a>
-                    </li>
-                    <li class="sItem">
-                        <!--<span class="circle">原点</span>-->
-                        <a class="sLink" href="hpgl/color/colorMgr">颜色设置</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="item">
-                <span class="glyphicon glyphicon-book sdxIcon"></span>
-                <a class="link">管理</a>
-                <!--<span class="glyphicon glyphicon-chevron-down sdxIcon rightIcon"></span>-->
-                <ul class="subMenu">
-                    <li class="sItem">
-                        <!--<span class="circle">原点</span>-->
-                        <a class="sLink" href="dggl/brand/brandMgr">导购管理</a>
-                    </li>
-                    <li class="sItem">
-                        <!--<span class="circle">原点</span>-->
-                        <a class="sLink" href="hpgl/category/categoryMgr">搭配管理</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+        <div class="left">
+        <%@ include file="menu.jsp"%>
+        </div>
 
 
     <div class="right">
@@ -98,13 +24,20 @@
                     <h1 class="panel-title">店铺录入/修改</h1>
                 </div>
                 <div class="panel-body" id="opt-body">
-
-                    <form class="form-horizontal" id="myForm" action="#" method="post">
+                    <c:choose>
+                    <c:when test="${empty shop}">
+                    <form class="form-horizontal" id="myForm" action="dggl/shop/create" method="post">
+                    </c:when>
+                    <c:otherwise>
+                    <form class="form-horizontal" id="myForm" action="dggl/shop/update" method="post">
+                    <input type="hidden" name="id" value="${shop.id}">
+                    </c:otherwise>
+                    </c:choose>
 
                         <div class="form-group">
                             <label  class="control-label col-md-2">名称*</label>
                             <div class="col-md-6 input-group">
-                                <input type="text" id="name" class="form-control" value="" name="name">
+                                <input type="text" id="name" class="form-control" value="${shop.shopname}" name="shopname">
                             </div>
                         </div>
                         <hr>
@@ -120,18 +53,16 @@
 </div>
 
 
-<div class="loading hidden" id="loading">
-    <span class="text">Loading...</span>
-</div>
+<%@ include file="loading.jsp"%>
 
-<script src="js/lib/jquery-2.0.3.min.js"></script>
-<script src="js/lib/jquery.form.js"></script>
-<script src="js/lib/jquery.validate.min.js"></script>
-<script src="js/lib/bootstrap.min.js"></script>
-<script src="js/lib/jquery.toastmessage.js"></script>
-<script src="js/src/config.js"></script>
-<script src="js/src/functions.js"></script>
-<script src="js/src/ZYFormHandler.js"></script>
-<script src="js/src/shopCOU.js"></script>
+<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
+<script src="resources/js/lib/jquery.form.js"></script>
+<script src="resources/js/lib/jquery.validate.min.js"></script>
+<script src="resources/js/lib/bootstrap.min.js"></script>
+<script src="resources/js/lib/jquery.toastmessage.js"></script>
+<script src="resources/js/src/config.js"></script>
+<script src="resources/js/src/functions.js"></script>
+<script src="resources/js/src/ZYFormHandler.js"></script>
+<script src="resources/js/src/shopCOU.js"></script>
 </body>
 </html>

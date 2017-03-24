@@ -126,7 +126,6 @@ public class ShopController {
 			listResultModel.setiTotalDisplayRecords((int)shopListModel.getCount().longValue());
 			listResultModel.setSuccess(true);
 		}
-
 		catch (Exception e) {
 			listResultModel.setSuccess(false);
 		}

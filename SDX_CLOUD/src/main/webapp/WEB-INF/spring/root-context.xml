@@ -85,7 +85,7 @@
 				/dggl/appUser/createUser=authc
 				/dggl/appUser/updateUser=authc
 				/dggl/appUser/deleteUser=authc
-				/dggl/appUser/getDataByCondition=authc
+				/dggl/appUser/getDataByCondition=anon
 				/dggl/appVipUser/create=authc
 				/dggl/appVipUser/update=authc
 				/dggl/appVipUser/delete=authc

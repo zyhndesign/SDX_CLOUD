@@ -241,10 +241,13 @@ public class AppUserController {
 	public ListResultModel getDataByCondition(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(required = false) Integer shopId, @RequestParam(required = false) String username,
 			@RequestParam int iDisplayLength, @RequestParam int iDisplayStart, @RequestParam String sEcho) {
-
+		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 		try {
+			if (shopId == null){
+				shopId = 0;
+			}
 			UserListModel userListModel = appUserServiceImpl.getUserListByCondition(shopId, username, iDisplayStart, iDisplayLength);
 			listResultModel.setAaData(userListModel.getList());
 			listResultModel.setsEcho(sEcho);

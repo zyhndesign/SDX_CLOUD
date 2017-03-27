@@ -26,8 +26,7 @@ $(document).ready(function(){
                     { "mDataProp": "shopname" },
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
-                            return  '<a href="dggl/shop/shopCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
-                                '<a href="'+oObj.aData.id+'" class="remove">删除</a>';
+                            return  '<a href="dggl/shop/shopCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;';
                         }
                     }
                 ] ,
@@ -74,7 +73,7 @@ $(document).ready(function(){
 
     $("#myTable").on("click","a.remove",function(){
         if(confirm(config.messages.confirmDelete)){
-            table.delete($(this).attr("href"),"userId");
+            table.delete($(this).attr("href"),"shopId");
         }
         return false;
     });

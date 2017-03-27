@@ -62,17 +62,26 @@ $(document).ready(function(){
                             return oObj.aData.username+"<p>"+oObj.aData.shop.shopname+"</p>";
                         }
                     },
+                    { "mDataProp": "valid",
+                        "fnRender":function(oObj){
+                            return config.status.guide[oObj.aData.valid];
+                        }
+                    },
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
+                            var removeText="删除";
+                            if(oObj.aData.valid==config.status.guide[1]){
+                                removeText="启用";
+                            }
                             return  '<a href="dggl/match/matchOfGuide/'+oObj.aData.id+'">搭配</a>&nbsp;&nbsp;'+
                                 '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
-                                '<a href="'+oObj.aData.id+'" class="remove">删除</a>';
+                                '<a href="'+oObj.aData.id+'" class="remove">'+removeText+'</a>';
                         }
                     }
                 ] ,
                 "fnServerParams": function ( aoData ) {
                     aoData.push({
-                        name:"name",
+                        name:"username",
                         value:$("#searchName").val()
                     },{
                         name:"shopId",

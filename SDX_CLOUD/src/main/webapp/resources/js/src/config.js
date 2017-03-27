@@ -19,6 +19,10 @@ var config={
             1:"图片缺失",
             2:"连接缺失",
             3:"图片链接都缺失"
+        },
+        guide:{
+            0:"有效",
+            1:"无效"
         }
     },
     ajaxUrls:{
@@ -46,8 +50,8 @@ var config={
         productInsert:"hpgl/hpManage/inset",
         productUpdate:"hpgl/hpManage/update",
         productGetAll:"hpgl/hpIndexManage/getData",
-        guideGetAll:"dggl/appUser/getData",
-        guideDelete:"dggl/appUser/deleteUser",
+        guideGetAll:"dggl/appUser/getDataByCondition",
+        guideDelete:"dggl/appUser/disableAccount",
         shopGetAll:"dggl/shop/getData",
         shopDelete:"dggl/shop/delete",
         matchGetAll:"dggl/match/getMatchByShareStatus"

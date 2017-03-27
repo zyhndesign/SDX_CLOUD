@@ -69,13 +69,14 @@ $(document).ready(function(){
                     },
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
-                            var removeText="删除";
+                            var removeText="禁用",status=1;
                             if(oObj.aData.valid==config.status.guide[1]){
                                 removeText="启用";
+                                status=0;
                             }
                             return  '<a href="dggl/match/matchOfGuide/'+oObj.aData.id+'">搭配</a>&nbsp;&nbsp;'+
                                 '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
-                                '<a href="'+oObj.aData.id+'" class="remove">'+removeText+'</a>';
+                                '<a href="'+oObj.aData.id+'" class="remove" data-target-status="'+status+'">'+removeText+'</a>';
                         }
                     }
                 ] ,
@@ -127,9 +128,10 @@ $(document).ready(function(){
     });
 
     $("#myTable").on("click","a.remove",function(){
-        if(confirm(config.messages.confirmDelete)){
-            table.delete($(this).attr("href"),"userId");
-        }
+        table.delete({
+            userId:$(this).attr("href"),
+            valid:$(this).data("target-status")
+        });
         return false;
     });
 

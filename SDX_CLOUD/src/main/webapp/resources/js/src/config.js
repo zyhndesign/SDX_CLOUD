@@ -51,7 +51,7 @@ var config={
         productUpdate:"hpgl/hpManage/update",
         productGetAll:"hpgl/hpIndexManage/getData",
         guideGetAll:"dggl/appUser/getDataByCondition",
-        guideDelete:"dggl/appUser/disableAccount",
+        guideDelete:"dggl/appUser/setAccountState",
         shopGetAll:"dggl/shop/getData",
         shopDelete:"dggl/shop/delete",
         matchGetAll:"dggl/match/getMatchByShareStatus"

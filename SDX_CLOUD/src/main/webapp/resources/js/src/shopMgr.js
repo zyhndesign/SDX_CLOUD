@@ -73,7 +73,9 @@ $(document).ready(function(){
 
     $("#myTable").on("click","a.remove",function(){
         if(confirm(config.messages.confirmDelete)){
-            table.delete($(this).attr("href"),"shopId");
+            table.delete({
+                shopId:$(this).attr("href")
+            });
         }
         return false;
     });

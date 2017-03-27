@@ -260,7 +260,7 @@ public class AppUserController {
 		return listResultModel;
 	}
 
-	@RequestMapping(value = "/enableAccount", method = RequestMethod.GET)
+	@RequestMapping(value = "/enableAccount", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel enableAccount(HttpServletRequest request, HttpServletResponse response,
 			 @RequestParam Integer userId) {

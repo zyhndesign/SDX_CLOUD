@@ -1,6 +1,6 @@
 var guideMgr=(function(config,functions){
     return {
-        currentShopId:"",
+        currentShopId:0,
         initShop:function(){
             $.ajax({
                 "dataType":'json',
@@ -143,7 +143,7 @@ $(document).ready(function(){
         var el=$(this);
         if(el.hasClass("active")){
             el.removeClass("active");
-            guideMgr.currentShopId="";
+            guideMgr.currentShopId=0;
         }else{
             $("#allShop .active").removeClass("active");
             el.addClass("active");

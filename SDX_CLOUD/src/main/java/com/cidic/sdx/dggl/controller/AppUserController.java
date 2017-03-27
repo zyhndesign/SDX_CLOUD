@@ -260,31 +260,21 @@ public class AppUserController {
 		return listResultModel;
 	}
 
-	@RequestMapping(value = "/enableAccount", method = RequestMethod.POST)
+	@RequestMapping(value = "/setAccountState", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultModel enableAccount(HttpServletRequest request, HttpServletResponse response,
-			 @RequestParam Integer userId) {
+	public ResultModel setAccountState(HttpServletRequest request, HttpServletResponse response,
+			 @RequestParam int userId, @RequestParam int valid) {
 
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
-		int result = appUserServiceImpl.enableAccount(userId);
-		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
-			resultModel.setResultCode(200);
-			resultModel.setSuccess(true);
-			return resultModel;
-		} else {
-			throw new SdxException(500, "操作失败");
+		int result = 0;
+		if (valid == 0){
+			result = appUserServiceImpl.enableAccount(userId);
 		}
-	}
-	
-	@RequestMapping(value = "/disableAccount", method = RequestMethod.GET)
-	@ResponseBody
-	public ResultModel disableAccount(HttpServletRequest request, HttpServletResponse response,
-			 @RequestParam Integer userId) {
-
-		WebRequestUtil.AccrossAreaRequestSet(request, response);
-		resultModel = new ResultModel();
-		int result = appUserServiceImpl.disableAccount(userId);
+		else{
+			appUserServiceImpl.disableAccount(userId);
+		}
+		
 		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

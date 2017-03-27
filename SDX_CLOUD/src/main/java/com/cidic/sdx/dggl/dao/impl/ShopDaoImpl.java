@@ -56,7 +56,7 @@ public class ShopDaoImpl implements ShopDao {
 	@Override
 	public Long getCountShop() {
 		Session session = sessionFactory.getCurrentSession();
-		final String hql = " select count(u) from User u"; 
+		final String hql = " select count(s) from Shop s"; 
         final Query query = session.createQuery(hql); 
         return (Long)query.uniqueResult();
 	}

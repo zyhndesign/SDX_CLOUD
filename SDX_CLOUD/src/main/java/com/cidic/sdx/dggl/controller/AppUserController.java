@@ -145,7 +145,7 @@ public class AppUserController {
 		User userObject = new User();
 		userObject.setPassword(password);
 		userObject.setUsername(username);
-		userObject.setValid(1);
+		userObject.setValid(0);
 		userObject.setHeadicon(headIcon);
 		Shop shop = new Shop();
 		shop.setId(shopId);

@@ -85,11 +85,13 @@
 				/dggl/appUser/createUser=authc
 				/dggl/appUser/updateUser=authc
 				/dggl/appUser/deleteUser=authc
-				/dggl/appUser/getDataByCondition=anon
+				/dggl/appUser/getDataByCondition=authc
 				/dggl/appVipUser/create=authc
 				/dggl/appVipUser/update=authc
 				/dggl/appVipUser/delete=authc
 				/dggl/appVipUser/getVipuserByPage=authc
+				/dggl/appVipUser/enableAccount=authc
+				/dggl/appVipUser/disableAccount=authc
 				/dggl/appVipUser/getVipuserByCardNumber=authc
 			</value>
 		</property>

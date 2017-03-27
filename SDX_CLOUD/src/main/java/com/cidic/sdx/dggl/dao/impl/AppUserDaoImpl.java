@@ -147,21 +147,21 @@ public class AppUserDaoImpl implements AppUserDao {
 		String hql = "";
 		Query query = null;
 		if (shopId == 0 && (username == null || username.equals(""))){
-			hql = " from User";
+			hql = " from User order by createtime desc";
 			query = session.createQuery(hql);
 		}
 		else if (shopId == 0 && username != null && !username.equals("")){
-			hql = " from User where username = ?";
+			hql = " from User where username = ? order by createtime desc";
 			query = session.createQuery(hql);
 			query.setParameter(0, username);
 		}
 		else if (shopId != 0 && (username == null || username.equals(""))){
-			hql = " from User where shopId = ?";
+			hql = " from User where shopId = ? order by createtime desc";
 			query = session.createQuery(hql);
 			query.setParameter(0, shopId);
 		}
 		else{
-			hql = " from User where username = ? and shopId = ?";
+			hql = " from User where username = ? and shopId = ? order by createtime desc";
 			query = session.createQuery(hql);
 			query.setParameter(0, username);
 			query.setParameter(1, shopId);

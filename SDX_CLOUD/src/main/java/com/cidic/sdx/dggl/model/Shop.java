@@ -32,6 +32,7 @@ public class Shop implements java.io.Serializable {
 	private Integer id;
 	private String shopname;
 	private Date createtime;
+	private byte valid; //0: 有效  1：无效
 	private Set<User> users = new HashSet<User>(0);
 	
 	public Shop() {
@@ -82,4 +83,15 @@ public class Shop implements java.io.Serializable {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
+
+	@Column(name = "valid")
+	public byte getValid() {
+		return valid;
+	}
+
+	public void setValid(byte valid) {
+		this.valid = valid;
+	}
+	
+	
 }

@@ -238,8 +238,8 @@ public class AppUserController {
 	
 	@RequestMapping(value = "/getDataByCondition", method = RequestMethod.GET)
 	@ResponseBody
-	public ListResultModel getData(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(required = false) int shopId, @RequestParam(required = false) String username,
+	public ListResultModel getDataByCondition(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(required = false) Integer shopId, @RequestParam(required = false) String username,
 			@RequestParam int iDisplayLength, @RequestParam int iDisplayStart, @RequestParam String sEcho) {
 
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
@@ -257,6 +257,40 @@ public class AppUserController {
 		return listResultModel;
 	}
 
+	@RequestMapping(value = "/enableAccount", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultModel enableAccount(HttpServletRequest request, HttpServletResponse response,
+			 @RequestParam Integer userId) {
+
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		int result = appUserServiceImpl.enableAccount(userId);
+		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/disableAccount", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultModel disableAccount(HttpServletRequest request, HttpServletResponse response,
+			 @RequestParam Integer userId) {
+
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		int result = appUserServiceImpl.disableAccount(userId);
+		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
 	@RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
 	@ResponseBody
 	public ResultModel loginSuccess(HttpServletRequest request, HttpServletResponse response) {

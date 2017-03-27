@@ -24,4 +24,8 @@ public interface AppUserService {
     public UserListModel getUserListByCondition(int shopId, String username, int iDisplayStart, int iDisplayLength);
     
     public int updatePwd(String serialnumber, String password);
+    
+    public int disableAccount(int userId);
+    
+    public int enableAccount(int userId);
 }

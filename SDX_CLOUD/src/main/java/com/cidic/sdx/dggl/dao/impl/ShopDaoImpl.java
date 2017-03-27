@@ -37,7 +37,10 @@ public class ShopDaoImpl implements ShopDao {
 	@Override
 	public void deleteShop(Shop shop) {
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(shop);
+		String hql = " update from Shop s set s.valid = 1 where s.id = ?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, shop.getId());
+		query.executeUpdate();
 	}
 
 	@Override

@@ -89,7 +89,7 @@ public class AppUserDaoImpl implements AppUserDao {
 	@Override
 	public Optional<User> authorityCheck(String username, String password) {
 		Session session = this.getSessionFactory().getCurrentSession();
-		String hql = " from User where username = ? and password = ? and valid = 1";
+		String hql = " from User where username = ? and password = ? and valid = 0";
 		Query query = session.createQuery(hql);
         query.setParameter(0, username); 
         query.setParameter(1, password);
@@ -205,6 +205,24 @@ public class AppUserDaoImpl implements AppUserDao {
 		query.setParameter(0, password); 
 		query.setParameter(1, slot); 
         query.setParameter(2, serialnumber); 
+		query.executeUpdate();
+	}
+
+	@Override
+	public void disableAccount(int userId) {
+		Session session = this.getSessionFactory().getCurrentSession();
+		String hql = " update User u set u.valid = 1 where u.id = ? ";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, userId); 
+		query.executeUpdate();
+	}
+
+	@Override
+	public void enableAccount(int userId) {
+		Session session = this.getSessionFactory().getCurrentSession();
+		String hql = " update User u set u.valid = 0 where u.id = ? ";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, userId); 
 		query.executeUpdate();
 	}
 	

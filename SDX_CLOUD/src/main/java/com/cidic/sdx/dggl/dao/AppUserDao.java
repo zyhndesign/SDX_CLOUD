@@ -28,4 +28,8 @@ public interface AppUserDao {
     public Long getUserCountByCondition(int shopId, String username);
     
     public void updatePwd(String serialnumber, String password, String slot);
+    
+    public void disableAccount(int userId);
+    
+    public void enableAccount(int userId);
 }

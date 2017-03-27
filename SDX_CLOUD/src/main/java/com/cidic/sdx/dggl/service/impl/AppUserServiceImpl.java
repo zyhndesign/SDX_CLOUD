@@ -122,4 +122,26 @@ public class AppUserServiceImpl implements AppUserService {
 
 	}
 
+	@Override
+	public int disableAccount(int userId) {
+		try {
+			appUserDaoImpl.disableAccount(userId);
+			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
+		} catch (Exception e) {
+			System.out.print(e.getMessage());
+			return ResponseCodeUtil.UESR_OPERATION_FAILURE;
+		}
+	}
+
+	@Override
+	public int enableAccount(int userId) {
+		try {
+			appUserDaoImpl.enableAccount(userId);
+			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
+		} catch (Exception e) {
+			System.out.print(e.getMessage());
+			return ResponseCodeUtil.UESR_OPERATION_FAILURE;
+		}
+	}
+
 }

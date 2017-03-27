@@ -87,7 +87,7 @@ public class UserTest {
 	
 	@Test
 	public void getUserByCondition(){
-		UserListModel list = appUserServiceImpl.getUserListByPage(10, 0);
+		UserListModel list = appUserServiceImpl.getUserListByCondition(0,null,10, 0);
 		for (User user : list.getList()){
 			System.out.println(user.getUsername());
 			System.out.println(user.getShop().getShopname());

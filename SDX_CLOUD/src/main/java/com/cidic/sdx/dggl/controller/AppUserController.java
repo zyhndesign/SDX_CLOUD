@@ -272,7 +272,7 @@ public class AppUserController {
 			result = appUserServiceImpl.enableAccount(userId);
 		}
 		else{
-			appUserServiceImpl.disableAccount(userId);
+			result = appUserServiceImpl.disableAccount(userId);
 		}
 		
 		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {

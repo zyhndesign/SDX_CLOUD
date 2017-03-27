@@ -90,8 +90,7 @@
 				/dggl/appVipUser/update=authc
 				/dggl/appVipUser/delete=authc
 				/dggl/appVipUser/getVipuserByPage=authc
-				/dggl/appVipUser/enableAccount=authc
-				/dggl/appVipUser/disableAccount=authc
+				/dggl/appVipUser/setAccountState=authc
 				/dggl/appVipUser/getVipuserByCardNumber=authc
 			</value>
 		</property>

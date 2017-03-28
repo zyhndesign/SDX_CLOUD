@@ -72,46 +72,11 @@ public class HpIndexManagerController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 
-		System.out.println("**********************:"+dataCategory);
 		try {
 			if (dataCategory == 0) {
 				if (hp_num == null || hp_num.equals("")) {
-					List<String> tagList = new ArrayList<>();
-
-					if (brand != null && !brand.equals("")) {
-						String[] brandArray = brand.split("\\,");
-						String prefix = RedisVariableUtil.BRAND_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
-						Arrays.asList(brandArray).stream().forEach((b) -> {
-							tagList.add(prefix + b);
-						});
-					}
-
-					if (color != null && !color.equals("")) {
-						String[] colorArray = color.split("\\,");
-						String prefix = RedisVariableUtil.COLOR_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
-						Arrays.asList(colorArray).stream().forEach((b) -> {
-							tagList.add(prefix + b);
-						});
-					}
-
-					if (size != null && !size.equals("")) {
-						String[] sizeArray = size.split("\\,");
-						String prefix = RedisVariableUtil.SIZE_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
-						Arrays.asList(sizeArray).stream().forEach((b) -> {
-							tagList.add(prefix + b);
-						});
-					}
-
-					if (category != null && !category.equals("")) {
-						String[] categoryArray = category.split("\\,");
-						String prefix = RedisVariableUtil.CATEGORY_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
-						Arrays.asList(categoryArray).stream().forEach((b) -> {
-							tagList.add(prefix + b);
-						});
-					}
-
-					HPListModel resultData = hpIndexServiceImpl.getIndexDataByTag(tagList, iDisplayStart,
-							iDisplayLength);
+					
+					HPListModel resultData = hpIndexServiceImpl.getIndexDataByTag(brand, color, category, size, iDisplayStart, iDisplayLength);
 
 					listResultModel.setAaData(resultData.getList());
 					listResultModel.setsEcho(sEcho);
@@ -137,7 +102,7 @@ public class HpIndexManagerController {
 					listResultModel.setSuccess(true);
 				}
 			} else if (dataCategory == 1) { // URL缺失
-				System.out.println("url lost");
+
 				HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
 				listResultModel.setAaData(resultData.getList());
 				listResultModel.setsEcho(sEcho);

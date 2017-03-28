@@ -121,13 +121,13 @@ public class HpManageDaoImpl implements HpManageDao {
 
 				String[] sizeArray = hpModel.getSize().split("\\,");
 				for (String s : sizeArray){
-					String key = RedisVariableUtil.COLOR_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR +s;
+					String key = RedisVariableUtil.SIZE_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR +s;
 					connection.sAdd(ser.serialize(key), ser.serialize(String.valueOf(id)));
 				}
 				
 				String[] colorArray = hpModel.getColor().split("\\,");
 				for (String s : colorArray){
-					String key = RedisVariableUtil.SIZE_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR +s;
+					String key = RedisVariableUtil.COLOR_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR +s;
 					connection.sAdd(ser.serialize(key), ser.serialize(String.valueOf(id)));
 				}
 				

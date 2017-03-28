@@ -40,16 +40,16 @@ public class HpIndexDaoImpl implements HpIndexDao {
 	
 	private String cacheKey;
 	
+	String id_key = "HpIDList";
+	
 	@Override
-	public HPListModel getIndexDataByTag(List<String> tagList,int iDisplayStart,int iDisplayLength) {
-		for (String str : tagList){
-			System.out.println("====  :  "+str);
-		}
-		String id_key = "HpIDList";
+	public HPListModel getIndexDataByTag(Map<String,List<String>> mapTagList,int iDisplayStart,int iDisplayLength) {
+		
 		StringBuilder tagListStr = new StringBuilder();
-		tagList.stream().forEach((s)->tagListStr.append(s));
+		mapTagList.forEach((k,v)->{
+			v.forEach((s)->tagListStr.append(s));
+		});
 		cacheKey = DigestUtils.md5Hex(tagListStr.toString());
-		System.out.println("cacheKey："+cacheKey);
 		
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
 			
@@ -61,22 +61,61 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = null;
 				
-				if (tagList.size() == 0){
+				if (mapTagList.size() == 0){
 					id_list = connection.lRange(ser.serialize(id_key), iDisplayStart, iDisplayStart + iDisplayLength - 1);
 				}
 				else{
 					if (!connection.exists(ser.serialize(cacheKey))){
-						Set result = redisTemplate.opsForSet().intersect(tagList.get(0), tagList);
-						for (Object data : result){
-							connection.lPush(ser.serialize(cacheKey), ser.serialize(String.valueOf(data)));
+						
+						List<String> brandList = mapTagList.get(RedisVariableUtil.BRAND_PREFIX);
+						List<String> colorList = mapTagList.get(RedisVariableUtil.COLOR_PREFIX);
+						List<String> categoryList = mapTagList.get(RedisVariableUtil.CATEGORY_PREFIX);
+						List<String> sizeList = mapTagList.get(RedisVariableUtil.SIZE_PREFIX);
+						
+						List<String> calculateKeys = new ArrayList<>();
+						String calculateBrandResult = RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR + cacheKey;
+						if (brandList != null){
+							 redisTemplate.opsForSet().unionAndStore(brandList.get(0), brandList, calculateBrandResult);
+							 calculateKeys.add(calculateBrandResult);
+						}
+						
+						String calculateColorResult = RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + cacheKey;
+						if (colorList != null){
+							 redisTemplate.opsForSet().unionAndStore(colorList.get(0), colorList, calculateColorResult);
+							 calculateKeys.add(calculateColorResult);
+						}
+						
+						String calculateCategoryResult = RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR + cacheKey;
+						if (categoryList != null){
+							 redisTemplate.opsForSet().unionAndStore(categoryList.get(0), categoryList, calculateCategoryResult);
+							 calculateKeys.add(calculateCategoryResult);
+						}
+						
+						String calculateSizeResult = RedisVariableUtil.SIZE_PREFIX + RedisVariableUtil.DIVISION_CHAR + cacheKey;
+						if (sizeList != null){
+							 redisTemplate.opsForSet().unionAndStore(sizeList.get(0), sizeList, calculateSizeResult);
+							 calculateKeys.add(calculateSizeResult);
+						}
+						
+						calculateKeys.stream().forEach(System.out::println);
+						
+						Set<String> result = redisTemplate.opsForSet().intersect(calculateKeys.get(0), calculateKeys);
+						
+						for (String data : result){
+							connection.lPush(ser.serialize(cacheKey), ser.serialize(data));
 						}
 						
 						connection.expire(ser.serialize(cacheKey), 300);
+						
+						calculateKeys.forEach((s)->{
+							redisTemplate.delete(s);
+						});
+						
 					}
 					id_list = connection.lRange(ser.serialize(cacheKey), iDisplayStart, iDisplayStart + iDisplayLength - 1);
 				}
 
-				hpListModel.setCount(connection.lLen(ser.serialize(id_key)));
+				hpListModel.setCount(connection.lLen(ser.serialize(cacheKey)));
 				
 				List<HPModel> hpModelList = getListModel(connection,id_list);
 				

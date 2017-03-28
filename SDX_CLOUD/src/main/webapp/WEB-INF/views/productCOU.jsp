@@ -12,7 +12,7 @@
         var preCategory="${hp.category}";
         var preSize="${hp.size}";
         var preColor="${hp.color}";
-        var preTime="${hp.timeCategory}";
+        var preSeason="${hp.timeCategory}";
     </script>
 </head>
 <body>
@@ -116,13 +116,13 @@
                         <div class="form-group">
                             <label  class="control-label col-md-3">时间*</label>
                             <div class="col-md-9 input-group">
-                                <input type="text" id="time" class="form-control" value="${hp.timeCategory}">
-                                <input type="hidden" id="timeId" name="brand" value="${hp.timeCategory}">
+                                <input type="text" id="season" class="form-control" value="${hp.timeCategory}">
+                                <input type="hidden" id="seasonId" name="time" value="${hp.timeCategory}">
                                 <c:if test="${!empty hp.id}">
-                                <input type="hidden" id="timeOld" value="${hp.timeCategory}">
+                                <input type="hidden" id="seasonOld" value="${hp.timeCategory}">
                                 </c:if>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default showTreePanel" data-type="time">
+                                    <button type="button" class="btn btn-default showTreePanel" data-type="season">
                                         <span class="glyphicon glyphicon-edit sdxIcon" aria-hidden="true"></span>
                                     </button>
                                 </span>

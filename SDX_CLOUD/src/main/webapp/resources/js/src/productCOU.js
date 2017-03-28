@@ -4,7 +4,8 @@ var productCOU=(function(config,functions){
         category:[],
         date:[],
         size:[],
-        color:[]
+        color:[],
+        season:[]
     };
     var currentSetType="brand";
 
@@ -168,7 +169,7 @@ var productCOU=(function(config,functions){
             preValue.category=preCategory;
             preValue.size=preSize;
             preValue.color=preColor;
-            preValue.time=preTime;
+            preValue.season=preSeason;
         }
     }
 })(config,functions);

@@ -142,7 +142,7 @@ public class HpManageDaoImpl implements HpManageDao {
 				//链接缺失
 				int urlSign = RedisVariableUtil.DATA_STATUS_INTEGRITY;
 				if (hpModel.getProductUrl() == null || hpModel.getProductUrl().equals("")){
-					connection.sAdd(ser.serialize(RedisVariableUtil.LOST_URL_SET), ser.serialize(String.valueOf(id)));
+					connection.lPush(ser.serialize(RedisVariableUtil.LOST_URL_SET), ser.serialize(String.valueOf(id)));
 					urlSign = RedisVariableUtil.DATA_STATUS_URL_LOST;
 					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_URL_LOST)));
 				}
@@ -152,7 +152,7 @@ public class HpManageDaoImpl implements HpManageDao {
 				if (hpModel.getImageUrl1() == null || hpModel.getImageUrl1().equals("")
 						|| hpModel.getImageUrl2() == null || hpModel.getImageUrl2().equals("")
 						|| hpModel.getImageUrl3() == null || hpModel.getImageUrl3().equals("")){
-					connection.sAdd(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET), ser.serialize(String.valueOf(id)));
+					connection.lPush(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET), ser.serialize(String.valueOf(id)));
 					imageSign = RedisVariableUtil.DATA_STATUS_IMAGE_LOST;
 					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_IMAGE_LOST)));
 				}

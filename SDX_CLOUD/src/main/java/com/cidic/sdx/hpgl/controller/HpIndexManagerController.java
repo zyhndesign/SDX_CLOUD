@@ -72,6 +72,7 @@ public class HpIndexManagerController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 
+		System.out.println("**********************:"+dataCategory);
 		try {
 			if (dataCategory == 0) {
 				if (hp_num == null || hp_num.equals("")) {
@@ -136,6 +137,7 @@ public class HpIndexManagerController {
 					listResultModel.setSuccess(true);
 				}
 			} else if (dataCategory == 1) { // URL缺失
+				System.out.println("url lost");
 				HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
 				listResultModel.setAaData(resultData.getList());
 				listResultModel.setsEcho(sEcho);

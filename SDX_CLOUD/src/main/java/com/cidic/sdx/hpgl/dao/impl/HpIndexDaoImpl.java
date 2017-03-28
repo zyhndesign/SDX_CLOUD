@@ -42,10 +42,14 @@ public class HpIndexDaoImpl implements HpIndexDao {
 	
 	@Override
 	public HPListModel getIndexDataByTag(List<String> tagList,int iDisplayStart,int iDisplayLength) {
+		for (String str : tagList){
+			System.out.println("====  :  "+str);
+		}
 		String id_key = "HpIDList";
 		StringBuilder tagListStr = new StringBuilder();
 		tagList.stream().forEach((s)->tagListStr.append(s));
 		cacheKey = DigestUtils.md5Hex(tagListStr.toString());
+		System.out.println("cacheKey："+cacheKey);
 		
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
 			
@@ -85,17 +89,17 @@ public class HpIndexDaoImpl implements HpIndexDao {
 
 	@Override
 	public HPListModel getLostImageData(int iDisplayStart, int iDisplayLength) {
+		
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
 			
 			@Override
 			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
-				
+
 				HPListModel hpListModel = new HPListModel();
 				
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET), iDisplayStart, iDisplayStart + iDisplayLength - 1);
-				hpListModel.setCount(connection.sCard(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET)));
-				
+				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET)));
 				List<HPModel> hpModelList = getListModel(connection,id_list);
 				
 				hpListModel.setList(hpModelList);
@@ -111,13 +115,12 @@ public class HpIndexDaoImpl implements HpIndexDao {
 			
 			@Override
 			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
-				
+
 				HPListModel hpListModel = new HPListModel();
 				
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_URL_SET), iDisplayStart, iDisplayStart + iDisplayLength - 1);
-				hpListModel.setCount(connection.sCard(ser.serialize(RedisVariableUtil.LOST_URL_SET)));
-				
+				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_URL_SET)));
 				List<HPModel> hpModelList = getListModel(connection,id_list);
 				hpListModel.setList(hpModelList);
 			

@@ -97,8 +97,6 @@ public class HpIndexDaoImpl implements HpIndexDao {
 							 calculateKeys.add(calculateSizeResult);
 						}
 						
-						calculateKeys.stream().forEach(System.out::println);
-						
 						Set<String> result = redisTemplate.opsForSet().intersect(calculateKeys.get(0), calculateKeys);
 						
 						for (String data : result){

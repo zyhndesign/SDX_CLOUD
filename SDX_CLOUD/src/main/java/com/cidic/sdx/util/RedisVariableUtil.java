@@ -13,7 +13,7 @@ public class RedisVariableUtil {
 	public final static String CATEGORY_PREFIX = "category"; //品类
 	public final static String COLOR_PREFIX = "color"; //颜色
 	public final static String SIZE_PREFIX = "size"; //尺寸
-	public final static String DATETIME_PREFIX = "date_time";
+	public final static String DATETIME_PREFIX = "date_time";//时间标签
 	
 	public final static String HP_RECORD_PREFIX = "hp"; //货品管理记录前缀
 	

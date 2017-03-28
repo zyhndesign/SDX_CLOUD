@@ -65,7 +65,8 @@ public class HpIndexManagerController {
 	public ListResultModel getDate(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(required = true) int dataCategory, @RequestParam(required = false) String brand,
 			@RequestParam(required = false) String color, @RequestParam(required = false) String size,
-			@RequestParam(required = false) String category, @RequestParam int iDisplayLength,
+			@RequestParam(required = false) String category,
+			@RequestParam int iDisplayLength,
 			@RequestParam int iDisplayStart, @RequestParam String sEcho,
 			@RequestParam(required = false) String hp_num) {
 
@@ -84,43 +85,71 @@ public class HpIndexManagerController {
 					listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
 					listResultModel.setSuccess(true);
 				} else {
-					HPModel hpModel = hpManageServiceImpl.getHpDataByHpNum(hp_num);
-
-					List<HPModel> list = new ArrayList<>(1);
-					if (hpModel != null) {
-						list.add(hpModel);
-						listResultModel.setiTotalRecords(1);
-						listResultModel.setiTotalDisplayRecords(1);
-					} else {
-						listResultModel.setiTotalRecords(0);
-						listResultModel.setiTotalDisplayRecords(0);
-					}
-
-					listResultModel.setAaData(list);
-					listResultModel.setsEcho(sEcho);
-
-					listResultModel.setSuccess(true);
+					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);
 				}
 			} else if (dataCategory == 1) { // URL缺失
-
-				HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
-				listResultModel.setAaData(resultData.getList());
-				listResultModel.setsEcho(sEcho);
-				listResultModel.setiTotalRecords((int) resultData.getCount());
-				listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
-				listResultModel.setSuccess(true);
+				if (hp_num == null || hp_num.equals("")) {
+					HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
+					listResultModel.setAaData(resultData.getList());
+					listResultModel.setsEcho(sEcho);
+					listResultModel.setiTotalRecords((int) resultData.getCount());
+					listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+					listResultModel.setSuccess(true);
+				}
+				else{
+					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);
+				}
+				
 			} else if (dataCategory == 2) { // 图片缺失
-				HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
-				listResultModel.setAaData(resultData.getList());
-				listResultModel.setsEcho(sEcho);
-				listResultModel.setiTotalRecords((int) resultData.getCount());
-				listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
-				listResultModel.setSuccess(true);
+				if (hp_num == null || hp_num.equals("")) {
+					HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
+					listResultModel.setAaData(resultData.getList());
+					listResultModel.setsEcho(sEcho);
+					listResultModel.setiTotalRecords((int) resultData.getCount());
+					listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+					listResultModel.setSuccess(true);
+				}
+				else{
+					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);
+				}
+			}
+			else if (dataCategory == 3) { // 图片缺失
+				if (hp_num == null || hp_num.equals("")) {
+					HPListModel resultData = hpIndexServiceImpl.getAllLostData(iDisplayStart, iDisplayLength);
+					listResultModel.setAaData(resultData.getList());
+					listResultModel.setsEcho(sEcho);
+					listResultModel.setiTotalRecords((int) resultData.getCount());
+					listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+					listResultModel.setSuccess(true);
+				}
+				else{
+					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);
+				}
 			}
 		}
 		catch (Exception e) {
 			listResultModel.setSuccess(false);
 		}
+		return listResultModel;
+	}
+	
+	private ListResultModel getHpDataByHpNum(String hp_num,String sEcho){
+		ListResultModel listResultModel = new ListResultModel();
+		HPModel hpModel = hpManageServiceImpl.getHpDataByHpNum(hp_num);
+
+		List<HPModel> list = new ArrayList<>(1);
+		if (hpModel != null) {
+			list.add(hpModel);
+			listResultModel.setiTotalRecords(1);
+			listResultModel.setiTotalDisplayRecords(1);
+		} else {
+			listResultModel.setiTotalRecords(0);
+			listResultModel.setiTotalDisplayRecords(0);
+		}
+
+		listResultModel.setAaData(list);
+		listResultModel.setsEcho(sEcho);
+		listResultModel.setSuccess(true);
 		return listResultModel;
 	}
 }

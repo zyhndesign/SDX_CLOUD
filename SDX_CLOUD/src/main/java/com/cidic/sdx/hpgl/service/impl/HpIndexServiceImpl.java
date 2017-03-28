@@ -90,4 +90,9 @@ public class HpIndexServiceImpl implements HpIndexService {
 		return hpIndexDaoImpl.getIndexDataByTag(mapTagList,iDisplayStart,iDisplayLength);
 	}
 
+	@Override
+	public HPListModel getAllLostData(int iDisplayStart, int iDisplayLength) {
+		return hpIndexDaoImpl.getAllLostData(iDisplayStart, iDisplayLength);
+	}
+
 }

@@ -214,6 +214,9 @@ public class ImportExcelData {
 			put("01棕色", "75");
 			put("其它色", "52");
 			put("其他色", "52");
+			
+			put("2016","");
+			put("2015","");
 		}
 	};
 
@@ -477,11 +480,15 @@ public class ImportExcelData {
 						String[] temp = timeCategory.split("\\/");
 						StringBuilder timeCategoryValue = new StringBuilder();
 						if (temp.length > 0) {
-							timeCategoryValue.append(temp[0]);
+							timeCategoryValue.append(map.get(temp[0]));
 						}
 						if (temp.length > 1) {
-							timeCategoryValue.append("/");
-							timeCategoryValue.append(temp[1]);
+							timeCategoryValue.append(",");
+							timeCategoryValue.append(map.get(temp[1]));
+						}
+						if (temp.length > 2) {
+							timeCategoryValue.append(",");
+							timeCategoryValue.append(map.get(temp[2]));
 						}
 						hPModel.setTimeCategory(timeCategoryValue.toString());
 					}

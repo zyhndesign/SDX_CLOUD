@@ -135,8 +135,8 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				HPListModel hpListModel = new HPListModel();
 				
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET), iDisplayStart, iDisplayStart + iDisplayLength - 1);
-				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_IMAGE_SET)));
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST)));
 				List<HPModel> hpModelList = getListModel(connection,id_list);
 				
 				hpListModel.setList(hpModelList);
@@ -156,9 +156,30 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				HPListModel hpListModel = new HPListModel();
 				
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_URL_SET), iDisplayStart, iDisplayStart + iDisplayLength - 1);
-				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_URL_SET)));
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_URL_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_URL_LIST)));
 				List<HPModel> hpModelList = getListModel(connection,id_list);
+				hpListModel.setList(hpModelList);
+			
+				return hpListModel;
+			}
+		});
+	}
+	
+	@Override
+	public HPListModel getAllLostData(int iDisplayStart, int iDisplayLength) {
+		return redisTemplate.execute(new RedisCallback<HPListModel>() {
+			
+			@Override
+			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+
+				HPListModel hpListModel = new HPListModel();
+				
+				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_ALL_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_ALL_LIST)));
+				List<HPModel> hpModelList = getListModel(connection,id_list);
+				
 				hpListModel.setList(hpModelList);
 			
 				return hpListModel;
@@ -327,4 +348,6 @@ public class HpIndexDaoImpl implements HpIndexDao {
 		costumeModel.setBackViewUrl(map.get("imageUrl3").toString());
 		return costumeModel;
 	}
+
+	
 }

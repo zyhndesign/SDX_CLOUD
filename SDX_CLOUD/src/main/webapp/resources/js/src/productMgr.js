@@ -62,7 +62,7 @@ $(document).ready(function(){
                 "fnServerParams": function ( aoData ) {
                     aoData.push({
                         name:"dataCategory",
-                        value:1
+                        value:0
                     },{
                         name:"hp_num",
                         value:$("#searchNo").val()

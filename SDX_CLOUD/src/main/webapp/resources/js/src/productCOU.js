@@ -168,6 +168,7 @@ var productCOU=(function(config,functions){
             preValue.category=preCategory;
             preValue.size=preSize;
             preValue.color=preColor;
+            preValue.time=preTime;
         }
     }
 })(config,functions);

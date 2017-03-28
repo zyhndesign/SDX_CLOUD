@@ -27,21 +27,21 @@
                 <!--<a class="btn btn-success" href="productCOU.html">
                     <span class="glyphicon glyphicon-save"></span> 导入
                 </a>-->
-                <div class="row">
+                <div class="row form-inline">
                         <a class="btn btn-primary newBtn" href="hpgl/hpManage/productCOU">
                             <span class="glyphicon glyphicon-plus"></span> 新建
                         </a>
-                        <div class="input-group tableSearchContainer col-md-6">
-                            <input class="form-control" id="searchNo" type="text" placeholder="货号">
-                            <span class="input-group-btn">
-                                <button id="searchBtn" class="btn btn-primary searchBtn" type="button">搜索</button>
-                            </span>
-                        </div>
-                        <!--<div class="col-md-2">
+                        <div class="col-md-9 tableSearchContainer">
                             <select class="form-control" id="searchStatus">
-                                <option value="">全部</option>
+                                <option value="">数据完整性</option>
+                                <option value="0">数据完整</option>
+                                <option value="1">图片缺失</option>
+                                <option value="2">链接缺失</option>
+                                <option value="3">图片链接都缺失</option>
                             </select>
-                        </div>-->
+                            <input class="form-control" id="searchNo" type="text" placeholder="货号">
+                            <button id="searchBtn" class="btn btn-primary searchBtn" type="button">搜索</button>
+                        </div>
                     </div>
                 <div id="searchPanel" class="searchPanel">
                    
@@ -91,6 +91,7 @@
                         <th>货号</th>
                         <th>品牌系列</th>
                         <th>品类</th>
+                        <th>时间</th>
                         <th>状态</th>
                         <th>操作</th>
                     </tr>

@@ -46,6 +46,7 @@ $(document).ready(function(){
                     { "mDataProp": "hp_num"},
                     { "mDataProp": "brandList"},
                     { "mDataProp": "categoryList"},
+                    { "mDataProp": "timeCategory"},
                     { "mDataProp": "dataStatus",
                         "fnRender":function(oObj){
                             return  config.status.product[oObj.aData.dataStatus];
@@ -54,7 +55,7 @@ $(document).ready(function(){
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
                             return  '<a href="'+oObj.aData.id+'" class="check">查看</a>&nbsp;&nbsp;'+
-                                '<a href="hpManage/productCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
+                                '<a href="hpgl/hpManage/productCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
                                 '<a href="'+oObj.aData.id+'" class="remove">作废</a>';
                         }
                     }
@@ -62,13 +63,10 @@ $(document).ready(function(){
                 "fnServerParams": function ( aoData ) {
                     aoData.push({
                         name:"dataCategory",
-                        value:0
+                        value:$("#searchStatus").val()
                     },{
                         name:"hp_num",
                         value:$("#searchNo").val()
-                    },{
-                        name:"status",
-                        value:$("#searchStatus").val()
                     },{
                         name:"brand",
                         value:productMgr.searchParams.brand.join(",")
@@ -146,6 +144,8 @@ $(document).ready(function(){
             color:[],
             size:[]
         };
+
+        $("#searchPanel .active").removeClass("active");
         table.tableRedraw();
     });
 
@@ -156,6 +156,7 @@ $(document).ready(function(){
         var index;
 
         $("#searchNo").val("");
+        $("#searchStatus").val("");
 
         if(el.hasClass("active")){
             index=productMgr.searchParams[type].indexOf(id);

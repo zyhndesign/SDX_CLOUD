@@ -46,7 +46,7 @@ $(document).ready(function(){
                     { "mDataProp": "hp_num"},
                     { "mDataProp": "brandList"},
                     { "mDataProp": "categoryList"},
-                    { "mDataProp": "timeCategory"},
+                    { "mDataProp": "timeCategoryList"},
                     { "mDataProp": "dataStatus",
                         "fnRender":function(oObj){
                             return  config.status.product[oObj.aData.dataStatus];

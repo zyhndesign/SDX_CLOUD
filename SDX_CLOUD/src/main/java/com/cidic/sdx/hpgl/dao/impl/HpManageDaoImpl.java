@@ -450,25 +450,25 @@ public class HpManageDaoImpl implements HpManageDao {
 			String tempKey = RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + timeCategory;
 			Map<byte[],byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
 			tempmap.forEach((k,v)->{
-				categoryMapList.put(k, v);
+				timeCategoryMapList.put(k, v);
 			});
 		}
 		
 		for (String timeCategory : timeCategoryArray){
 			String tempKey = RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + timeCategory;
-			timeCategoryList.append(ser.deserialize(categoryMapList.get(ser.serialize(tempKey))));
+			timeCategoryList.append(ser.deserialize(timeCategoryMapList.get(ser.serialize(tempKey))));
 			++timeCategoryCount;
 			if (timeCategoryCount != timeCategoryArray.length){
 				timeCategoryList.append("/");
 			}
-			
 		}
-		
+
 		hpModel.setBrandList(brandList.toString());
 		hpModel.setCategoryList(categoryList.toString());
 		hpModel.setColorList(colorList.toString());
 		hpModel.setSizeList(sizeList.toString());
-			
+		hpModel.setTimeCategoryList(timeCategoryList.toString());
+		
 		return hpModel;
 	}
 

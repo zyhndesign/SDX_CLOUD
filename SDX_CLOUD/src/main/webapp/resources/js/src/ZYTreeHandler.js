@@ -168,7 +168,7 @@ ZYTreeHandler.prototype.add=function(treeNode){
 
                 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
 
-                if(treeNode.check_Child_State!=-1){
+                if(treeNode.check_Child_State!=-1||treeNode.open==true){
                     zTree.addNodes(treeNode, {id:response.object, pId:treeNode.id, name:me.newDefaultName +no,isParent:true});
                 }else{
                     zTree.expandNode(treeNode);

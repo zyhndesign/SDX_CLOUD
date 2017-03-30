@@ -63,6 +63,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				
 				if (mapTagList.size() == 0){
 					id_list = connection.lRange(ser.serialize(id_key), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+					hpListModel.setCount(connection.lLen(ser.serialize(id_key)));
 				}
 				else{
 					if (!connection.exists(ser.serialize(cacheKey))){
@@ -108,13 +109,10 @@ public class HpIndexDaoImpl implements HpIndexDao {
 						calculateKeys.forEach((s)->{
 							redisTemplate.delete(s);
 						});
-						
 					}
 					id_list = connection.lRange(ser.serialize(cacheKey), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+					hpListModel.setCount(connection.lLen(ser.serialize(cacheKey)));
 				}
-
-				hpListModel.setCount(connection.lLen(ser.serialize(cacheKey)));
-				
 				List<HPModel> hpModelList = getListModel(connection,id_list);
 				
 				hpListModel.setList(hpModelList);

@@ -344,6 +344,8 @@ public class HpManageDaoImpl implements HpManageDao {
 		Map<byte[],byte[]> brandMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
 		Map<byte[],byte[]> categoryMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
 		Map<byte[],byte[]> colorMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
+		Map<byte[],byte[]> timeCategoryMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
+		
 		Map<byte[],byte[]> tempColorMap = new HashMap<>();
 		tempColorMap.putAll(colorMapList);
 		tempColorMap.forEach((k,v)->{
@@ -376,6 +378,7 @@ public class HpManageDaoImpl implements HpManageDao {
 		StringBuilder categoryList  = new StringBuilder();
 		StringBuilder sizeList = new StringBuilder();
 		StringBuilder colorList = new StringBuilder();
+		StringBuilder timeCategoryList = new StringBuilder();
 		
 		String[] brandArray = resultMap.get("brand").split("\\,");
 		int brandCount = 0;
@@ -439,6 +442,26 @@ public class HpManageDaoImpl implements HpManageDao {
 			if (colorCount != colorArray.length){
 				colorList.append("/");
 			}
+		}
+		
+		int timeCategoryCount = 0;
+		String[] timeCategoryArray = resultMap.get("timeCategory").split("\\,");
+		for (String timeCategory : timeCategoryArray){
+			String tempKey = RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + timeCategory;
+			Map<byte[],byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
+			tempmap.forEach((k,v)->{
+				categoryMapList.put(k, v);
+			});
+		}
+		
+		for (String timeCategory : timeCategoryArray){
+			String tempKey = RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + timeCategory;
+			timeCategoryList.append(ser.deserialize(categoryMapList.get(ser.serialize(tempKey))));
+			++timeCategoryCount;
+			if (timeCategoryCount != timeCategoryArray.length){
+				timeCategoryList.append("/");
+			}
+			
 		}
 		
 		hpModel.setBrandList(brandList.toString());

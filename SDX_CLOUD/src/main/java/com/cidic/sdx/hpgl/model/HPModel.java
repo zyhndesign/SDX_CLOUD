@@ -59,6 +59,7 @@ public class HPModel implements Serializable{
 	private String categoryList;
 	private String sizeList;
 	private String colorList;
+	private String timeCategoryList;
 	
 	private String productUrl; //商品URL
 	private int dataStatus;//数据状态（完整 0，图片缺失 1，连接缺失 2，图片链接都缺失3）
@@ -350,6 +351,12 @@ public class HPModel implements Serializable{
 	}
 	public void setDataStatus(int dataStatus) {
 		this.dataStatus = dataStatus;
+	}
+	public String getTimeCategoryList() {
+		return timeCategoryList;
+	}
+	public void setTimeCategoryList(String timeCategoryList) {
+		this.timeCategoryList = timeCategoryList;
 	}
 	
 }

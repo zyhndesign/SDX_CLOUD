@@ -128,6 +128,7 @@ public class HpIndexManagerController {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			listResultModel.setSuccess(false);
 		}
 		return listResultModel;

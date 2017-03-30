@@ -215,8 +215,45 @@ public class ImportExcelData {
 			put("其它色", "52");
 			put("其他色", "52");
 			
-			put("2016","");
-			put("2015","");
+			put("2016/1春/春1","2,5,9");
+			put("2016/1春/春2","2,5,10");
+			put("2016/1春/春3","2,5,11");
+			put("2016/1春/春4","2,5,12");
+			
+			put("2016/2夏/夏1","2,6,13");
+			put("2016/2夏/夏2","2,6,14");
+			put("2016/2夏/夏3","2,6,15");
+			put("2016/2夏/夏4","2,6,16");
+					
+			put("2016/3秋/秋1","2,7,17");
+			put("2016/3秋/秋2","2,7,18");
+			put("2016/3秋/秋3","2,7,19");
+			put("2016/3秋/秋4","2,7,20");
+			
+			put("2016/4冬/冬1","2,8,21");
+			put("2016/4冬/冬2","2,8,22");
+			put("2016/4冬/冬3","2,8,23");
+			put("2016/4冬/冬4","2,8,24");
+			
+			put("2015/1春/春1","3,25,31");
+			put("2015/1春/春2","3,25,32");
+			put("2015/1春/春3","3,25,33");
+			put("2015/1春/春4","3,25,34");
+			
+			put("2015/2夏/夏1","3,26,39");
+			put("2015/2夏/夏2","3,26,40");
+			put("2015/2夏/夏3","3,26,41");
+			put("2015/2夏/夏4","3,26,42");
+			
+			put("2015/3秋/秋1","3,29,35");
+			put("2015/3秋/秋2","3,29,36");
+			put("2015/3秋/秋3","3,29,37");
+			put("2015/3秋/秋4","3,29,38");
+			
+			put("2015/4冬/冬1","3,30,43");
+			put("2015/4冬/冬2","3,30,44");
+			put("2015/4冬/冬3","3,30,45");
+			put("2015/4冬/冬4","3,30,46");
 		}
 	};
 
@@ -477,20 +514,8 @@ public class ImportExcelData {
 
 					String timeCategory = getValue(cell3);
 					if (timeCategory != null && !timeCategory.equals("")) {
-						String[] temp = timeCategory.split("\\/");
-						StringBuilder timeCategoryValue = new StringBuilder();
-						if (temp.length > 0) {
-							timeCategoryValue.append(map.get(temp[0]));
-						}
-						if (temp.length > 1) {
-							timeCategoryValue.append(",");
-							timeCategoryValue.append(map.get(temp[1]));
-						}
-						if (temp.length > 2) {
-							timeCategoryValue.append(",");
-							timeCategoryValue.append(map.get(temp[2]));
-						}
-						hPModel.setTimeCategory(timeCategoryValue.toString());
+						
+						hPModel.setTimeCategory(map.get(timeCategory.toString()));
 					}
 
 					String state = getValue(cell8);

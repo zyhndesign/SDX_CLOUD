@@ -3,6 +3,7 @@ var productMgr=(function(config,functions){
 
     return {
         searchParams:{
+            dataCategory:-1,
             brand:[],
             category:[],
             date:[],
@@ -64,6 +65,9 @@ $(document).ready(function(){
                 "fnServerParams": function ( aoData ) {
                     aoData.push({
                         name:"dataCategory",
+                        value:productMgr.searchParams.dataCategory
+                    },{
+                        name:"dataStatus",
                         value:$("#searchStatus").val()
                     },{
                         name:"hp_num",
@@ -138,6 +142,7 @@ $(document).ready(function(){
 
     $("#searchBtn").click(function(){
         productMgr.searchParams={
+            dataCategory:1,
             brand:[],
             category:[],
             date:[],
@@ -165,6 +170,12 @@ $(document).ready(function(){
         }else{
             productMgr.searchParams[type].push(id);
             el.addClass("active");
+        }
+
+        if($("#searchPanel .active").length==0){
+            productMgr.searchParams.dataCategory=-1;
+        }else{
+            productMgr.searchParams.dataCategory=0;
         }
         table.tableRedraw();
     });

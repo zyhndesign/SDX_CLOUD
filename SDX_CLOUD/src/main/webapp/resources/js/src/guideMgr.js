@@ -75,9 +75,15 @@ $(document).ready(function(){
                                 removeText="启用";
                                 status=0;
                             }
+
+                            /*return  '<a href="dggl/match/matchOfGuide/'+oObj.aData.id+'">搭配</a>&nbsp;&nbsp;'+
+                                '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
+                                '<a href="'+oObj.aData.id+'" class="remove" data-target-status="'+status+'">'+removeText+'</a>';*/
+
                             return  '<a href="dggl/match/matchOfGuide/'+oObj.aData.id+'">搭配</a>&nbsp;&nbsp;'+
                                 '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
                                 '<a href="'+oObj.aData.id+'" class="remove" data-target-status="'+status+'">'+removeText+'</a>';
+
                         }
                     }
                 ] ,

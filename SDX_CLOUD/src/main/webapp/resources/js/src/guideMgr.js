@@ -80,8 +80,7 @@ $(document).ready(function(){
                                 '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
                                 '<a href="'+oObj.aData.id+'" class="remove" data-target-status="'+status+'">'+removeText+'</a>';*/
 
-                            return  '<a href="dggl/match/matchOfGuide/'+oObj.aData.id+'">搭配</a>&nbsp;&nbsp;'+
-                                '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
+                            return  '<a href="dggl/appUser/guideCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;'+
                                 '<a href="'+oObj.aData.id+'" class="remove" data-target-status="'+status+'">'+removeText+'</a>';
 
                         }

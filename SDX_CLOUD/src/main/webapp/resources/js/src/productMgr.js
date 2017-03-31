@@ -32,6 +32,7 @@ $(document).ready(function(){
                 "bServerSide": true,
                 "sAjaxSource": config.ajaxUrls.productGetAll,
                 "bInfo":true,
+                "bProcessing":true,
                 "bLengthChange": false,
                 "bFilter": false,
                 "bSort":false,
@@ -104,7 +105,6 @@ $(document).ready(function(){
 
                                 for (var i = 0, iLen = response.aaData.length; i < iLen; i++) {
                                     response.aaData[i].opt="opt";
-                                    response.aaData[i].dataStatus=0;
                                     productMgr.loadedData[response.aaData[i].id]=response.aaData[i];
                                 }
 
@@ -156,7 +156,7 @@ $(document).ready(function(){
         var index;
 
         $("#searchNo").val("");
-        $("#searchStatus").val(0);
+        $("#searchStatus").val(-1);
 
         if(el.hasClass("active")){
             index=productMgr.searchParams[type].indexOf(id);

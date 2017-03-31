@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html{
     height: 100%;
     width:100%;
@@ -7,7 +8,7 @@ body{
     padding:0px;
     height: 100%;
     position: relative;
-    font-family: "Arail","微软雅黑","Heiti";
+    font-family: "Arail","Microsoft YaHei","Heiti";
     background: #efefef!important;
 }
 ul{
@@ -276,9 +277,7 @@ form .control-label .sdxIcon{
 /********************************************************************************
 *复写datatable
 */
-.dataTables_wrapper{
-    position: relative;
-}
+
 table.dataTable{
     margin-top: 20px;
     width: 100%;

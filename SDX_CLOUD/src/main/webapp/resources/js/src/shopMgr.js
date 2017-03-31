@@ -13,6 +13,7 @@ $(document).ready(function(){
                 "bServerSide": true,
                 "sAjaxSource": config.ajaxUrls.shopGetAll,
                 "bInfo":true,
+                "bProcessing":true,
                 "bLengthChange": false,
                 "bFilter": false,
                 "bSort":false,

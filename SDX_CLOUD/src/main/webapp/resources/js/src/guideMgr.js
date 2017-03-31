@@ -44,6 +44,7 @@ $(document).ready(function(){
                 "bInfo":true,
                 "bLengthChange": false,
                 "bFilter": false,
+                "bProcessing":true,
                 "bSort":false,
                 "bAutoWidth": false,
                 "iDisplayLength":config.perLoadCounts.table,

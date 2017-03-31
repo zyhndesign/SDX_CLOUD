@@ -33,6 +33,7 @@
                         </a>
                         <div class="col-md-9 tableSearchContainer">
                             <select class="form-control" id="searchStatus">
+                                <option value="-1">数据完整性</option>
                                 <option value="0">数据完整</option>
                                 <option value="1">图片缺失</option>
                                 <option value="2">链接缺失</option>

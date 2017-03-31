@@ -1,7 +1,6 @@
 package com.cidic.sdx.hpgl.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,7 +26,6 @@ import com.cidic.sdx.hpgl.model.ListResultModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
 import com.cidic.sdx.hpgl.service.HpIndexService;
 import com.cidic.sdx.hpgl.service.HpManageService;
-import com.cidic.sdx.util.RedisVariableUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller

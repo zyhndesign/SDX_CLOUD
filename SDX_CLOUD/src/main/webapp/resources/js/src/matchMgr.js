@@ -23,14 +23,19 @@ $(document).ready(function(){
                     "sUrl":config.dataTable.langUrl
                 },
                 "aoColumns": [
-                    { "mDataProp": "headicon",
+                    { "mDataProp": "createtime",
                         "fnRender":function(oObj){
-                            return '<img class="thumb" src="'+oObj.aData.headicon+'">';
+                            return functions.formatDate("Y-m-d",oObj.aData.createtime);
                         }
                     },
-                    { "mDataProp": "username",
+                    { "mDataProp": "matchlists",
                         "fnRender":function(oObj){
-                            return oObj.aData.username+"<p>"+oObj.aData.shop.shopname+"</p>";
+                            return '<img class="thumb" src="'+oObj.aData.matchlists[0].modelurl+'">';
+                        }
+                    },
+                    { "mDataProp": "seriesname",
+                        "fnRender":function(oObj){
+                            return '<span class="glyphicon glyphicon-heart"></span>24';
                         }
                     }
                 ] ,

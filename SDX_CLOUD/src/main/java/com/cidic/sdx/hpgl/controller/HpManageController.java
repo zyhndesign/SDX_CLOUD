@@ -196,7 +196,9 @@ public class HpManageController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel update(HttpServletRequest request, HttpServletResponse response, @RequestParam String id,
-			@RequestParam String hp_num, @RequestParam String price, @RequestParam String imageUrl1,
+			@RequestParam String hp_num, @RequestParam String brand, @RequestParam String category, 
+			@RequestParam String size,@RequestParam String timeCategory,
+			@RequestParam String color,@RequestParam String price, @RequestParam String imageUrl1,
 			@RequestParam String imageUrl2, @RequestParam String imageUrl3) {
 
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
@@ -205,7 +207,12 @@ public class HpManageController {
 			HPModel hpModel = new HPModel();
 			hpModel.setId(Integer.parseInt(id));
 			hpModel.setHp_num(hp_num);
+			hpModel.setBrand(brand);
+			hpModel.setCategory(category);
+			hpModel.setSize(size);
+			hpModel.setColor(color);
 			hpModel.setPrice(price);
+			hpModel.setTimeCategory(timeCategory);
 			hpModel.setImageUrl1(imageUrl1);
 			hpModel.setImageUrl2(imageUrl2);
 			hpModel.setImageUrl3(imageUrl3);
@@ -265,7 +272,7 @@ public class HpManageController {
 		return resultModel;
 	}
 
-	@RequestMapping(value = "upload", method = RequestMethod.POST)
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
 	public Object firstUpload(HttpServletRequest request, UploadVo demo) {
 		logger.info("firstUpload info:" + demo.toString());

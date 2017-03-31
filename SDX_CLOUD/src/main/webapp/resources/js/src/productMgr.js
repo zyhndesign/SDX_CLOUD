@@ -44,9 +44,9 @@ $(document).ready(function () {
                     "sUrl": config.dataTable.langUrl
                 },
                 "aoColumns": [
-                    { "mDataProp": "imageUrl1",
+                    { "mDataProp": "imageUrl3",
                         "fnRender": function (oObj) {
-                            return  '<img class="thumb" src="'+oObj.aData.imageUrl1+'">';
+                            return  '<img class="thumb" src="'+oObj.aData.imageUrl3+'">';
                         }
                     },
                     { "mDataProp": "hp_num"},

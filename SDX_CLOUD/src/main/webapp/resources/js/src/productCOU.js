@@ -233,7 +233,7 @@ var productCOU=(function(config,functions){
                         fileAddCb:null,
                         progressCb:null,
                         uploadedCb:function(info,file,up){
-                            if(i==3){
+                            /*if(i==3){
                                 if(info.w!=800&&info.h!=1200){
                                     $().toastmessage("showErrorToast",config.messages.imageSizeError);
                                     return ;
@@ -243,7 +243,7 @@ var productCOU=(function(config,functions){
                                     $().toastmessage("showErrorToast",config.messages.imageSizeError);
                                     return ;
                                 }
-                            }
+                            }*/
                             $("#imageUrl"+i).val(info.url);
 
                             $("#image"+i).attr("src",info.url);

@@ -28,49 +28,19 @@
             </div>
             <div class="panel-body" id="opt-body">
 
-                <table id="myTable" class="dataTable tableShowAsList">
+                <table id="myTable" class="dataTable">
                     <thead>
                     <tr>
-                        <th>日期</th>
                         <th>图片</th>
-                        <th>点赞数</th>
+                        <th>名称</th>
+                        <th>日期</th>
                     </tr>
                     </thead>
                     <tbody>
                     <!--<tr>
-                        <td>2017-09-08</td>
                         <td><img class="thumb" src="images/app/short.png"></td>
-                        <td><span class="glyphicon glyphicon-heart"></span>24</td>
-                    </tr>
-                    <tr>
+                        <td>xxxxx</td>
                         <td>2017-09-08</td>
-                        <td><img class="thumb" src="images/app/short.png"></td>
-                        <td><span class="glyphicon glyphicon-heart"></span>24</td>
-                    </tr>
-                    <tr>
-                        <td>2017-09-08</td>
-                        <td><img class="thumb" src="images/app/short.png"></td>
-                        <td><span class="glyphicon glyphicon-heart"></span>24</td>
-                    </tr>
-                    <tr>
-                        <td>2017-09-08</td>
-                        <td><img class="thumb" src="images/app/short.png"></td>
-                        <td><span class="glyphicon glyphicon-heart"></span>24</td>
-                    </tr>
-                    <tr>
-                        <td>2017-09-08</td>
-                        <td><img class="thumb" src="images/app/short.png"></td>
-                        <td><span class="glyphicon glyphicon-heart"></span>24</td>
-                    </tr>
-                    <tr>
-                        <td>2017-09-08</td>
-                        <td><img class="thumb" src="images/app/short.png"></td>
-                        <td><span class="glyphicon glyphicon-heart"></span>24</td>
-                    </tr>
-                    <tr>
-                        <td>2017-09-08</td>
-                        <td><img class="thumb" src="images/app/short.png"></td>
-                        <td><span class="glyphicon glyphicon-heart"></span>24</td>
                     </tr>-->
 
                     </tbody>

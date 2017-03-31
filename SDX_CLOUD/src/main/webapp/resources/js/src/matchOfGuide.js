@@ -23,19 +23,15 @@ $(document).ready(function(){
                     "sUrl":config.dataTable.langUrl
                 },
                 "aoColumns": [
-                    { "mDataProp": "createtime",
-                        "fnRender":function(oObj){
-                            return functions.formatDate("Y-m-d",oObj.aData.createtime);
-                        }
-                    },
                     { "mDataProp": "matchlists",
                         "fnRender":function(oObj){
                             return '<img class="thumb" src="'+oObj.aData.matchlists[0].modelurl+'">';
                         }
                     },
-                    { "mDataProp": "seriesname",
+                    { "mDataProp": "seriesname"},
+                    { "mDataProp": "createtime",
                         "fnRender":function(oObj){
-                            return '<span class="glyphicon glyphicon-heart"></span>24';
+                            return functions.formatDate("Y-m-d",oObj.aData.createtime);
                         }
                     }
                 ] ,

@@ -104,7 +104,6 @@ public class MatchServiceImpl implements MatchService {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 
 }

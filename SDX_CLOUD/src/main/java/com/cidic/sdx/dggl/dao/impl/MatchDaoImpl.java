@@ -180,21 +180,34 @@ public class MatchDaoImpl implements MatchDao {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "";
 		Query query = null; 
-		
-		if (userId == 0){
-			hql = " select count(m) from Match m where sharestatus = ? and draftstatus = ?";
-			query = session.createQuery(hql); 
-			query.setParameter(0, (byte)shareStatus);
-			query.setParameter(1, (byte)0);
+		if (shareStatus == -1){
+			if (userId == 0){
+				hql = " select count(m) from Match m where draftstatus = ?";
+				query = session.createQuery(hql); 
+				query.setParameter(0, (byte)0);
+			}
+			else{
+				hql = " select count(m) from Match m where draftstatus = ? and userId = ?";
+				query = session.createQuery(hql);
+				query.setParameter(0, (byte)0);
+				query.setParameter(1, userId);
+			}
 		}
 		else{
-			hql = " select count(m) from Match m where sharestatus = ? and draftstatus = ? and userId = ?";
-			query = session.createQuery(hql); 
-			query.setParameter(0, (byte)shareStatus);
-			query.setParameter(1, (byte)0);
-			query.setParameter(2, userId);
+			if (userId == 0){
+				hql = " select count(m) from Match m where sharestatus = ? and draftstatus = ?";
+				query = session.createQuery(hql); 
+				query.setParameter(0, (byte)shareStatus);
+				query.setParameter(1, (byte)0);
+			}
+			else{
+				hql = " select count(m) from Match m where sharestatus = ? and draftstatus = ? and userId = ?";
+				query = session.createQuery(hql); 
+				query.setParameter(0, (byte)shareStatus);
+				query.setParameter(1, (byte)0);
+				query.setParameter(2, userId);
+			}
 		}
-		
         return (int)((Long)query.uniqueResult()).longValue();
 	}
 	

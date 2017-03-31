@@ -40,8 +40,8 @@ public class Match implements java.io.Serializable {
 	private User user;
 	private String seriesname;
 	//private byte datastatus;  //0:初始化  1：图片缺失 2：链接缺失 3：图片链接都缺失  
-	private byte sharestatus;  //0:未分享 1：已分享
-	private byte draftstatus; //草稿箱标志 1代表为草稿状态
+	private byte sharestatus;  //0:未分享 1：已分享 -1:全部数据
+	private byte draftstatus; //草稿箱标志 1代表为草稿状态 
 	private Date createtime;
 	private Set<Matchlist> matchlists = new HashSet<Matchlist>(0);
 	private Set<Share> shares = new HashSet<Share>(0);

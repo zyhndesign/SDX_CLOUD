@@ -3,7 +3,7 @@ var productMgr=(function(config,functions){
 
     return {
         searchParams:{
-            dataCategory:-1,
+            dataCategory:-1,//-1表示所有数据，0表示搜索标签，1表示搜索状态和货号
             brand:[],
             category:[],
             date:[],
@@ -149,6 +149,11 @@ $(document).ready(function(){
             color:[],
             size:[]
         };
+
+        //后台没有处理dataStatus为-1（全部）的情况，如果status为-1，并且No为空，那就是直接查所有数据
+        if($("#searchStatus").val()==-1&&!$("#searchNo").val()){
+            productMgr.searchParams.dataCategory=-1;
+        }
 
         $("#searchPanel .active").removeClass("active");
         table.tableRedraw();

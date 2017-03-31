@@ -124,7 +124,7 @@
                 <p><label class="labelW100">颜色:</label>&nbsp;<span class="mustSetValue" data-name="colorList"><span><p>
                 <p><label class="labelW100">尺寸:</label>&nbsp;<span class="mustSetValue" data-name="sizeList"><span><p>
                 <p><label class="labelW100">链接:</label>&nbsp;<span class="mustSetValue" data-name="productUrl"><span><p>
-                <p><label class="labelW100">状态:</label>&nbsp;<span class="mustSetValue" data-name="dataStatus"><span><p>
+                <p><label class="labelW100">状态:</label>&nbsp;<span class="mustSetValue" data-name="dataStatusString"><span><p>
                 <p><label class="labelW100">价格:</label>&nbsp;<span class="mustSetValue" data-name="price"><span><p>
             </div>
         </div><!-- /.modal-content -->

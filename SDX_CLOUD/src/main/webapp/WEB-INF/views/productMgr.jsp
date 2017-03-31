@@ -115,7 +115,7 @@
                 <h4 class="modal-title mustSetValue" data-name="hp_num"></h4>
             </div>
             <div class="modal-body">
-                <p><label class="labelW100">图片:</label>&nbsp;<img class="mustSetSrc" width="100px"><p>
+                <p><label class="labelW100">图片:</label>&nbsp;<img class="mustSetSrc" width="100px" data-name="imageUrl3"><p>
                 <p><label class="labelW100">货号:</label>&nbsp;<span class="mustSetValue" data-name="hp_num"><span><p>
                 <p><label class="labelW100">品牌系列:</label>&nbsp;<span class="mustSetValue" data-name="brandList"><span><p>
                 <p><label class="labelW100">品类:</label>&nbsp;<span class="mustSetValue" data-name="categoryList"><span><p>

@@ -113,6 +113,7 @@ $(document).ready(function () {
 
                                 for (var i = 0, iLen = response.aaData.length; i < iLen; i++) {
                                     response.aaData[i].opt = "opt";
+                                    response.aaData[i].dataStatusString=config.status.product[response.aaData[i].dataStatus];
                                     productMgr.loadedData[response.aaData[i].id] = response.aaData[i];
                                 }
 

@@ -90,39 +90,27 @@ public class HpIndexManagerController {
 				}
 			} else if (dataCategory == 1) { // URL缺失
 				if (hp_num == null || hp_num.equals("")) {
+					HPListModel resultData = null;
 					if (dataStatus == 0){
-						HPListModel resultData = hpIndexServiceImpl.getAllIntegrityData(iDisplayStart, iDisplayLength);
-						listResultModel.setAaData(resultData.getList());
-						listResultModel.setsEcho(sEcho);
-						listResultModel.setiTotalRecords((int) resultData.getCount());
-						listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
-						listResultModel.setSuccess(true);
+						resultData = hpIndexServiceImpl.getAllIntegrityData(iDisplayStart, iDisplayLength);
 					}
 					else if (dataStatus == 1){
-						HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
-						listResultModel.setAaData(resultData.getList());
-						listResultModel.setsEcho(sEcho);
-						listResultModel.setiTotalRecords((int) resultData.getCount());
-						listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
-						listResultModel.setSuccess(true);
+						resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
 					}
 					else if (dataStatus == 2){
-						HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
-						listResultModel.setAaData(resultData.getList());
-						listResultModel.setsEcho(sEcho);
-						listResultModel.setiTotalRecords((int) resultData.getCount());
-						listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
-						listResultModel.setSuccess(true);					
+						resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);				
 					}
 					else if (dataStatus == 3){
-						HPListModel resultData = hpIndexServiceImpl.getAllLostData(iDisplayStart, iDisplayLength);
+						resultData = hpIndexServiceImpl.getAllLostData(iDisplayStart, iDisplayLength);
+					}
+					
+					if (resultData != null){
 						listResultModel.setAaData(resultData.getList());
 						listResultModel.setsEcho(sEcho);
 						listResultModel.setiTotalRecords((int) resultData.getCount());
 						listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
 						listResultModel.setSuccess(true);
 					}
-					
 				}
 				else{
 					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);

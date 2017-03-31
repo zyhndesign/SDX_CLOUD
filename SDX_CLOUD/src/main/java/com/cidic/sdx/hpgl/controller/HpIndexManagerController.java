@@ -66,6 +66,7 @@ public class HpIndexManagerController {
 			@RequestParam(required = true) int dataCategory, @RequestParam(required = false) String brand,
 			@RequestParam(required = false) String color, @RequestParam(required = false) String size,
 			@RequestParam(required = false) String category,
+			@RequestParam(required = false) int dataStatus,
 			@RequestParam int iDisplayLength,
 			@RequestParam int iDisplayStart, @RequestParam String sEcho,
 			@RequestParam(required = false) String hp_num) {
@@ -89,38 +90,39 @@ public class HpIndexManagerController {
 				}
 			} else if (dataCategory == 1) { // URL缺失
 				if (hp_num == null || hp_num.equals("")) {
-					HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
-					listResultModel.setAaData(resultData.getList());
-					listResultModel.setsEcho(sEcho);
-					listResultModel.setiTotalRecords((int) resultData.getCount());
-					listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
-					listResultModel.setSuccess(true);
-				}
-				else{
-					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);
-				}
-				
-			} else if (dataCategory == 2) { // 图片缺失
-				if (hp_num == null || hp_num.equals("")) {
-					HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
-					listResultModel.setAaData(resultData.getList());
-					listResultModel.setsEcho(sEcho);
-					listResultModel.setiTotalRecords((int) resultData.getCount());
-					listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
-					listResultModel.setSuccess(true);
-				}
-				else{
-					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);
-				}
-			}
-			else if (dataCategory == 3) { // 图片缺失
-				if (hp_num == null || hp_num.equals("")) {
-					HPListModel resultData = hpIndexServiceImpl.getAllLostData(iDisplayStart, iDisplayLength);
-					listResultModel.setAaData(resultData.getList());
-					listResultModel.setsEcho(sEcho);
-					listResultModel.setiTotalRecords((int) resultData.getCount());
-					listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
-					listResultModel.setSuccess(true);
+					if (dataStatus == 0){
+						HPListModel resultData = hpIndexServiceImpl.getAllIntegrityData(iDisplayStart, iDisplayLength);
+						listResultModel.setAaData(resultData.getList());
+						listResultModel.setsEcho(sEcho);
+						listResultModel.setiTotalRecords((int) resultData.getCount());
+						listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+						listResultModel.setSuccess(true);
+					}
+					else if (dataStatus == 1){
+						HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
+						listResultModel.setAaData(resultData.getList());
+						listResultModel.setsEcho(sEcho);
+						listResultModel.setiTotalRecords((int) resultData.getCount());
+						listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+						listResultModel.setSuccess(true);
+					}
+					else if (dataStatus == 2){
+						HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
+						listResultModel.setAaData(resultData.getList());
+						listResultModel.setsEcho(sEcho);
+						listResultModel.setiTotalRecords((int) resultData.getCount());
+						listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+						listResultModel.setSuccess(true);					
+					}
+					else if (dataStatus == 3){
+						HPListModel resultData = hpIndexServiceImpl.getAllLostData(iDisplayStart, iDisplayLength);
+						listResultModel.setAaData(resultData.getList());
+						listResultModel.setsEcho(sEcho);
+						listResultModel.setiTotalRecords((int) resultData.getCount());
+						listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+						listResultModel.setSuccess(true);
+					}
+					
 				}
 				else{
 					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);

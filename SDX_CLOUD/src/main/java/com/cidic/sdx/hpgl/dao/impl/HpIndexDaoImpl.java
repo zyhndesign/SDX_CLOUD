@@ -55,7 +55,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = null;
 				
-				if (mapTagList == null || mapTagList.size() == 0){
+				if (mapTagList == null || mapTagList.size() == 0){ //查找所有数据
 					id_list = connection.lRange(ser.serialize(id_key), iDisplayStart, iDisplayStart + iDisplayLength - 1);
 					hpListModel.setCount(connection.lLen(ser.serialize(id_key)));
 				}
@@ -113,7 +113,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 					id_list = connection.lRange(ser.serialize(cacheKey), iDisplayStart, iDisplayStart + iDisplayLength - 1);
 					hpListModel.setCount(connection.lLen(ser.serialize(cacheKey)));
 				}
-				List<HPModel> hpModelList = getListModel(connection,id_list);
+				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS);
 				
 				hpListModel.setList(hpModelList);
 			
@@ -135,7 +135,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
 				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST)));
-				List<HPModel> hpModelList = getListModel(connection,id_list);
+				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.DATA_STATUS_IMAGE_LOST);
 				
 				hpListModel.setList(hpModelList);
 			
@@ -156,7 +156,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_URL_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
 				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_URL_LIST)));
-				List<HPModel> hpModelList = getListModel(connection,id_list);
+				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.DATA_STATUS_URL_LOST);
 				hpListModel.setList(hpModelList);
 			
 				return hpListModel;
@@ -176,7 +176,28 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_ALL_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
 				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_ALL_LIST)));
-				List<HPModel> hpModelList = getListModel(connection,id_list);
+				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.DATA_STATUS_ALL_LOST);
+				
+				hpListModel.setList(hpModelList);
+			
+				return hpListModel;
+			}
+		});
+	}
+	
+	@Override
+	public HPListModel getAllIntegrityData(int iDisplayStart, int iDisplayLength) {
+		return redisTemplate.execute(new RedisCallback<HPListModel>() {
+			
+			@Override
+			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+
+				HPListModel hpListModel = new HPListModel();
+				
+				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST)));
+				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.DATA_STATUS_INTEGRITY);
 				
 				hpListModel.setList(hpModelList);
 			
@@ -210,7 +231,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
 				}
 				
-				List<HPModel> hpModelList = getListModel(connection,id_list);
+				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS);
 				hpListModel.setList(hpModelList);
 			
 				return hpListModel;
@@ -219,7 +240,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 		});
 	}
 
-	public List<HPModel> getListModel(RedisConnection connection,List<byte[]> id_list){
+	public List<HPModel> getListModel(RedisConnection connection,List<byte[]> id_list, int dataStatus){
 		
 		RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 		Map<byte[],byte[]> brandMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
@@ -260,6 +281,13 @@ public class HpIndexDaoImpl implements HpIndexDao {
 			hpModel.setCreateTime(resultMap.get("createTime"));
 			hpModel.setTimeCategory(resultMap.get("timeCategory"));
 			hpModel.setDataStatus(Integer.parseInt(resultMap.get("dataStatus")));
+			
+			if (dataStatus == RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS){
+				hpModel.setDataStatus(Integer.parseInt(resultMap.get("dataStatus")));
+			}
+			else{
+				hpModel.setDataStatus(dataStatus);
+			}
 			
 			StringBuilder brandList = new StringBuilder();
 			StringBuilder categoryList  = new StringBuilder();

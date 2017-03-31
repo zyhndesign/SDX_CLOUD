@@ -30,6 +30,7 @@ public class RedisVariableUtil {
 	public final static String LOST_IMAGE_LIST = "lostImageList";
 	public final static String LOST_URL_LIST = "lostURLList";
 	public final static String LOST_ALL_LIST = "lostAllList";
+	public final static String DATA_INTEGRITY_LIST = "dataIntegrityList";
 	
 	public final static String PRODUCT_Unshelve_SET = "ProductUnshelveSet";
 	
@@ -42,4 +43,5 @@ public class RedisVariableUtil {
 	public final static int DATA_STATUS_URL_LOST = 2;
 	public final static int DATA_STATUS_IMAGE_LOST = 1;
 	public final static int DATA_STATUS_ALL_LOST = 3;
+	public final static int NO_RELATIONSHIP_OF_DATA_STATUS = -1;
 }

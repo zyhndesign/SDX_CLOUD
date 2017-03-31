@@ -17,6 +17,9 @@ public interface HpIndexService {
 	// 图片和链接数据都缺失的数据
 	public HPListModel getAllLostData(int iDisplayStart, int iDisplayLength);
 	
+	// 图片和链接数据都缺失的数据
+	public HPListModel getAllIntegrityData(int iDisplayStart, int iDisplayLength);
+		
 	//获取 裤装（1），外套（2），内搭 （3）列表数据
 	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit);
 	

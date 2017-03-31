@@ -156,9 +156,14 @@ public class HpManageDaoImpl implements HpManageDao {
 					imageSign = RedisVariableUtil.DATA_STATUS_IMAGE_LOST;
 					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_IMAGE_LOST)));
 				}
-				
+				//图片链接都缺失
 				if (urlSign == RedisVariableUtil.DATA_STATUS_URL_LOST && imageSign == RedisVariableUtil.DATA_STATUS_IMAGE_LOST){
 					connection.lPush(ser.serialize(RedisVariableUtil.LOST_ALL_LIST), ser.serialize(String.valueOf(id)));
+				}
+				
+				//数据完整
+				if (urlSign == RedisVariableUtil.DATA_STATUS_INTEGRITY && imageSign == RedisVariableUtil.DATA_STATUS_INTEGRITY){
+					connection.lPush(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), ser.serialize(String.valueOf(id)));
 				}
 				
 				if (urlSign == RedisVariableUtil.DATA_STATUS_URL_LOST && imageSign == RedisVariableUtil.DATA_STATUS_IMAGE_LOST){

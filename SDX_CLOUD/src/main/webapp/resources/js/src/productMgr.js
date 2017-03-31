@@ -156,7 +156,7 @@ $(document).ready(function(){
         var index;
 
         $("#searchNo").val("");
-        $("#searchStatus").val("");
+        $("#searchStatus").val(0);
 
         if(el.hasClass("active")){
             index=productMgr.searchParams[type].indexOf(id);

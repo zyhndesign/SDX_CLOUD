@@ -126,6 +126,15 @@ public class HpIndexManagerController {
 					listResultModel = this.getHpDataByHpNum(hp_num, sEcho);
 				}
 			}
+			else if(dataCategory == -1){
+				HPListModel resultData = hpIndexServiceImpl.getAllData(iDisplayStart, iDisplayLength);
+
+				listResultModel.setAaData(resultData.getList());
+				listResultModel.setsEcho(sEcho);
+				listResultModel.setiTotalRecords((int) resultData.getCount());
+				listResultModel.setiTotalDisplayRecords((int) resultData.getCount());
+				listResultModel.setSuccess(true);
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();

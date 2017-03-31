@@ -45,12 +45,6 @@ public class HpIndexDaoImpl implements HpIndexDao {
 	@Override
 	public HPListModel getIndexDataByTag(Map<String,List<String>> mapTagList,int iDisplayStart,int iDisplayLength) {
 		
-		StringBuilder tagListStr = new StringBuilder();
-		mapTagList.forEach((k,v)->{
-			v.forEach((s)->tagListStr.append(s));
-		});
-		cacheKey = DigestUtils.md5Hex(tagListStr.toString());
-		
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
 			
 			@Override
@@ -61,11 +55,17 @@ public class HpIndexDaoImpl implements HpIndexDao {
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = null;
 				
-				if (mapTagList.size() == 0){
+				if (mapTagList == null || mapTagList.size() == 0){
 					id_list = connection.lRange(ser.serialize(id_key), iDisplayStart, iDisplayStart + iDisplayLength - 1);
 					hpListModel.setCount(connection.lLen(ser.serialize(id_key)));
 				}
 				else{
+					StringBuilder tagListStr = new StringBuilder();
+					mapTagList.forEach((k,v)->{
+						v.forEach((s)->tagListStr.append(s));
+					});
+					cacheKey = DigestUtils.md5Hex(tagListStr.toString());
+					
 					if (!connection.exists(ser.serialize(cacheKey))){
 						
 						List<String> brandList = mapTagList.get(RedisVariableUtil.BRAND_PREFIX);
@@ -259,6 +259,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 			hpModel.setImageUrl3(resultMap.get("imageUrl3"));
 			hpModel.setCreateTime(resultMap.get("createTime"));
 			hpModel.setTimeCategory(resultMap.get("timeCategory"));
+			hpModel.setDataStatus(Integer.parseInt(resultMap.get("dataStatus")));
 			
 			StringBuilder brandList = new StringBuilder();
 			StringBuilder categoryList  = new StringBuilder();

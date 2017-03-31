@@ -19,4 +19,7 @@ public interface HpIndexService {
 	
 	//获取 裤装（1），外套（2），内搭 （3）列表数据
 	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit);
+	
+	// 图片和链接数据都缺失的数据
+	public HPListModel getAllData(int iDisplayStart, int iDisplayLength);
 }

@@ -32,6 +32,7 @@ import com.cidic.sdx.hpgl.model.ListResultModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
 import com.cidic.sdx.hpgl.service.HpManageService;
 import com.cidic.sdx.hpgl.service.TagService;
+import com.cidic.sdx.util.HpModelUtil;
 import com.cidic.sdx.util.UploadVo;
 import com.cidic.sdx.util.WebRequestUtil;
 import com.qiniu.util.Auth;
@@ -163,13 +164,14 @@ public class HpManageController {
 	@ResponseBody
 	public ResultModel insert(HttpServletRequest request, HttpServletResponse response, @RequestParam String hp_num,
 			@RequestParam String brand, @RequestParam String category, @RequestParam String size,
-			@RequestParam String color, @RequestParam String price, @RequestParam String imageUrl1,
-			@RequestParam String imageUrl2, @RequestParam String imageUrl3) {
+			@RequestParam String color, @RequestParam(value="") String price, @RequestParam(value="") String imageUrl1,
+			@RequestParam(value="") String imageUrl2, @RequestParam(value="") String imageUrl3) {
 
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 
 		try {
 			HPModel hpModel = new HPModel();
+			HpModelUtil.FilterNullString(hpModel);
 			hpModel.setHp_num(hp_num);
 			hpModel.setBrand(brand);
 			hpModel.setCategory(category);
@@ -213,6 +215,7 @@ public class HpManageController {
 		}
 
 		catch (Exception e) {
+			e.printStackTrace();
 			throw new SdxException(500, "更新数据失败");
 		}
 		return resultModel;

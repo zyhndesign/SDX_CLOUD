@@ -205,43 +205,58 @@ public class HpManageDaoImpl implements HpManageDao {
 				
 				connection.multi();
 				int id = hpModel.getId();
+
 				byte[] hKey = ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id);
 				connection.hSet(hKey,ser.serialize("hp_num"), ser.serialize(hpModel.getHp_num()));
 				connection.hSet(hKey,ser.serialize("price"), ser.serialize(hpModel.getPrice()));
-				connection.hSet(hKey,ser.serialize("imageUrl1"), ser.serialize(hpModel.getImageUrl1()));
-				connection.hSet(hKey,ser.serialize("imageUrl2"), ser.serialize(hpModel.getImageUrl2()));
-				connection.hSet(hKey,ser.serialize("imageUrl3"), ser.serialize(hpModel.getImageUrl3()));
-				connection.hSet(hKey,ser.serialize("productURL"), ser.serialize(hpModel.getProductUrl()));
+				
+				if (hpModel.getImageUrl1() != null){
+					connection.hSet(hKey,ser.serialize("imageUrl1"), ser.serialize(hpModel.getImageUrl1()));
+				}
+				if (hpModel.getImageUrl2() != null){
+					connection.hSet(hKey,ser.serialize("imageUrl2"), ser.serialize(hpModel.getImageUrl2()));				
+				}
+				if (hpModel.getImageUrl3() != null){
+					connection.hSet(hKey,ser.serialize("imageUrl3"), ser.serialize(hpModel.getImageUrl3()));
+				}
+				if (hpModel.getProductUrl() != null){
+					connection.hSet(hKey,ser.serialize("productURL"), ser.serialize(hpModel.getProductUrl()));
+				}
 				
 				int imageSign = RedisVariableUtil.DATA_STATUS_INTEGRITY;
 				if (hpModel.getImageUrl1() != null && !hpModel.getImageUrl1().equals("")
 						&& hpModel.getImageUrl2() != null && !hpModel.getImageUrl2().equals("")
 						&& hpModel.getImageUrl3() != null && !hpModel.getImageUrl3().equals("")){
-					connection.sRem(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST), ser.serialize(String.valueOf(id)));
+					connection.lRem(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST), 0, ser.serialize(String.valueOf(id)));
 				}
 				else{
 					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_IMAGE_LOST)));
 					imageSign = RedisVariableUtil.DATA_STATUS_IMAGE_LOST;
 				}
-				
+
 				int urlSign = RedisVariableUtil.DATA_STATUS_INTEGRITY;
 				if (hpModel.getProductUrl() != null && !hpModel.getProductUrl().equals("")){
-					connection.sRem(ser.serialize(RedisVariableUtil.LOST_URL_LIST), ser.serialize(String.valueOf(id)));
+					connection.lRem(ser.serialize(RedisVariableUtil.LOST_URL_LIST), 0, ser.serialize(String.valueOf(id)));
 				}
 				else{
 					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_URL_LOST)));
 					urlSign = RedisVariableUtil.DATA_STATUS_URL_LOST;
 				}
-				
+
 				if (imageSign == RedisVariableUtil.DATA_STATUS_IMAGE_LOST && urlSign == RedisVariableUtil.DATA_STATUS_URL_LOST){
-					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_INTEGRITY))); //数据完整
+					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_ALL_LOST))); 
 				}
 				
+				if (imageSign == RedisVariableUtil.DATA_STATUS_INTEGRITY && urlSign == RedisVariableUtil.DATA_STATUS_INTEGRITY){
+					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_INTEGRITY))); //数据完整
+					connection.lPush(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), ser.serialize(String.valueOf(id)));
+				}
+				else{
+					connection.lRem(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), 0, ser.serialize(String.valueOf(id)));
+				}
 				List<Object> resultList = connection.exec();
 				logger.info("执行命令数量�?", resultList.size());
-				resultList.stream().forEach((o)->{
-					logger.info("命令执行结果�?",o.toString());
-				});
+				
 				return null;
 			}
 		});

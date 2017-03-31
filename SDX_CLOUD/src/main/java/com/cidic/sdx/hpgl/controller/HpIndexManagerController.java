@@ -99,7 +99,7 @@ public class HpIndexManagerController {
 						listResultModel.setSuccess(true);
 					}
 					else if (dataStatus == 1){
-						HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
+						HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
 						listResultModel.setAaData(resultData.getList());
 						listResultModel.setsEcho(sEcho);
 						listResultModel.setiTotalRecords((int) resultData.getCount());
@@ -107,7 +107,7 @@ public class HpIndexManagerController {
 						listResultModel.setSuccess(true);
 					}
 					else if (dataStatus == 2){
-						HPListModel resultData = hpIndexServiceImpl.getLostImageData(iDisplayStart, iDisplayLength);
+						HPListModel resultData = hpIndexServiceImpl.getLostURLData(iDisplayStart, iDisplayLength);
 						listResultModel.setAaData(resultData.getList());
 						listResultModel.setsEcho(sEcho);
 						listResultModel.setiTotalRecords((int) resultData.getCount());

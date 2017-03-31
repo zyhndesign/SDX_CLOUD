@@ -60,9 +60,11 @@ $(document).ready(function () {
                     },
                     { "mDataProp": "opt",
                         "fnRender": function (oObj) {
-                            return  '<a href="' + oObj.aData.id + '" class="check">查看</a>&nbsp;&nbsp;' +
+                            /*return  '<a href="' + oObj.aData.id + '" class="check">查看</a>&nbsp;&nbsp;' +
                                 '<a href="hpgl/hpManage/productCOU/' + oObj.aData.id + '">编辑</a>&nbsp;&nbsp;' +
-                                '<a href="' + oObj.aData.id + '" class="remove">作废</a>';
+                                '<a href="' + oObj.aData.id + '" class="remove">作废</a>';*/
+                            return  '<a href="' + oObj.aData.id + '" class="check">查看</a>&nbsp;&nbsp;' +
+                                '<a href="hpgl/hpManage/productCOU/' + oObj.aData.id + '">编辑</a>';
                         }
                     }
                 ],

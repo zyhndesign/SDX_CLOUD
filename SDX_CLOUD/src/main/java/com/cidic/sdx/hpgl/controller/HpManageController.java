@@ -129,7 +129,6 @@ public class HpManageController {
 			listResultModel.setiTotalDisplayRecords((int)resultData.getCount());
 			listResultModel.setSuccess(true);
 		}
-
 		catch (Exception e) {
 			listResultModel.setSuccess(false);
 		}
@@ -153,7 +152,6 @@ public class HpManageController {
 			listResultModel.setiTotalDisplayRecords(1);
 			listResultModel.setSuccess(true);
 		}
-
 		catch (Exception e) {
 			listResultModel.setSuccess(false);
 		}

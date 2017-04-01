@@ -116,6 +116,7 @@
 				/dggl/share/*=authc
 				/dggl/appVipUser/getVipuserByShoppingGuideId=authc
 				/dggl/appUser/updatePwd=authc
+				/hpgl/app/hpManage/*=authc
 			</value>
 		</property>
 	</bean>	

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cidic.sdx.hpgl.model.AppResultModel;
-import com.cidic.sdx.hpgl.service.HpManageService;
+import com.cidic.sdx.hpgl.service.AppHpService;
 import com.cidic.sdx.hpgl.service.TagService;
 
 @Controller
@@ -20,8 +20,8 @@ public class AppHpDataController {
 	private static final Logger logger = LoggerFactory.getLogger(BrandSettingController.class);
 
 	@Autowired
-	@Qualifier(value = "hpManageServiceImpl")
-	private HpManageService hpManageServiceImpl;
+	@Qualifier(value = "appHpServiceImpl")
+	private AppHpService appHpServiceImpl;
 
 	@Autowired
 	@Qualifier(value = "tagServiceImpl")

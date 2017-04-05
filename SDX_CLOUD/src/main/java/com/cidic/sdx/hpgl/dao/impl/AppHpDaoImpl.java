@@ -52,6 +52,48 @@ public class AppHpDaoImpl implements AppHpDao {
 	}
 
 	@Override
+	public List<AppHpModel> getInnerClothData(int offset, int limit) {
+		return redisTemplate.execute(new RedisCallback<List<AppHpModel>>() {
+
+			@Override
+			public List<AppHpModel> doInRedis(RedisConnection connection) throws DataAccessException {
+				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), offset,
+						offset + limit - 1);
+				return getListModel(connection, id_list);
+			}
+		});
+	}
+
+	@Override
+	public List<AppHpModel> getOutterClothData(int offset, int limit) {
+		return redisTemplate.execute(new RedisCallback<List<AppHpModel>>() {
+
+			@Override
+			public List<AppHpModel> doInRedis(RedisConnection connection) throws DataAccessException {
+				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), offset,
+						offset + limit - 1);
+				return getListModel(connection, id_list);
+			}
+		});
+	}
+
+	@Override
+	public List<AppHpModel> getTrouserClothData(int offset, int limit) {
+		return redisTemplate.execute(new RedisCallback<List<AppHpModel>>() {
+
+			@Override
+			public List<AppHpModel> doInRedis(RedisConnection connection) throws DataAccessException {
+				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), offset,
+						offset + limit - 1);
+				return getListModel(connection, id_list);
+			}
+		});
+	}
+	
+	@Override
 	public AppHpModel getHpDetailDataById(int id) {
 		return redisTemplate.execute(new RedisCallback<AppHpModel>() {
 
@@ -104,4 +146,5 @@ public class AppHpDaoImpl implements AppHpDao {
 		}
 		return hpModelList;
 	}
+
 }

@@ -164,6 +164,16 @@ public class HpManageDaoImpl implements HpManageDao {
 				//数据完整
 				if (urlSign == RedisVariableUtil.DATA_STATUS_INTEGRITY && imageSign == RedisVariableUtil.DATA_STATUS_INTEGRITY){
 					connection.lPush(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), ser.serialize(String.valueOf(id)));
+					
+					if (hpModel.getCategory().contains("1,")){ //库装
+						connection.lPush(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), ser.serialize(String.valueOf(id)));
+					}
+					else if (hpModel.getCategory().contains("2,")){ //外套
+						connection.lPush(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), ser.serialize(String.valueOf(id)));
+					}
+					else if (hpModel.getCategory().contains("3,")){ //内搭
+						connection.lPush(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), ser.serialize(String.valueOf(id)));
+					}
 				}
 				
 				if (urlSign == RedisVariableUtil.DATA_STATUS_URL_LOST && imageSign == RedisVariableUtil.DATA_STATUS_IMAGE_LOST){
@@ -173,15 +183,6 @@ public class HpManageDaoImpl implements HpManageDao {
 					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_INTEGRITY)));
 				}
 				
-				if (hpModel.getCategory().contains("1,")){ //库装
-					connection.lPush(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), ser.serialize(String.valueOf(id)));
-				}
-				else if (hpModel.getCategory().contains("2,")){ //外套
-					connection.lPush(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), ser.serialize(String.valueOf(id)));
-				}
-				else if (hpModel.getCategory().contains("3,")){ //内搭
-					connection.lPush(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), ser.serialize(String.valueOf(id)));
-				}
 				
 				List<Object> resultList = connection.exec();
 				
@@ -219,6 +220,7 @@ public class HpManageDaoImpl implements HpManageDao {
 				if (hpModel.getImageUrl3() != null){
 					connection.hSet(hKey,ser.serialize("imageUrl3"), ser.serialize(hpModel.getImageUrl3()));
 				}
+
 				if (hpModel.getProductUrl() != null){
 					connection.hSet(hKey,ser.serialize("productURL"), ser.serialize(hpModel.getProductUrl()));
 				}
@@ -250,6 +252,15 @@ public class HpManageDaoImpl implements HpManageDao {
 				if (imageSign == RedisVariableUtil.DATA_STATUS_INTEGRITY && urlSign == RedisVariableUtil.DATA_STATUS_INTEGRITY){
 					connection.hSet(hKey,ser.serialize("dataStatus"), ser.serialize(String.valueOf(RedisVariableUtil.DATA_STATUS_INTEGRITY))); //数据完整
 					connection.lPush(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), ser.serialize(String.valueOf(id)));
+					if (hpModel.getCategory().contains("1,")){ //库装
+						connection.lPush(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), ser.serialize(String.valueOf(id)));
+					}
+					else if (hpModel.getCategory().contains("2,")){ //外套
+						connection.lPush(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), ser.serialize(String.valueOf(id)));
+					}
+					else if (hpModel.getCategory().contains("3,")){ //内搭
+						connection.lPush(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), ser.serialize(String.valueOf(id)));
+					}
 				}
 				else{
 					connection.lRem(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), 0, ser.serialize(String.valueOf(id)));
@@ -304,19 +315,7 @@ public class HpManageDaoImpl implements HpManageDao {
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				HPListModel hpListModel = new HPListModel();
 				
-				Map<byte[],byte[]> brandMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
-				Map<byte[],byte[]> categoryMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
-				Map<byte[],byte[]> colorMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
-				Map<byte[],byte[]> sizeMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.SIZE_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
 				
-				List<byte[]> id_list = connection.lRange(ser.serialize(id_key), iDisplayStart, iDisplayStart + iDisplayLength);
-				hpListModel.setCount(connection.lLen(ser.serialize(id_key)));
-				
-				List<HPModel> hpModelList = new ArrayList<>();
-				HPModel hpModel = null;
-				
-				
-				hpListModel.setList(hpModelList);
 				return hpListModel;
 			}
 		});

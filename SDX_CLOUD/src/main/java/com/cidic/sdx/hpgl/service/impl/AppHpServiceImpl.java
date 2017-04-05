@@ -30,5 +30,23 @@ public class AppHpServiceImpl implements AppHpService {
 		return appHpDaoImpl.getHpDetailDataById(id);
 	}
 
+	@Override
+	public List<AppHpModel> getInnerClothData(int offset, int limit) {
+		// TODO Auto-generated method stub
+		return appHpDaoImpl.getInnerClothData(offset, limit);
+	}
+
+	@Override
+	public List<AppHpModel> getOutterClothData(int offset, int limit) {
+		// TODO Auto-generated method stub
+		return appHpDaoImpl.getOutterClothData(offset, limit);
+	}
+
+	@Override
+	public List<AppHpModel> getTrouserClothData(int offset, int limit) {
+		// TODO Auto-generated method stub
+		return appHpDaoImpl.getTrouserClothData(offset, limit);
+	}
+
 	
 }

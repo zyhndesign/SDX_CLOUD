@@ -81,4 +81,33 @@ public class AppHpDataController {
 		}
 		return appResultModel;
 	}
+	
+	@RequestMapping(value = "/getHpDataByCategoryId", method = RequestMethod.GET)
+	public AppResultModel getHpDataByCategoryId(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int offset, @RequestParam int limit,@RequestParam int categoryId){
+
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		AppResultModel appResultModel = new AppResultModel();
+		try {
+			
+			appResultModel.setSuccess(true);
+			if (categoryId == 0){
+				appResultModel.setObject(appHpServiceImpl.getInnerClothData(offset, limit));
+			}
+			else if (categoryId == 1){
+				appResultModel.setObject(appHpServiceImpl.getOutterClothData(offset, limit));
+			}
+			else if (categoryId == 2){
+				appResultModel.setObject(appHpServiceImpl.getTrouserClothData(offset, limit));
+			}
+			
+			appResultModel.setMessage("操作成功");
+			appResultModel.setResultCode(200);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new SdxException(500, "写入数据失败");
+		}
+		return appResultModel;
+	}
+
 }

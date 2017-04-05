@@ -197,7 +197,7 @@ public class HpManageController {
 			@RequestParam String hp_num, @RequestParam String brand, @RequestParam String category, 
 			@RequestParam String size,@RequestParam String timeCategory,
 			@RequestParam String color,@RequestParam String price, @RequestParam String imageUrl1,
-			@RequestParam String imageUrl2, @RequestParam String imageUrl3) {
+			@RequestParam String imageUrl2, @RequestParam String imageUrl3,@RequestParam String productUrl) {
 
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 
@@ -214,12 +214,12 @@ public class HpManageController {
 			hpModel.setImageUrl1(imageUrl1);
 			hpModel.setImageUrl2(imageUrl2);
 			hpModel.setImageUrl3(imageUrl3);
+			hpModel.setProductUrl(productUrl);
 			hpManageServiceImpl.updateHpData(hpModel);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
 		}
-
 		catch (Exception e) {
 			e.printStackTrace();
 			throw new SdxException(500, "更新数据失败");

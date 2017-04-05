@@ -4,7 +4,7 @@ public class AppResultModel {
 	
 	private boolean success;
 	private int error_code;
-	
+	private int resultCode;
 	private String message;
 	private Object object;
 	
@@ -31,6 +31,12 @@ public class AppResultModel {
 	}
 	public void setObject(Object object) {
 		this.object = object;
+	}
+	public int getResultCode() {
+		return resultCode;
+	}
+	public void setResultCode(int resultCode) {
+		this.resultCode = resultCode;
 	}
 	
 	

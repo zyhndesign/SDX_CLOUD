@@ -4,6 +4,7 @@ public class AppHpModel {
 	
 	private int id;
 	private String hpName;
+	private String hpNum;
 	private String imageUrl1;
 	private String imageUrl2;
 	private String imageUrl3;
@@ -44,6 +45,12 @@ public class AppHpModel {
 	}
 	public void setPrice(String price) {
 		this.price = price;
+	}
+	public String getHpNum() {
+		return hpNum;
+	}
+	public void setHpNum(String hpNum) {
+		this.hpNum = hpNum;
 	}
 	
 	

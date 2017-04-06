@@ -16,15 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.model.AppResultModel;
-import com.cidic.sdx.hpgl.model.HPModel;
-import com.cidic.sdx.hpgl.model.ResultModel;
 import com.cidic.sdx.hpgl.service.AppHpService;
 import com.cidic.sdx.hpgl.service.TagService;
-import com.cidic.sdx.util.HpModelUtil;
 import com.cidic.sdx.util.WebRequestUtil;
 
 @Controller
-@RequestMapping("/hpgl/app/hpManage")
+@RequestMapping("/app/hpManage")
 public class AppHpDataController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BrandSettingController.class);
@@ -47,6 +44,7 @@ public class AppHpDataController {
 	}
 	
 	@RequestMapping(value = "/getHpData", method = RequestMethod.GET)
+	@ResponseBody
 	public AppResultModel getHpData(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int offset, @RequestParam int limit){
 
@@ -66,6 +64,7 @@ public class AppHpDataController {
 	}
 	
 	@RequestMapping(value = "/getHpDetailDataById", method = RequestMethod.GET)
+	@ResponseBody
 	public AppResultModel getHpDetailDataById(HttpServletRequest request, HttpServletResponse response,@RequestParam int id){
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		AppResultModel appResultModel = new AppResultModel();
@@ -83,6 +82,7 @@ public class AppHpDataController {
 	}
 	
 	@RequestMapping(value = "/getHpDataByCategoryId", method = RequestMethod.GET)
+	@ResponseBody
 	public AppResultModel getHpDataByCategoryId(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int offset, @RequestParam int limit,@RequestParam int categoryId){
 

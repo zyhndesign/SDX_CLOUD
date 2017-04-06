@@ -248,7 +248,7 @@ public class HpManageController {
 
 	@RequestMapping(value = "/getUploadKey", method = RequestMethod.GET)
 	@ResponseBody
-	public ResultModel getUploadKey(HttpServletRequest request) {
+	public ResultModel getUploadKey(HttpServletRequest request, HttpServletResponse response) {
 
 		final String ACCESS_KEY = "Q-DeiayZfPqA0WDSOGSf-ekk345VrzuZa_6oBrX_";
 		final String SECRET_KEY = "fIiGiRr3pFmHOmBDR2Md1hTCqpMMBcE_gvZYMzwD";

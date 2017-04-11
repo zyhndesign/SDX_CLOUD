@@ -80,11 +80,8 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public MatchListModel getAppMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
-		MatchListModel matchListModel = new MatchListModel();
-		matchListModel.setList(matchDaoImpl.getAppMatchByShareStatus(userId, shareStatus, offset, limit));
-		matchListModel.setCount(matchDaoImpl.getAppMatchShareCountByUser(userId, shareStatus));
-		return matchListModel;
+	public List<Match> getAppMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
+		return matchDaoImpl.getAppMatchByShareStatus(userId, shareStatus, offset, limit);
 	}
 
 	@Override
@@ -92,6 +89,11 @@ public class MatchServiceImpl implements MatchService {
 		return matchDaoImpl.getMatchByDataStatus(userId, dataStatus, offset, limit);
 	}
 
+	@Override
+	public List<Match> getAppMatchByDraftStatus(int userId, int draftStatus, int offset, int limit){
+		return matchDaoImpl.getAppMatchByDraftStatus(userId, draftStatus, offset, limit);
+	}
+	
 	@Override
 	public MatchListModel getMatchByShareStatus(int userId, int shareStatus, int offset, int limit) {
 		try{

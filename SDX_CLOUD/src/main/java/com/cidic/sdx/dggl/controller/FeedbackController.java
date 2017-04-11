@@ -107,4 +107,20 @@ public class FeedbackController {
 		return resultModel;
 
 	}
+	
+	@RequestMapping(value = "/getTopThreeDataByUserId", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getTopThreeDataByUserId(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+
+		List<HotMatchModel> feedBackList = feedbackServiceImpl.getTopThreeDataByUserId(userId);
+
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(feedBackList);
+		return resultModel;
+
+	}
 }

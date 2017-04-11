@@ -2,6 +2,7 @@ package com.cidic.sdx.dggl.controller;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.MatchListModel;
+import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.service.AppUserService;
 import com.cidic.sdx.dggl.service.MatchService;
@@ -77,6 +79,10 @@ public class MatchController {
 			@RequestBody Match match) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
+		Set<Matchlist> matchlist = match.getMatchlists();
+		for (Matchlist m : matchlist ){
+			System.out.println(m.getModelurl());
+		}
 		int result = matchServiceImpl.createMatch(match);
 		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
@@ -161,19 +167,34 @@ public class MatchController {
 		return listResultModel;
 	}
     
-	@RequestMapping(value = "/getAppMatchByShareStatus", method = RequestMethod.POST)
+	@RequestMapping(value = "/getAppMatchByDraftStatus", method = RequestMethod.POST)
 	@ResponseBody
-	public ListResultModel getAppMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int userId, @RequestParam int shareStatus, @RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho){
+	public ListResultModel getAppMatchByDraftStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId, @RequestParam int draftStatus, @RequestParam int offset, @RequestParam int limit){
 		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 		try {
-			MatchListModel matchListModel = matchServiceImpl.getAppMatchByShareStatus(userId, shareStatus, iDisplayStart, iDisplayLength);
-			listResultModel.setAaData(matchListModel.getList());
-			listResultModel.setsEcho(sEcho);
-			listResultModel.setiTotalRecords(matchListModel.getCount());
-			listResultModel.setiTotalDisplayRecords(matchListModel.getCount());
+		    List<Match> matchList = matchServiceImpl.getAppMatchByDraftStatus(userId, draftStatus, offset, limit);
+			listResultModel.setAaData(matchList);
+			listResultModel.setSuccess(true);
+		}
+		catch (Exception e) {
+			listResultModel.setSuccess(false);
+		}
+		return listResultModel;
+	}
+	
+	@RequestMapping(value = "/getAppMatchByShareStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ListResultModel getAppMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId, @RequestParam int shareStatus, @RequestParam int offset, @RequestParam int limit){
+		
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ListResultModel listResultModel = new ListResultModel();
+		try {
+			List<Match> matchList = matchServiceImpl.getAppMatchByShareStatus(userId, shareStatus, offset, limit);
+			listResultModel.setAaData(matchList);
 			listResultModel.setSuccess(true);
 		}
 		catch (Exception e) {
@@ -195,7 +216,5 @@ public class MatchController {
 		resultModel.setSuccess(true);
 		resultModel.setObject(matchList);
 		return resultModel;
-		
-		
     }
 }

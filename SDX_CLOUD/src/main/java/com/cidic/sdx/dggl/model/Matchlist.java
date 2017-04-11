@@ -38,6 +38,7 @@ public class Matchlist implements java.io.Serializable {
 	private int innerClothId;
 	private Integer outClothId;
 	private int trousersId;
+	private int modelNum;
 	private String modelurl;
 	private Date createtime;
 	private Set<Feedback> feedbacks = new HashSet<Feedback>(0);
@@ -112,6 +113,15 @@ public class Matchlist implements java.io.Serializable {
 
 	public void setTrousersId(int trousersId) {
 		this.trousersId = trousersId;
+	}
+	
+	@Column(name = "modelNum")
+	public int getModelNum() {
+		return modelNum;
+	}
+
+	public void setModelNum(int modelNum) {
+		this.modelNum = modelNum;
 	}
 
 	@Column(name = "modelurl")

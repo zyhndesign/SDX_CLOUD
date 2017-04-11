@@ -64,6 +64,19 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
+	public List<HotMatchModel> getTopThreeDataByUserId(int userId){
+		List<HotMatchModel> list = feedbackDaoImpl.getTopThreeDataByUserId(userId);
+		
+		for (HotMatchModel hotMatchModel : list){
+			hotMatchModel.setInnerClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getInnerClothId()));
+			hotMatchModel.setOutClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getOutClothId()));
+			hotMatchModel.setTrousersClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getTrousersId()));
+		}
+		
+		return list;
+	}
+	
+	@Override
 	public int updateFeedback(Feedback feedback){
 		try{
 			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getUserId(), feedback.getMatchlist().getId());

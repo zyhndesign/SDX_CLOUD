@@ -111,7 +111,7 @@
 				/dggl/match/getDataByUserId=authc
 				/dggl/match/deleteMatch=authc
 				/dggl/match/updateMatch=authc
-				/dggl/match/createMatch=authc
+				/dggl/match/createMatch=anon
 				/dggl/match/getAppMatchByShareStatus=authc
 				/dggl/share/*=authc
 				/dggl/appVipUser/getVipuserByShoppingGuideId=authc

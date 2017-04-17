@@ -112,7 +112,7 @@
 				/dggl/match/deleteMatch=authc
 				/dggl/match/updateMatch=authc
 				/dggl/match/createMatch=anon
-				/dggl/match/getAppMatchByShareStatus=authc
+				/dggl/match/getAppMatchByShareStatus=anon
 				/dggl/share/*=authc
 				/dggl/appVipUser/getVipuserByShoppingGuideId=authc
 				/dggl/appUser/updatePwd=authc

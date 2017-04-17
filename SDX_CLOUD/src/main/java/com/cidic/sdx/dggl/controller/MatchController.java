@@ -187,20 +187,22 @@ public class MatchController {
 	
 	@RequestMapping(value = "/getAppMatchByShareStatus", method = RequestMethod.POST)
 	@ResponseBody
-	public ListResultModel getAppMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
+	public ResultModel getAppMatchByShareStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int userId, @RequestParam int shareStatus, @RequestParam int offset, @RequestParam int limit){
 		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
-		ListResultModel listResultModel = new ListResultModel();
+		ResultModel resultModel = new ResultModel();
 		try {
 			List<Match> matchList = matchServiceImpl.getAppMatchByShareStatus(userId, shareStatus, offset, limit);
-			listResultModel.setAaData(matchList);
-			listResultModel.setSuccess(true);
+			resultModel.setObject(matchList);
+			resultModel.setSuccess(true);
+			resultModel.setResultCode(200);
 		}
 		catch (Exception e) {
-			listResultModel.setSuccess(false);
+			e.printStackTrace();
+			resultModel.setSuccess(false);
 		}
-		return listResultModel;
+		return resultModel;
 	}
 	
 	@RequestMapping(value = "/getMatchByDataStatus", method = RequestMethod.POST)

@@ -2,10 +2,7 @@ package com.cidic.sdx.dggl.model;
 // Generated 2017-2-21 14:08:23 by Hibernate Tools 4.3.1.Final
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,10 +11,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -41,8 +38,9 @@ public class Matchlist implements java.io.Serializable {
 	private int modelNum;
 	private String modelurl;
 	private Date createtime;
-	private Set<Feedback> feedbacks = new HashSet<Feedback>(0);
-
+	
+	private CostumeModel custumeModel;
+	
 	public Matchlist() {
 	}
 
@@ -55,14 +53,13 @@ public class Matchlist implements java.io.Serializable {
 	}
 
 	public Matchlist(Match match, int innerClothId, Integer outClothId, int trousersId, String modelurl,
-			Date createtime, Set<Feedback> feedbacks) {
+			Date createtime) {
 		this.match = match;
 		this.innerClothId = innerClothId;
 		this.outClothId = outClothId;
 		this.trousersId = trousersId;
 		this.modelurl = modelurl;
 		this.createtime = createtime;
-		this.feedbacks = feedbacks;
 	}
 
 	@Id
@@ -143,14 +140,16 @@ public class Matchlist implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY,cascade={CascadeType.ALL}, mappedBy = "matchlist")
-	@JsonIgnore
-	public Set<Feedback> getFeedbacks() {
-		return this.feedbacks;
+	@Transient
+	public CostumeModel getCustumeModel() {
+		return custumeModel;
 	}
 
-	public void setFeedbacks(Set<Feedback> feedbacks) {
-		this.feedbacks = feedbacks;
+	public void setCustumeModel(CostumeModel custumeModel) {
+		this.custumeModel = custumeModel;
 	}
 
+	
+	
+	
 }

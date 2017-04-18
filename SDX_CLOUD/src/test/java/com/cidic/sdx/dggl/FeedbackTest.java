@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cidic.sdx.dggl.model.Feedback;
 import com.cidic.sdx.dggl.model.HotMatchModel;
+import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.FeedbackService;
 
@@ -25,7 +26,7 @@ public class FeedbackTest {
 	@Qualifier("feedbackServiceImpl")
 	private FeedbackService feedbackServiceImpl;
 	
-	//@Test
+	@Test
 	public void createFeedback(){
 		/*
 		Feedback feedback = new Feedback();
@@ -38,25 +39,25 @@ public class FeedbackTest {
 		System.out.println(feedbackServiceImpl.createFeedback(feedback));
 		
 		*/
-		for (int i = 0; i < 100000; i++){
+		for (int i = 0; i < 1000; i++){
 			Random random1 = new Random();
-			IntStream intStream1 = random1.ints(5, 817);
+			IntStream intStream1 = random1.ints(1, 200);
 			
 			Random random2 = new Random();
 			IntStream intStream2 = random2.ints(2, 20);
 			Feedback feedback = new Feedback();
 			feedback.setUserId(intStream2.limit(1).sum());
 			
-			Matchlist matchList = new Matchlist();
-			matchList.setId(intStream1.limit(1).sum());
-			feedback.setMatchlist(matchList);
+			Match match = new Match();
+			match.setId(intStream1.limit(1).sum());
+			feedback.setMatch(match);
 			feedback.setCreatetime(new Date());
 			feedbackServiceImpl.createFeedback(feedback);
 		}
 		
 	}
 	
-	@Test
+	//@Test
 	public void findFeedback(){
 		int userId = 15;
 		List<HotMatchModel> list = feedbackServiceImpl.getFeedbackListPageByUserId(userId,10,0);
@@ -73,9 +74,9 @@ public class FeedbackTest {
 		feedback.setId(21);
 		feedback.setUserId(9);
 		
-		Matchlist matchList = new Matchlist();
-		matchList.setId(807);
-		feedback.setMatchlist(matchList);
+		Match match = new Match();
+		match.setId(807);
+		feedback.setMatch(match);
 		
 		System.out.println(feedbackServiceImpl.updateFeedback(feedback));
 	}

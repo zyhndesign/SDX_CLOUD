@@ -225,5 +225,25 @@ public class MatchDaoImpl implements MatchDao {
 		}
         return (int)((Long)query.uniqueResult()).longValue();
 	}
+
+	@Override
+	public List<Match> getMatchByIds(List<Integer> ids) {
+		Session session = sessionFactory.getCurrentSession();
+		StringBuilder hqlBuilder = new StringBuilder();
+		hqlBuilder.append(" from Match where id in (" );
+		for (int i = 0; i < ids.size(); i++){
+			hqlBuilder.append(ids.get(i));
+			if (i != (ids.size() - 1)){
+				hqlBuilder.append(",");
+			}
+		}
+		hqlBuilder.append(" )" );
+		System.out.println(hqlBuilder.toString());
+		Query query = session.createQuery(hqlBuilder.toString());
+       
+        @SuppressWarnings("unchecked")
+        List<Match> list = query.list();
+		return list;
+	}
 	
 }

@@ -107,7 +107,7 @@
 		<property name="unauthorizedUrl" value="/dggl/appUser/loginFailure"></property>
 		<property name="filterChainDefinitions">
 			<value>
-				/dggl/feedback/*=authc
+				/dggl/feedback/*=anon
 				/dggl/match/getDataByUserId=authc
 				/dggl/match/deleteMatch=authc
 				/dggl/match/updateMatch=authc

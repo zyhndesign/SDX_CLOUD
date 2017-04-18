@@ -31,4 +31,6 @@ public interface MatchDao {
     public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit);
     
     public List<Match> getMatchByDraftStatus(int userId, int offset, int limit);
+    
+    public List<Match> getMatchByIds(List<Integer> ids);
 }

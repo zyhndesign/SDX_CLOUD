@@ -148,7 +148,7 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public List<Match> getAppMatchByDraftStatus(int userId, int draftStatus, int offset, int limit){
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Match where userId = ? draftstatus = ?";
+		String hql = " from Match where userId = ? and draftstatus = ? ";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId);
         query.setParameter(1, (byte)1);
@@ -163,7 +163,7 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Match where userId = ? and datastatus = ?";
+		String hql = " from Match where userId = ? and draftstatus = ? ";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId);
         query.setParameter(0, dataStatus);

@@ -31,7 +31,7 @@ public class MatchTest {
 			Match match = new Match();
 			
 			User user = new User();
-			user.setId(6);
+			user.setId(121);
 			match.setUser(user);
 			
 			match.setSeriesname("圣德西时尚系列" + i);

@@ -41,15 +41,17 @@ public class FeedbackTest {
 		*/
 		for (int i = 0; i < 1000; i++){
 			Random random1 = new Random();
-			IntStream intStream1 = random1.ints(1, 200);
+			IntStream intStream1 = random1.ints(203, 403);
 			
 			Random random2 = new Random();
-			IntStream intStream2 = random2.ints(2, 20);
+			IntStream intStream2 = random2.ints(120, 133);
 			Feedback feedback = new Feedback();
 			feedback.setUserId(intStream2.limit(1).sum());
 			
 			Match match = new Match();
-			match.setId(intStream1.limit(1).sum());
+			int matchId = intStream1.limit(1).sum();
+			System.out.println(matchId);
+			match.setId(matchId);
 			feedback.setMatch(match);
 			feedback.setCreatetime(new Date());
 			feedbackServiceImpl.createFeedback(feedback);

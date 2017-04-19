@@ -104,6 +104,9 @@ public class FeedbackController {
 
 			List<HotMatchModel> feedBackList = feedbackServiceImpl.getFeedbackListPageByUserId(userId, limit, offset);
 
+			for (HotMatchModel hotMatchModel : feedBackList){
+				hotMatchModel.getMatch().setUser(null);
+			}
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
 			resultModel.setObject(feedBackList);

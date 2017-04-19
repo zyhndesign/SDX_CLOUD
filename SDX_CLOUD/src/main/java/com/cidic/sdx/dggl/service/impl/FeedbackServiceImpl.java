@@ -69,15 +69,14 @@ public class FeedbackServiceImpl implements FeedbackService {
 				ids.add(hmModel.getMatchId());
 			}
 			List<Match> matchList = matchDaoImpl.getMatchByIds(ids);
-			
+
 			for (Match match : matchList){
-				
 				Set<Matchlist> mls = match.getMatchlists();
 				for (Matchlist mlModel : mls){
 					CostumeModel custumeModel = hpIndexDaoImpl.getClothUrl(mlModel.getInnerClothId());
 					mlModel.setCustumeModel(custumeModel);
 				}
-				
+
 				for (HotMatchModel hmModel : list){
 					if (match.getId() == hmModel.getMatchId()){
 						hmModel.setMatch(match);
@@ -85,7 +84,6 @@ public class FeedbackServiceImpl implements FeedbackService {
 				}
 			}
 		}
-		
 		return list;
 	}
 
@@ -101,7 +99,6 @@ public class FeedbackServiceImpl implements FeedbackService {
 			List<Match> matchList = matchDaoImpl.getMatchByIds(ids);
 			
 			for (Match match : matchList){
-				
 				Set<Matchlist> mls = match.getMatchlists();
 				for (Matchlist mlModel : mls){
 					CostumeModel custumeModel = hpIndexDaoImpl.getClothUrl(mlModel.getInnerClothId());

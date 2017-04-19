@@ -34,7 +34,9 @@ public class FeedbackDaoImpl implements FeedbackDao {
 	@Override
 	public List<HotMatchModel> getFeedbackListPageByUserId(int userId,int limit, int offset) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select m.id as matchId, count(*) as countLike from Feedback f inner join f.match m where f.userId = ? group by f.match order by countLike";
+		String hql = "select m.innerClothId as innerClothId,m.outClothId as outClothId, m.trousersId as trousersId,"
+				+ "f.userId as userId,m.id as matchlistId,m.modelurl as modelurl,"
+				+ " count(*) as countLike from Feedback f inner join f.matchlist m where f.userId = ? group by f.matchlist order by countLike";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId); 
         query.setFirstResult(offset);    
@@ -48,10 +50,19 @@ public class FeedbackDaoImpl implements FeedbackDao {
         {
         	hotMatchModel = new HotMatchModel();
             Object []o = (Object[])list.get(i);
-            int matchId = (Integer)o[0];
-            int countLike = ((Number)o[1]).intValue();
-
-            hotMatchModel.setMatchId(matchId);
+            int innerClothId = (Integer)o[0];
+            int outClothId = (Integer)o[1];
+            int trousersId = (Integer)o[2];
+            int userid = (Integer)o[3];
+            int matchlistId = (Integer)o[4];
+            String modelurl = (String)o[5];
+            int countLike = ((Number)o[6]).intValue();
+            hotMatchModel.setModelurl(modelurl);
+            hotMatchModel.setInnerClothId(innerClothId);
+            hotMatchModel.setOutClothId(outClothId);
+            hotMatchModel.setTrousersId(trousersId);
+            hotMatchModel.setUserId(userid);
+            hotMatchModel.setMatchlistId(matchlistId);
             hotMatchModel.setCountLike(countLike);
             hotList.add(hotMatchModel);
         }
@@ -61,7 +72,9 @@ public class FeedbackDaoImpl implements FeedbackDao {
 	@Override
 	public List<HotMatchModel> getTopThreeDataByUserId(int userId){
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select m.id as matchId, count(*) as countLike from Feedback f inner join f.match m where f.userId = ? group by f.match order by countLike";
+		String hql = "select m.innerClothId as innerClothId,m.outClothId as outClothId, m.trousersId as trousersId,f.userId as userId,"
+				+ " m.id as matchlistId,m.modelurl as modelurl,"
+				+ " count(*) as countLike from Feedback f inner join f.matchlist m where f.userId = ? group by f.matchlist order by countLike";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId); 
         query.setFirstResult(0);    
@@ -69,28 +82,37 @@ public class FeedbackDaoImpl implements FeedbackDao {
         @SuppressWarnings("unchecked")
 		List list = query.list();
         
-        List<HotMatchModel> hotList = new ArrayList<HotMatchModel>(3);
+        List<HotMatchModel> hotList = new ArrayList<HotMatchModel>(10);
         HotMatchModel hotMatchModel = null;
         for(int i=0;i<list.size();i++)
         {
         	hotMatchModel = new HotMatchModel();
             Object []o = (Object[])list.get(i);
-            int matchId = (Integer)o[0];
-            int countLike = ((Number)o[1]).intValue();
-            
-            hotMatchModel.setMatchId(matchId);
+            int innerClothId = (Integer)o[0];
+            int outClothId = (Integer)o[1];
+            int trousersId = (Integer)o[2];
+            int userid = (Integer)o[3];
+            int matchlistId = (Integer)o[4];
+            String modelurl = (String)o[5];
+            int countLike = ((Number)o[6]).intValue();
+            hotMatchModel.setModelurl(modelurl);
+            hotMatchModel.setInnerClothId(innerClothId);
+            hotMatchModel.setOutClothId(outClothId);
+            hotMatchModel.setTrousersId(trousersId);
+            hotMatchModel.setUserId(userid);
+            hotMatchModel.setMatchlistId(matchlistId);
             hotMatchModel.setCountLike(countLike);
             hotList.add(hotMatchModel);
         }
         return hotList;
 	}
 	
-	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchId){
+	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId){
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Feedback where userId = ? and matchId = ?";
+		String hql = " from Feedback where userId = ? and matchlistId = ?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, userId); 
-        query.setParameter(1, matchId); 
+        query.setParameter(1, matchlistId); 
         query.setMaxResults(1);
         query.setCacheable(true);
         Optional<Feedback> optFeedback = Optional.ofNullable((Feedback)query.uniqueResult());

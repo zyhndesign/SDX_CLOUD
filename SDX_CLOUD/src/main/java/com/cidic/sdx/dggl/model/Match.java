@@ -45,8 +45,7 @@ public class Match implements java.io.Serializable {
 	private Date createtime;
 	private Set<Matchlist> matchlists = new HashSet<Matchlist>(0);
 	private Set<Share> shares = new HashSet<Share>(0);
-	private Set<Feedback> feedbacks = new HashSet<Feedback>(0);
-	
+
 	public Match() {
 		
 	}
@@ -157,13 +156,5 @@ public class Match implements java.io.Serializable {
 		this.sharestatus = sharestatus;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY,cascade={CascadeType.ALL}, mappedBy = "match")
-	@JsonIgnore
-	public Set<Feedback> getFeedbacks() {
-		return this.feedbacks;
-	}
 
-	public void setFeedbacks(Set<Feedback> feedbacks) {
-		this.feedbacks = feedbacks;
-	}
 }

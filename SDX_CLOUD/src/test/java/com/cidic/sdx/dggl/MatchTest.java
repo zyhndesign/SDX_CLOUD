@@ -25,7 +25,7 @@ public class MatchTest {
 	@Qualifier("matchServiceImpl")
 	private MatchService matchServiceImpl;
 	
-	@Test
+	//@Test
 	public void createMatch(){
 		for (int i = 0; i < 201; i++){
 			Match match = new Match();
@@ -142,7 +142,7 @@ public class MatchTest {
 		matchServiceImpl.deleteMatch(2);
 	}
 	
-	//@Test
+	@Test
 	public void findMatch(){
 		List<Match> matchList = matchServiceImpl.findMatchByUser(6, 0, 10);
 		for (Match match : matchList){

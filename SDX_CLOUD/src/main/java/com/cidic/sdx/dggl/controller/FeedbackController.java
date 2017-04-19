@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cidic.sdx.dggl.model.Feedback;
 import com.cidic.sdx.dggl.model.HotMatchModel;
-import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.FeedbackService;
 import com.cidic.sdx.exception.SdxException;
@@ -52,9 +51,9 @@ public class FeedbackController {
 		resultModel = new ResultModel();
 		Feedback feedback = new Feedback();
 		feedback.setUserId(userId);
-		Match match = new Match();
-		match.setId(matchId);
-		feedback.setMatch(match);
+		Matchlist matchList = new Matchlist();
+		matchList.setId(matchId);
+		feedback.setMatchlist(matchList);
 		feedback.setCreatetime(new Date());
 		
 		int result = feedbackServiceImpl.createFeedback(feedback);
@@ -79,9 +78,9 @@ public class FeedbackController {
 		resultModel = new ResultModel();
 		Feedback feedback = new Feedback();
 		feedback.setUserId(userId);
-		Match match = new Match();
-		match.setId(matchId);
-		feedback.setMatch(match);
+		Matchlist matchList = new Matchlist();
+		matchList.setId(matchId);
+		feedback.setMatchlist(matchList);
 
 		int result = feedbackServiceImpl.updateFeedback(feedback);
 		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS) {
@@ -100,22 +99,13 @@ public class FeedbackController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 
-		try {
+		List<HotMatchModel> feedBackList = feedbackServiceImpl.getFeedbackListPageByUserId(userId, limit, offset);
 
-			List<HotMatchModel> feedBackList = feedbackServiceImpl.getFeedbackListPageByUserId(userId, limit, offset);
-
-			for (HotMatchModel hotMatchModel : feedBackList){
-				hotMatchModel.getMatch().setUser(null);
-			}
-			resultModel.setResultCode(200);
-			resultModel.setSuccess(true);
-			resultModel.setObject(feedBackList);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			resultModel.setSuccess(false);
-		}
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(feedBackList);
 		return resultModel;
+
 	}
 	
 	@RequestMapping(value = "/getTopThreeDataByUserId", method = RequestMethod.POST)
@@ -125,18 +115,12 @@ public class FeedbackController {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 
-		try {
-			List<HotMatchModel> feedBackList = feedbackServiceImpl.getTopThreeDataByUserId(userId);
+		List<HotMatchModel> feedBackList = feedbackServiceImpl.getTopThreeDataByUserId(userId);
 
-			resultModel.setResultCode(200);
-			resultModel.setSuccess(true);
-			resultModel.setObject(feedBackList);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			resultModel.setSuccess(false);
-		}
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(feedBackList);
 		return resultModel;
-		
+
 	}
 }

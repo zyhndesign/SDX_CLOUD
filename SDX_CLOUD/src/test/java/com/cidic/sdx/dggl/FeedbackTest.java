@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cidic.sdx.dggl.model.Feedback;
 import com.cidic.sdx.dggl.model.HotMatchModel;
-import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.FeedbackService;
 
@@ -41,18 +40,16 @@ public class FeedbackTest {
 		*/
 		for (int i = 0; i < 1000; i++){
 			Random random1 = new Random();
-			IntStream intStream1 = random1.ints(203, 403);
-			
+			IntStream intStream1 = random1.ints(805, 1608);
 			Random random2 = new Random();
 			IntStream intStream2 = random2.ints(120, 133);
 			Feedback feedback = new Feedback();
 			feedback.setUserId(intStream2.limit(1).sum());
-			
-			Match match = new Match();
-			int matchId = intStream1.limit(1).sum();
-			System.out.println(matchId);
-			match.setId(matchId);
-			feedback.setMatch(match);
+		
+			Matchlist matchList = new Matchlist();
+			matchList.setId(intStream1.limit(1).sum());
+			feedback.setMatchlist(matchList);
+
 			feedback.setCreatetime(new Date());
 			feedbackServiceImpl.createFeedback(feedback);
 		}
@@ -76,9 +73,9 @@ public class FeedbackTest {
 		feedback.setId(21);
 		feedback.setUserId(9);
 		
-		Match match = new Match();
-		match.setId(807);
-		feedback.setMatch(match);
+		Matchlist matchList = new Matchlist();
+		matchList.setId(807);
+		feedback.setMatchlist(matchList);
 		
 		System.out.println(feedbackServiceImpl.updateFeedback(feedback));
 	}

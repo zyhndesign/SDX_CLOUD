@@ -2,18 +2,23 @@ package com.cidic.sdx.dggl.model;
 
 public class HotMatchModel {
 	
-	private int matchId;
+	private int matchlistId;
 	private int userId;
 	private int countLike;
+	private int innerClothId;
+	private int outClothId;
+	private int trousersId;
+	private String modelurl;
 	
-	private Match match;
+	private CostumeModel innerClothUrl;
+	private CostumeModel outClothUrl;
+	private CostumeModel trousersClothUrl;
 	
-	
-	public int getMatchId() {
-		return matchId;
+	public int getMatchlistId() {
+		return matchlistId;
 	}
-	public void setMatchId(int matchId) {
-		this.matchId = matchId;
+	public void setMatchlistId(int matchlistId) {
+		this.matchlistId = matchlistId;
 	}
 	public int getUserId() {
 		return userId;
@@ -27,12 +32,50 @@ public class HotMatchModel {
 	public void setCountLike(int countLike) {
 		this.countLike = countLike;
 	}
-	public Match getMatch() {
-		return match;
+	public int getInnerClothId() {
+		return innerClothId;
 	}
-	public void setMatch(Match match) {
-		this.match = match;
+	public void setInnerClothId(int innerClothId) {
+		this.innerClothId = innerClothId;
 	}
+	public int getOutClothId() {
+		return outClothId;
+	}
+	public void setOutClothId(int outClothId) {
+		this.outClothId = outClothId;
+	}
+	public int getTrousersId() {
+		return trousersId;
+	}
+	public void setTrousersId(int trousersId) {
+		this.trousersId = trousersId;
+	}
+	
+	public String getModelurl() {
+		return modelurl;
+	}
+	public void setModelurl(String modelurl) {
+		this.modelurl = modelurl;
+	}
+	public CostumeModel getInnerClothUrl() {
+		return innerClothUrl;
+	}
+	public void setInnerClothUrl(CostumeModel innerClothUrl) {
+		this.innerClothUrl = innerClothUrl;
+	}
+	public CostumeModel getOutClothUrl() {
+		return outClothUrl;
+	}
+	public void setOutClothUrl(CostumeModel outClothUrl) {
+		this.outClothUrl = outClothUrl;
+	}
+	public CostumeModel getTrousersClothUrl() {
+		return trousersClothUrl;
+	}
+	public void setTrousersClothUrl(CostumeModel trousersClothUrl) {
+		this.trousersClothUrl = trousersClothUrl;
+	}
+	
 	
 	
 }

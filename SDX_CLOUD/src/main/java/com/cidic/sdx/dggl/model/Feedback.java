@@ -32,13 +32,17 @@ public class Feedback implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private Match match;
+	private Matchlist matchlist;
 	private Date createtime;
 	private int vipId;
 	private int userId;
 	private int countLike;
 	
 	public Feedback() {
+	}
+
+	public Feedback(Matchlist matchlist) {
+		this.matchlist = matchlist;
 	}
 
 	@Id
@@ -53,13 +57,13 @@ public class Feedback implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "matchId")
-	public Match getMatch() {
-		return this.match;
+	@JoinColumn(name = "matchlistId")
+	public Matchlist getMatchlist() {
+		return this.matchlist;
 	}
 
-	public void setMatch(Match match) {
-		this.match = match;
+	public void setMatchlist(Matchlist matchlist) {
+		this.matchlist = matchlist;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

@@ -23,14 +23,14 @@ public class ShareTest {
 	@Test
 	public void createShare(){
 		Match match = new Match();
-		match.setId(6);
+		match.setId(212);
 		Share share = new Share();
 		share.setMatch(match);
 		share.setShareContent("getSession()方法从当前事务或者一个新的事务中获得session,如果想从一个新的事务中获得session");
 		User user = new User();
-		user.setId(6);
+		user.setId(121);
 		share.setUser(user);
-		share.setSharedlist("jack,jhon,bill,mark,page");
+		share.setSharedlist("jack,jhon,bill,mark,page,湖南,长沙");
 		shareServiceImpl.createShare(share);
 	}
 }

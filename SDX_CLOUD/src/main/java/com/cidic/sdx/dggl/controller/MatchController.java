@@ -196,6 +196,9 @@ public class MatchController {
 		ResultModel resultModel = new ResultModel();
 		try {
 			List<Match> matchList = matchServiceImpl.getAppMatchByShareStatus(userId, shareStatus, offset, limit);
+			for (Match match : matchList){
+				match.setUser(null);
+			}
 			resultModel.setObject(matchList);
 			resultModel.setSuccess(true);
 			resultModel.setResultCode(200);

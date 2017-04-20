@@ -1,5 +1,7 @@
 package com.cidic.sdx.dggl.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -30,6 +32,12 @@ public class ShareServiceImpl implements ShareService {
 		catch(Exception e){
 			return ResponseCodeUtil.SHARE_OPERATION_FAILURE;
 		}
+	}
+
+	@Override
+	public List<Share> getShareList(int matchId, int userId) {
+		// TODO Auto-generated method stub
+		return shareDaoImpl.getShareList(matchId, userId);
 	}
 
 }

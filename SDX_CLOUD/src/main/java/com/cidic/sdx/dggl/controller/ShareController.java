@@ -1,5 +1,7 @@
 package com.cidic.sdx.dggl.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -67,6 +69,25 @@ public class ShareController {
 			resultModel.setSuccess(true);
 			return resultModel;
 		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/getShareData", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getShareData(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId, @RequestParam int matchId) {
+		
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		
+		List<Share> list = shareServiceImpl.getShareList(matchId, userId);
+		try {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			resultModel.setObject(list);
+			return resultModel;
+		} catch(Exception e) {
 			throw new SdxException(500, "操作失败");
 		}
 	}

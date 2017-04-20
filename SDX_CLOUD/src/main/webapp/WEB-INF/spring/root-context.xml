@@ -113,7 +113,7 @@
 				/dggl/match/updateMatch=authc
 				/dggl/match/createMatch=anon
 				/dggl/match/getAppMatchByShareStatus=anon
-				/dggl/share/*=authc
+				/dggl/share/*=anon
 				/dggl/appVipUser/getVipuserByShoppingGuideId=authc
 				/dggl/appUser/updatePwd=authc
 				/app/hpManage/*=anon

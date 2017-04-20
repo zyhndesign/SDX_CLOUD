@@ -45,7 +45,8 @@ public class MatchTest {
 			matchList1.setInnerClothId(10);
 			matchList1.setOutClothId(12);
 			matchList1.setTrousersId(13);
-			matchList1.setModelurl("http://sports.qq.com/kbsweb/game.htm?mid=100000:1469818");
+			matchList1.setModelNum(1);
+			matchList1.setModelurl("http://oaycvzlnh.bkt.clouddn.com/FuG_U_hzEWDCmTR9yurkWh0nPBTb");
 			matchlists.add(matchList1);
 			
 			Matchlist matchList2 = new Matchlist();
@@ -54,7 +55,8 @@ public class MatchTest {
 			matchList2.setInnerClothId(10);
 			matchList2.setOutClothId(12);
 			matchList2.setTrousersId(13);
-			matchList2.setModelurl("http://finance.sina.com.cn/money/bank/bank_hydt/2017-02-24/doc-ifyavvsh6192163.shtml");
+			matchList1.setModelNum(2);
+			matchList2.setModelurl("http://oaycvzlnh.bkt.clouddn.com/Fv50-3al_b_SLxpYauDN7ib8NFtn");
 			matchlists.add(matchList2);
 			
 			Matchlist matchList3 = new Matchlist();
@@ -63,7 +65,8 @@ public class MatchTest {
 			matchList3.setInnerClothId(10);
 			matchList3.setOutClothId(12);
 			matchList3.setTrousersId(13);
-			matchList3.setModelurl("http://sports.qq.com/kbsweb/game.htm?mid=100000:1469818");
+			matchList1.setModelNum(3);
+			matchList3.setModelurl("http://oaycvzlnh.bkt.clouddn.com/FvI0CvwUQGX_1JtYxR34WSKkbxlV");
 			matchlists.add(matchList3);
 			
 			Matchlist matchList4 = new Matchlist();
@@ -72,7 +75,8 @@ public class MatchTest {
 			matchList4.setInnerClothId(10);
 			matchList4.setOutClothId(12);
 			matchList4.setTrousersId(13);
-			matchList4.setModelurl("http://finance.sina.com.cn/money/bank/bank_hydt/2017-02-24/doc-ifyavvsh6192163.shtml");
+			matchList1.setModelNum(4);
+			matchList4.setModelurl("http://oaycvzlnh.bkt.clouddn.com/FtB_rlaJXV0F2Q70F7UvKt9QGg5M");
 			matchlists.add(matchList4);
 			
 			match.setMatchlists(matchlists);

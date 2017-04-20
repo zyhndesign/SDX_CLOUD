@@ -34,7 +34,7 @@ public class ShareDaoImpl implements ShareDao {
 	@Override
 	public List<Share> getShareList(int matchId, int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Share where userId = ? and matchId = ?";
+		String hql = " select shareContent,sharedlist from Share where userId = ? and matchId = ?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, userId);
 		query.setParameter(1, matchId);

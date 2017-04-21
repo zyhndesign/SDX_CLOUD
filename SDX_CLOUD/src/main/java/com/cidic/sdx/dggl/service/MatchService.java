@@ -22,5 +22,7 @@ public interface MatchService {
     
     public List<Match> getAppMatchByDraftStatus(int userId, int draftStatus, int offset, int limit);
     
+    public List<Match> getAppMatchByBackStatus(int userId, int backStatus, int offset, int limit);
+    
     public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit);
 }

@@ -210,6 +210,26 @@ public class MatchController {
 		return resultModel;
 	}
 	
+	@RequestMapping(value = "/getAppMatchByBackStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getAppMatchByBackStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId, @RequestParam int backStatus, @RequestParam int offset, @RequestParam int limit){
+		
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ResultModel resultModel = new ResultModel();
+		try {
+		    List<Match> matchList = matchServiceImpl.getAppMatchByBackStatus(userId, backStatus, offset, limit);
+		    resultModel.setObject(matchList);
+			resultModel.setSuccess(true);
+			resultModel.setResultCode(200);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			resultModel.setSuccess(false);
+		}
+		return resultModel;
+	}
+	
 	@RequestMapping(value = "/getMatchByDataStatus", method = RequestMethod.POST)
 	@ResponseBody
     public ResultModel getMatchByDataStatus(HttpServletRequest request, HttpServletResponse response,

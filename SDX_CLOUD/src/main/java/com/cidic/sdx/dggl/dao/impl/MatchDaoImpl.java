@@ -68,21 +68,21 @@ public class MatchDaoImpl implements MatchDao {
 	}
 
 	@Override
-	public void updateShareStatus(int userId, int shareStatus) {
+	public void updateShareStatus(int matchId, int shareStatus) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " update from Match set sharestatus = ? where userId = ?";
+		String hql = " update from Match set sharestatus = ? where matchId = ?";
 		final Query query = session.createQuery(hql); 
-		query.setParameter(1, userId);
+		query.setParameter(1, matchId);
 		query.setParameter(0, shareStatus);
 		query.executeUpdate();
 	}
 	
 	@Override
-	public void updateDraftStatus(int userId, int draftStatus) {
+	public void updateDraftStatus(int matchId, int draftStatus) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " update from Match set draftstatus = ? where userId = ?";
+		String hql = " update from Match set draftstatus = ? where matchId = ?";
 		final Query query = session.createQuery(hql); 
-		query.setParameter(1, userId);
+		query.setParameter(1, matchId);
 		query.setParameter(0, draftStatus);
 		query.executeUpdate();
 	}
@@ -166,7 +166,7 @@ public class MatchDaoImpl implements MatchDao {
 		String hql = " from Match where userId = ? and draftstatus = ? ";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId);
-        query.setParameter(0, dataStatus);
+        query.setParameter(0, (byte)dataStatus);
         query.setFirstResult(offset);    
         query.setMaxResults(limit);
         query.setCacheable(true);
@@ -224,6 +224,31 @@ public class MatchDaoImpl implements MatchDao {
 			}
 		}
         return (int)((Long)query.uniqueResult()).longValue();
+	}
+
+	@Override
+	public void updateBackStatus(int userId, int backStatus) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " update from Match set backstatus = ? where matchId = ?";
+		final Query query = session.createQuery(hql); 
+		query.setParameter(1, userId);
+		query.setParameter(0, backStatus);
+		query.executeUpdate();
+	}
+
+	@Override
+	public List<Match> getAppMatchByBackStatus(int userId, int backStatus, int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Match where userId = ? and backstatus = ?";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, userId);
+        query.setParameter(1, (byte)backStatus);
+        query.setFirstResult(offset);    
+        query.setMaxResults(limit);
+        query.setCacheable(true);
+        @SuppressWarnings("unchecked")
+        List<Match> list = query.list();
+		return list;
 	}
 	
 }

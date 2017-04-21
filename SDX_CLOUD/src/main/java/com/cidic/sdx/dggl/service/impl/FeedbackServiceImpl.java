@@ -1,6 +1,8 @@
 package com.cidic.sdx.dggl.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.FeedbackDao;
+import com.cidic.sdx.dggl.dao.MatchDao;
 import com.cidic.sdx.dggl.model.Feedback;
 import com.cidic.sdx.dggl.model.HotMatchModel;
 import com.cidic.sdx.dggl.service.FeedbackService;
@@ -30,9 +33,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Qualifier(value = "hpIndexDaoImpl")
 	private HpIndexDao hpIndexDaoImpl;
 	
+	@Autowired
+	@Qualifier("matchDaoImpl")
+	private MatchDao matchDaoImpl;
+	
 	@Override
 	@Transactional(readOnly = false, rollbackFor = Exception.class)
-	public int createFeedback(Feedback feedback) {
+	public int createFeedback(Feedback feedback,int matchId) {
 		try{
 			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getUserId(), feedback.getMatchlist().getId());
 			if(feedbackObj.isPresent()){
@@ -40,6 +47,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 			}
 			else{
 				feedbackDaoImpl.createFeedback(feedback);
+				matchDaoImpl.updateBackStatus(matchId, 1);
 			}
 			return ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS;
 		}
@@ -88,5 +96,15 @@ public class FeedbackServiceImpl implements FeedbackService {
 		catch(Exception e){
 			return ResponseCodeUtil.FEEDBACK_OPERATION_FAILURE;
 		}
+	}
+
+	@Override
+	public Map<Integer, List<String>> getFeedbackVipName(int userId, String matchlistIds) {
+		Map<Integer, List<String>> map = new HashMap<>(4);
+		String[] ids = matchlistIds.split(",");
+		for (String matchlistId : ids){
+			map.put(Integer.parseInt(matchlistId), feedbackDaoImpl.getFeedbackVipName(userId, Integer.parseInt(matchlistId)));
+		}
+		return map;
 	}
 }

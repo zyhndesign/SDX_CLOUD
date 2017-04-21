@@ -125,4 +125,25 @@ public class FeedbackDaoImpl implements FeedbackDao {
 		Query query = session.createSQLQuery(sql);
 		return query.executeUpdate();
 	}
+
+	@Override
+	public List<String> getFeedbackVipName(int userId, int matchlistId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select v.vipname from Feedback f, Vipuser v where f.vipId = v.id and f.userId = ? and matchlistId = ?";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, userId);
+        query.setParameter(1, matchlistId);
+        query.setFirstResult(0);    
+        query.setMaxResults(9); 
+        @SuppressWarnings("unchecked")
+		List list = query.list();
+        
+        List<String> listResult = new ArrayList<String>(10);
+
+        for(int i=0;i<list.size();i++)
+        {
+            listResult.add((String)list.get(i));
+        }
+        return listResult;
+	}
 }

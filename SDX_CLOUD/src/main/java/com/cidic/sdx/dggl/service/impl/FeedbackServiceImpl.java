@@ -103,7 +103,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 		Map<Integer, List<String>> map = new HashMap<>(4);
 		String[] ids = matchlistIds.split(",");
 		for (String matchlistId : ids){
-			map.put(Integer.parseInt(matchlistId), feedbackDaoImpl.getFeedbackVipName(userId, Integer.parseInt(matchlistId)));
+			System.out.println(matchlistId);
+			map.put(Integer.parseInt(matchlistId.toString()), feedbackDaoImpl.getFeedbackVipName(userId, Integer.parseInt(matchlistId.toString())));
 		}
 		return map;
 	}

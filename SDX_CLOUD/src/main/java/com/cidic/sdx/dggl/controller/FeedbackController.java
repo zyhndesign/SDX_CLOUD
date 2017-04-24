@@ -131,7 +131,7 @@ public class FeedbackController {
 			@RequestParam int userId, @RequestParam String matchlistIds) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
-
+		System.out.println(matchlistIds);
 		Map<Integer,List<String>> feedBackMap = feedbackServiceImpl.getFeedbackVipName(userId, matchlistIds);
 
 		resultModel.setResultCode(200);

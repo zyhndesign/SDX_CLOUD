@@ -52,10 +52,10 @@ public class CategorySettingController {
 	
 	@RequestMapping(value = "/getData", method = RequestMethod.GET)  
 	@ResponseBody
-	public ResultModel getDate(HttpServletRequest request,HttpServletResponse response,@RequestParam(required=false) String id){
+	public ResultModel getData(HttpServletRequest request,HttpServletResponse response,@RequestParam(required=false) String id){
 		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
-	    
+
 		try{
 			resultModel = new ResultModel();
 			if (id == null){

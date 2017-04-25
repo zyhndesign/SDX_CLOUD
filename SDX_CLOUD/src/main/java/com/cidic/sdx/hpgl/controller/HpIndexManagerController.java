@@ -60,7 +60,7 @@ public class HpIndexManagerController {
 
 	@RequestMapping(value = "/getData", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public ListResultModel getDate(HttpServletRequest request, HttpServletResponse response,
+	public ListResultModel getData(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(required = true) int dataCategory, @RequestParam(required = false) String brand,
 			@RequestParam(required = false) String color, @RequestParam(required = false) String size,
 			@RequestParam(required = false) String category,
@@ -149,5 +149,26 @@ public class HpIndexManagerController {
 		listResultModel.setsEcho(sEcho);
 		listResultModel.setSuccess(true);
 		return listResultModel;
+	}
+	
+	@RequestMapping(value = "/getAppData", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public ResultModel getAppData(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(required = false) String brand,
+			@RequestParam(required = false) String category){
+
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ResultModel resultModel = new ResultModel();
+
+		try {
+			List<HPModel> list = hpIndexServiceImpl.getAppIndexDataByTag(brand, category);
+			resultModel.setSuccess(true);
+			resultModel.setObject(list);	
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			resultModel.setSuccess(false);
+		}
+		return resultModel;
 	}
 }

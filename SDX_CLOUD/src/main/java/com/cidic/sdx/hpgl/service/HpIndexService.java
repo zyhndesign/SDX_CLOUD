@@ -3,11 +3,14 @@ package com.cidic.sdx.hpgl.service;
 import java.util.List;
 
 import com.cidic.sdx.hpgl.model.HPListModel;
+import com.cidic.sdx.hpgl.model.HPModel;
 
 public interface HpIndexService {
 
 	public HPListModel getIndexDataByTag(String brand, String color, String category, String size, int iDisplayStart, int iDisplayLength);
 
+	public List<HPModel> getAppIndexDataByTag(String brand, String category);
+	
 	// 获取图片缺失的数据
 	public HPListModel getLostImageData(int iDisplayStart, int iDisplayLength);
 
@@ -25,4 +28,6 @@ public interface HpIndexService {
 	
 	// 图片和链接数据都缺失的数据
 	public HPListModel getAllData(int iDisplayStart, int iDisplayLength);
+	
+	
 }

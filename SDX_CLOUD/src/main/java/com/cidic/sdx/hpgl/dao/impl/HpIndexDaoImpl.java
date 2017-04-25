@@ -34,89 +34,96 @@ public class HpIndexDaoImpl implements HpIndexDao {
 	@Autowired
 	@Qualifier(value = "redisTemplate")
 	private RedisTemplate<String, String> redisTemplate;
-	
-	@Resource(name="redisTemplate")
-    HashOperations<String, String, String> hashOperations;
-	
+
+	@Resource(name = "redisTemplate")
+	HashOperations<String, String, String> hashOperations;
+
 	private String cacheKey;
-	
+
 	String id_key = "HpIDList";
-	
+
 	@Override
-	public HPListModel getIndexDataByTag(Map<String,List<String>> mapTagList,int iDisplayStart,int iDisplayLength) {
-		
+	public HPListModel getIndexDataByTag(Map<String, List<String>> mapTagList, int iDisplayStart, int iDisplayLength) {
+
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
-			
+
 			@Override
-			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
-				
+			public HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+
 				HPListModel hpListModel = new HPListModel();
-				
+
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 				List<byte[]> id_list = null;
-				
-				if (mapTagList == null || mapTagList.size() == 0){ //查找所有数据
-					id_list = connection.lRange(ser.serialize(id_key), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+
+				if (mapTagList == null || mapTagList.size() == 0) { // 查找所有数据
+					id_list = connection.lRange(ser.serialize(id_key), iDisplayStart,
+							iDisplayStart + iDisplayLength - 1);
 					hpListModel.setCount(connection.lLen(ser.serialize(id_key)));
-				}
-				else{
+				} else {
 					StringBuilder tagListStr = new StringBuilder();
-					mapTagList.forEach((k,v)->{
-						v.forEach((s)->tagListStr.append(s));
+					mapTagList.forEach((k, v) -> {
+						v.forEach((s) -> tagListStr.append(s));
 					});
 					cacheKey = DigestUtils.md5Hex(tagListStr.toString());
-					
-					if (!connection.exists(ser.serialize(cacheKey))){
-						
+
+					if (!connection.exists(ser.serialize(cacheKey))) {
+
 						List<String> brandList = mapTagList.get(RedisVariableUtil.BRAND_PREFIX);
 						List<String> colorList = mapTagList.get(RedisVariableUtil.COLOR_PREFIX);
 						List<String> categoryList = mapTagList.get(RedisVariableUtil.CATEGORY_PREFIX);
 						List<String> sizeList = mapTagList.get(RedisVariableUtil.SIZE_PREFIX);
-						
+
 						List<String> calculateKeys = new ArrayList<>();
-						String calculateBrandResult = RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR + cacheKey;
-						if (brandList != null){
-							 redisTemplate.opsForSet().unionAndStore(brandList.get(0), brandList, calculateBrandResult);
-							 calculateKeys.add(calculateBrandResult);
+						String calculateBrandResult = RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR
+								+ cacheKey;
+						if (brandList != null) {
+							redisTemplate.opsForSet().unionAndStore(brandList.get(0), brandList, calculateBrandResult);
+							calculateKeys.add(calculateBrandResult);
 						}
-						
-						String calculateColorResult = RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + cacheKey;
-						if (colorList != null){
-							 redisTemplate.opsForSet().unionAndStore(colorList.get(0), colorList, calculateColorResult);
-							 calculateKeys.add(calculateColorResult);
+
+						String calculateColorResult = RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR
+								+ cacheKey;
+						if (colorList != null) {
+							redisTemplate.opsForSet().unionAndStore(colorList.get(0), colorList, calculateColorResult);
+							calculateKeys.add(calculateColorResult);
 						}
-						
-						String calculateCategoryResult = RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR + cacheKey;
-						if (categoryList != null){
-							 redisTemplate.opsForSet().unionAndStore(categoryList.get(0), categoryList, calculateCategoryResult);
-							 calculateKeys.add(calculateCategoryResult);
+
+						String calculateCategoryResult = RedisVariableUtil.CATEGORY_PREFIX
+								+ RedisVariableUtil.DIVISION_CHAR + cacheKey;
+						if (categoryList != null) {
+							redisTemplate.opsForSet().unionAndStore(categoryList.get(0), categoryList,
+									calculateCategoryResult);
+							calculateKeys.add(calculateCategoryResult);
 						}
-						
-						String calculateSizeResult = RedisVariableUtil.SIZE_PREFIX + RedisVariableUtil.DIVISION_CHAR + cacheKey;
-						if (sizeList != null){
-							 redisTemplate.opsForSet().unionAndStore(sizeList.get(0), sizeList, calculateSizeResult);
-							 calculateKeys.add(calculateSizeResult);
+
+						String calculateSizeResult = RedisVariableUtil.SIZE_PREFIX + RedisVariableUtil.DIVISION_CHAR
+								+ cacheKey;
+						if (sizeList != null) {
+							redisTemplate.opsForSet().unionAndStore(sizeList.get(0), sizeList, calculateSizeResult);
+							calculateKeys.add(calculateSizeResult);
 						}
-						
+
 						Set<String> result = redisTemplate.opsForSet().intersect(calculateKeys.get(0), calculateKeys);
-						
-						for (String data : result){
+
+						for (String data : result) {
 							connection.lPush(ser.serialize(cacheKey), ser.serialize(data));
 						}
-						
+
 						connection.expire(ser.serialize(cacheKey), 300);
-						
-						calculateKeys.forEach((s)->{
+
+						calculateKeys.forEach((s) -> {
 							redisTemplate.delete(s);
 						});
 					}
-					id_list = connection.lRange(ser.serialize(cacheKey), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+					id_list = connection.lRange(ser.serialize(cacheKey), iDisplayStart,
+							iDisplayStart + iDisplayLength - 1);
 					hpListModel.setCount(connection.lLen(ser.serialize(cacheKey)));
 				}
-				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS);
-				
+				List<HPModel> hpModelList = getListModel(connection, id_list,
+						RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS);
+
 				hpListModel.setList(hpModelList);
-			
+
 				return hpListModel;
 			}
 		});
@@ -124,21 +131,22 @@ public class HpIndexDaoImpl implements HpIndexDao {
 
 	@Override
 	public HPListModel getLostImageData(int iDisplayStart, int iDisplayLength) {
-		
+
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
-			
+
 			@Override
-			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+			public HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
 
 				HPListModel hpListModel = new HPListModel();
-				
+
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST),
+						iDisplayStart, iDisplayStart + iDisplayLength - 1);
 				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_IMAGE_LIST)));
-				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.DATA_STATUS_IMAGE_LOST);
-				
+				List<HPModel> hpModelList = getListModel(connection, id_list, RedisVariableUtil.DATA_STATUS_IMAGE_LOST);
+
 				hpListModel.setList(hpModelList);
-			
+
 				return hpListModel;
 			}
 		});
@@ -147,122 +155,133 @@ public class HpIndexDaoImpl implements HpIndexDao {
 	@Override
 	public HPListModel getLostURLData(int iDisplayStart, int iDisplayLength) {
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
-			
+
 			@Override
-			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+			public HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
 
 				HPListModel hpListModel = new HPListModel();
-				
+
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_URL_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_URL_LIST), iDisplayStart,
+						iDisplayStart + iDisplayLength - 1);
 				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_URL_LIST)));
-				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.DATA_STATUS_URL_LOST);
+				List<HPModel> hpModelList = getListModel(connection, id_list, RedisVariableUtil.DATA_STATUS_URL_LOST);
 				hpListModel.setList(hpModelList);
-			
+
 				return hpListModel;
 			}
 		});
 	}
-	
+
 	@Override
 	public HPListModel getAllLostData(int iDisplayStart, int iDisplayLength) {
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
-			
+
 			@Override
-			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+			public HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
 
 				HPListModel hpListModel = new HPListModel();
-				
+
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_ALL_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.LOST_ALL_LIST), iDisplayStart,
+						iDisplayStart + iDisplayLength - 1);
 				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LOST_ALL_LIST)));
-				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.DATA_STATUS_ALL_LOST);
-				
+				List<HPModel> hpModelList = getListModel(connection, id_list, RedisVariableUtil.DATA_STATUS_ALL_LOST);
+
 				hpListModel.setList(hpModelList);
-			
+
 				return hpListModel;
 			}
 		});
 	}
-	
+
 	@Override
 	public HPListModel getAllIntegrityData(int iDisplayStart, int iDisplayLength) {
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
-			
+
 			@Override
-			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+			public HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
 
 				HPListModel hpListModel = new HPListModel();
-				
+
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), iDisplayStart, iDisplayStart + iDisplayLength - 1);
+				List<byte[]> id_list = connection.lRange(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST),
+						iDisplayStart, iDisplayStart + iDisplayLength - 1);
 				hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST)));
-				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.DATA_STATUS_INTEGRITY);
-				
+				List<HPModel> hpModelList = getListModel(connection, id_list, RedisVariableUtil.DATA_STATUS_INTEGRITY);
+
 				hpListModel.setList(hpModelList);
-			
+
 				return hpListModel;
 			}
 		});
 	}
-	
+
 	@Override
-	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit){
+	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit) {
 
 		return redisTemplate.execute(new RedisCallback<HPListModel>() {
 			@Override
-			public  HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
+			public HPListModel doInRedis(RedisConnection connection) throws DataAccessException {
 				HPListModel hpListModel = new HPListModel();
-				
+
 				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
 
 				List<byte[]> id_list = null;
-				
-				if (categoryType == 1){ //库装
-					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), offset, offset + limit - 1);
+
+				if (categoryType == 1) { // 库装
+					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH), offset,
+							offset + limit - 1);
+					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
+				} else if (categoryType == 2) { // 外套
+					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), offset,
+							offset + limit - 1);
+					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
+				} else if (categoryType == 3) { // 内搭
+					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), offset,
+							offset + limit - 1);
 					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
 				}
-				else if (categoryType == 2){ //外套
-					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_OUTTER_CLOTH), offset, offset + limit - 1);
-					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
-				}
-				else if (categoryType == 3){ //内搭
-					id_list = connection.lRange(ser.serialize(RedisVariableUtil.LIST_INNER_CLOTH), offset, offset + limit - 1);
-					hpListModel.setCount(connection.lLen(ser.serialize(RedisVariableUtil.LIST_TROUSER_CLOTH)));
-				}
-				
-				List<HPModel> hpModelList = getListModel(connection,id_list,RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS);
+
+				List<HPModel> hpModelList = getListModel(connection, id_list,
+						RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS);
 				hpListModel.setList(hpModelList);
-			
+
 				return hpListModel;
-				
+
 			}
 		});
 	}
 
-	public List<HPModel> getListModel(RedisConnection connection,List<byte[]> id_list, int dataStatus){
-		
+	public List<HPModel> getListModel(RedisConnection connection, List<byte[]> id_list, int dataStatus) {
+
 		RedisSerializer<String> ser = redisTemplate.getStringSerializer();
-		Map<byte[],byte[]> brandMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
-		Map<byte[],byte[]> categoryMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
-		Map<byte[],byte[]> colorMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
-		Map<byte[],byte[]> tempColorMap = new HashMap<>();
-		Map<byte[],byte[]> timeCategoryMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
-		
+		Map<byte[], byte[]> brandMapList = connection
+				.hGetAll(ser.serialize(RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
+		Map<byte[], byte[]> categoryMapList = connection
+				.hGetAll(ser.serialize(RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
+		Map<byte[], byte[]> colorMapList = connection
+				.hGetAll(ser.serialize(RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
+		Map<byte[], byte[]> tempColorMap = new HashMap<>();
+		Map<byte[], byte[]> timeCategoryMapList = connection
+				.hGetAll(ser.serialize(RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
+
 		tempColorMap.putAll(colorMapList);
-		tempColorMap.forEach((k,v)->{
-			Map<byte[],byte[]> subColorMap = connection.hGetAll(k);
+		tempColorMap.forEach((k, v) -> {
+			Map<byte[], byte[]> subColorMap = connection.hGetAll(k);
 			colorMapList.putAll(subColorMap);
 		});
-		
-		Map<byte[],byte[]> sizeMapList = connection.hGetAll(ser.serialize(RedisVariableUtil.SIZE_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
-		
-		//connection.sInter(id_list);
-		
+
+		Map<byte[], byte[]> sizeMapList = connection
+				.hGetAll(ser.serialize(RedisVariableUtil.SIZE_PREFIX + RedisVariableUtil.DIVISION_CHAR + "0"));
+
+		// connection.sInter(id_list);
+
 		List<HPModel> hpModelList = new ArrayList<>();
 		HPModel hpModel = null;
-		for (byte[] id : id_list){
-			Map<byte[],byte[]> map = connection.hGetAll(ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + ser.deserialize(id)));
+		for (byte[] id : id_list) {
+			Map<byte[], byte[]> map = connection.hGetAll(ser.serialize(
+					RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + ser.deserialize(id)));
 			hpModel = new HPModel();
 			Map<String, String> resultMap = new HashMap<>();
 			map.forEach((k, v) -> {
@@ -281,117 +300,117 @@ public class HpIndexDaoImpl implements HpIndexDao {
 			hpModel.setCreateTime(resultMap.get("createTime"));
 			hpModel.setTimeCategory(resultMap.get("timeCategory"));
 			hpModel.setDataStatus(Integer.parseInt(resultMap.get("dataStatus")));
-			
-			if (dataStatus == RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS){
+
+			if (dataStatus == RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS) {
 				hpModel.setDataStatus(Integer.parseInt(resultMap.get("dataStatus")));
-			}
-			else{
+			} else {
 				hpModel.setDataStatus(dataStatus);
 			}
-			
+
 			StringBuilder brandList = new StringBuilder();
-			StringBuilder categoryList  = new StringBuilder();
+			StringBuilder categoryList = new StringBuilder();
 			StringBuilder sizeList = new StringBuilder();
 			StringBuilder colorList = new StringBuilder();
 			StringBuilder timeCategoryList = new StringBuilder();
-			
+
 			String[] brandArray = resultMap.get("brand").split("\\,");
 			int brandCount = 0;
-			for (String brand : brandArray){
-				
-				String tempKey = RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR +brand;
-				
+			for (String brand : brandArray) {
+
+				String tempKey = RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR + brand;
+
 				brandList.append(ser.deserialize(brandMapList.get(ser.serialize(tempKey))));
 				++brandCount;
-				if (brandCount != brandArray.length){
+				if (brandCount != brandArray.length) {
 					brandList.append("/");
 				}
-				Map<byte[],byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
-				tempmap.forEach((k,v)->{
+				Map<byte[], byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
+				tempmap.forEach((k, v) -> {
 					brandMapList.put(k, v);
 				});
 			}
-			
+
 			int categoryCount = 0;
 			String[] categoryArray = resultMap.get("category").split("\\,");
-			for (String category : categoryArray){
-				String tempKey = RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR +category;
-				Map<byte[],byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
-				tempmap.forEach((k,v)->{
+			for (String category : categoryArray) {
+				String tempKey = RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR + category;
+				Map<byte[], byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
+				tempmap.forEach((k, v) -> {
 					categoryMapList.put(k, v);
 				});
 			}
-			
-			for (String category : categoryArray){
-				String tempKey = RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR +category;
+
+			for (String category : categoryArray) {
+				String tempKey = RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR + category;
 				categoryList.append(ser.deserialize(categoryMapList.get(ser.serialize(tempKey))));
 				++categoryCount;
-				if (categoryCount != categoryArray.length){
+				if (categoryCount != categoryArray.length) {
 					categoryList.append("/");
 				}
-				
+
 			}
-			
+
 			int sizeCount = 0;
 			String[] sizeArray = resultMap.get("size").split("\\,");
-			for (String size : sizeArray){
-				String tempKey = RedisVariableUtil.SIZE_PREFIX + RedisVariableUtil.DIVISION_CHAR +size;
+			for (String size : sizeArray) {
+				String tempKey = RedisVariableUtil.SIZE_PREFIX + RedisVariableUtil.DIVISION_CHAR + size;
 				sizeList.append(ser.deserialize(sizeMapList.get(ser.serialize(tempKey))).charAt(0));
 				++sizeCount;
-				if (sizeCount != sizeArray.length){
+				if (sizeCount != sizeArray.length) {
 					sizeList.append("/");
 				}
-				Map<byte[],byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
-				tempmap.forEach((k,v)->{
+				Map<byte[], byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
+				tempmap.forEach((k, v) -> {
 					sizeMapList.put(k, v);
 				});
 			}
-			
+
 			int colorCount = 0;
-			
+
 			String[] colorArray = resultMap.get("color").split("\\,");
-			for (String color : colorArray){
-				String tempKey = RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR +color;
+			for (String color : colorArray) {
+				String tempKey = RedisVariableUtil.COLOR_PREFIX + RedisVariableUtil.DIVISION_CHAR + color;
 				colorList.append(ser.deserialize(colorMapList.get(ser.serialize(tempKey))));
 				++colorCount;
-				if (colorCount != colorArray.length){
+				if (colorCount != colorArray.length) {
 					colorList.append("/");
 				}
 			}
-			
+
 			int timeCategoryCount = 0;
 			String[] timeCategoryArray = resultMap.get("timeCategory").split("\\,");
-			for (String timeCategory : timeCategoryArray){
+			for (String timeCategory : timeCategoryArray) {
 				String tempKey = RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + timeCategory;
-				Map<byte[],byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
-				tempmap.forEach((k,v)->{
+				Map<byte[], byte[]> tempmap = connection.hGetAll(ser.serialize(tempKey));
+				tempmap.forEach((k, v) -> {
 					timeCategoryMapList.put(k, v);
 				});
 			}
-			
-			for (String timeCategory : timeCategoryArray){
+
+			for (String timeCategory : timeCategoryArray) {
 				String tempKey = RedisVariableUtil.DATETIME_PREFIX + RedisVariableUtil.DIVISION_CHAR + timeCategory;
 				timeCategoryList.append(ser.deserialize(timeCategoryMapList.get(ser.serialize(tempKey))));
 				++timeCategoryCount;
-				if (timeCategoryCount != timeCategoryArray.length){
+				if (timeCategoryCount != timeCategoryArray.length) {
 					timeCategoryList.append("/");
 				}
 			}
-			
+
 			hpModel.setBrandList(brandList.toString());
 			hpModel.setCategoryList(categoryList.toString());
 			hpModel.setColorList(colorList.toString());
 			hpModel.setSizeList(sizeList.toString());
 			hpModel.setTimeCategoryList(timeCategoryList.toString());
-			
+
 			hpModelList.add(hpModel);
 		}
 		return hpModelList;
 	}
-	
+
 	@Override
-	public CostumeModel getClothUrl(int id){
-		Map<Object, Object> map = hashOperations.getOperations().boundHashOps(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id).entries();
+	public CostumeModel getClothUrl(int id) {
+		Map<Object, Object> map = hashOperations.getOperations()
+				.boundHashOps(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id).entries();
 		CostumeModel costumeModel = new CostumeModel();
 		costumeModel.setProductImageUrl(map.get("imageUrl1").toString());
 		costumeModel.setFrontViewUrl(map.get("imageUrl2").toString());
@@ -399,5 +418,61 @@ public class HpIndexDaoImpl implements HpIndexDao {
 		return costumeModel;
 	}
 
-	
+	@Override
+	public List<HPModel> getAppIndexDataByTag(Map<String, List<String>> mapTagList) {
+		return redisTemplate.execute(new RedisCallback< List<HPModel>>() {
+
+			@Override
+			public  List<HPModel> doInRedis(RedisConnection connection) throws DataAccessException {
+
+				RedisSerializer<String> ser = redisTemplate.getStringSerializer();
+				
+				StringBuilder tagListStr = new StringBuilder();
+				mapTagList.forEach((k, v) -> {
+					v.forEach((s) -> tagListStr.append(s));
+				});
+				cacheKey = DigestUtils.md5Hex(tagListStr.toString());
+
+				if (!connection.exists(ser.serialize(cacheKey))) {
+
+					List<String> brandList = mapTagList.get(RedisVariableUtil.BRAND_PREFIX);
+					List<String> categoryList = mapTagList.get(RedisVariableUtil.CATEGORY_PREFIX);
+
+					List<String> calculateKeys = new ArrayList<>();
+					String calculateBrandResult = RedisVariableUtil.BRAND_PREFIX + RedisVariableUtil.DIVISION_CHAR
+							+ cacheKey;
+					if (brandList != null) {
+						redisTemplate.opsForSet().unionAndStore(brandList.get(0), brandList, calculateBrandResult);
+						calculateKeys.add(calculateBrandResult);
+					}
+
+					String calculateCategoryResult = RedisVariableUtil.CATEGORY_PREFIX + RedisVariableUtil.DIVISION_CHAR
+							+ cacheKey;
+					if (categoryList != null) {
+						redisTemplate.opsForSet().unionAndStore(categoryList.get(0), categoryList,
+								calculateCategoryResult);
+						calculateKeys.add(calculateCategoryResult);
+					}
+
+					Set<String> result = redisTemplate.opsForSet().intersect(calculateKeys.get(0), calculateKeys);
+
+					for (String data : result) {
+						connection.lPush(ser.serialize(cacheKey), ser.serialize(data));
+					}
+
+					connection.expire(ser.serialize(cacheKey), 300);
+
+					calculateKeys.forEach((s) -> {
+						redisTemplate.delete(s);
+					});
+				}
+				
+				List<HPModel> hpModelList = getListModel(connection, connection.lRange(ser.serialize(cacheKey), 0, connection.lLen(ser.serialize(cacheKey))),
+						RedisVariableUtil.NO_RELATIONSHIP_OF_DATA_STATUS);
+
+				return hpModelList;
+			}
+		});
+	}
+
 }

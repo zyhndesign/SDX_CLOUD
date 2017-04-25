@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.cidic.sdx.hpgl.dao.HpIndexDao;
 import com.cidic.sdx.hpgl.model.HPListModel;
+import com.cidic.sdx.hpgl.model.HPModel;
 import com.cidic.sdx.hpgl.service.HpIndexService;
 import com.cidic.sdx.util.RedisVariableUtil;
 
@@ -103,6 +104,32 @@ public class HpIndexServiceImpl implements HpIndexService {
 	@Override
 	public HPListModel getAllIntegrityData(int iDisplayStart, int iDisplayLength) {
 		return hpIndexDaoImpl.getAllIntegrityData(iDisplayStart, iDisplayLength);
+	}
+
+	@Override
+	public  List<HPModel> getAppIndexDataByTag(String brand, String category) {
+		Map<String,List<String>> mapTagList = new HashMap<String,List<String>>();
+		
+		if (brand != null && !brand.equals("")) {
+			List<String> brandList = new ArrayList<>();
+			String[] brandArray = brand.split("\\,");
+			String prefix = RedisVariableUtil.BRAND_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
+			Arrays.asList(brandArray).stream().forEach((b) -> {
+				brandList.add(prefix + b);
+			});
+			mapTagList.put(RedisVariableUtil.BRAND_PREFIX, brandList);
+		}
+
+		if (category != null && !category.equals("")) {
+			List<String> categoryList = new ArrayList<>();
+			String[] categoryArray = category.split("\\,");
+			String prefix = RedisVariableUtil.CATEGORY_TAG_PREFIX + RedisVariableUtil.DIVISION_CHAR;
+			Arrays.asList(categoryArray).stream().forEach((b) -> {
+				categoryList.add(prefix + b);
+			});
+			mapTagList.put(RedisVariableUtil.CATEGORY_PREFIX, categoryList);
+		}
+		return hpIndexDaoImpl.getAppIndexDataByTag(mapTagList);
 	}
 
 }

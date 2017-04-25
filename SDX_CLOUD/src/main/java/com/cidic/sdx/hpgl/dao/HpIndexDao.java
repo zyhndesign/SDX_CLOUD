@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.cidic.sdx.dggl.model.CostumeModel;
 import com.cidic.sdx.hpgl.model.HPListModel;
+import com.cidic.sdx.hpgl.model.HPModel;
 
 public interface HpIndexDao {
 
@@ -27,4 +28,6 @@ public interface HpIndexDao {
 	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit);
 	
 	public CostumeModel getClothUrl(int id);
+	
+	public List<HPModel> getAppIndexDataByTag(Map<String,List<String>> mapTagList);
 }

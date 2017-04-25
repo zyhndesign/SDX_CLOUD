@@ -46,6 +46,7 @@ public class Vipuser implements java.io.Serializable {
 	private Short consumenumber;
 	private BigDecimal consumesum;
 	private int valid; //用户有效标志
+	private char rank;
 	
 	public Vipuser() {
 	}
@@ -57,7 +58,7 @@ public class Vipuser implements java.io.Serializable {
 		this.gender = gender;
 	}
 
-	public Vipuser(User user, String cardnumber, String vipname, String shopname, byte gender, Date birthday,
+	public Vipuser(User user, String cardnumber, String vipname, String shopname, byte gender, Date birthday,char rank,
 			String phonenumber, Short integral, Short consumenumber, BigDecimal consumesum) {
 		this.user = user;
 		this.cardnumber = cardnumber;
@@ -69,6 +70,7 @@ public class Vipuser implements java.io.Serializable {
 		this.integral = integral;
 		this.consumenumber = consumenumber;
 		this.consumesum = consumesum;
+		this.rank = rank;
 	}
 
 	@Id
@@ -182,5 +184,14 @@ public class Vipuser implements java.io.Serializable {
 
 	public void setValid(int valid) {
 		this.valid = valid;
+	}
+	
+	@Column(name = "rank", nullable = false, length = 1)
+	public char getRank() {
+		return this.rank;
+	}
+
+	public void setRank(char rank) {
+		this.rank = rank;
 	}
 }

@@ -94,7 +94,7 @@ public class VipUserDaoImpl implements VipUserDao {
 	@Override
 	public int getCountVipuserByShoppingGuideId(int shoppingGuideId) {
 		Session session = this.getSessionFactory().getCurrentSession();
-		final String hql = " select count(u) from User u where shopId = ?"; 
+		final String hql = " select count(u) from Vipuser u where u.user.id = ?"; 
         final Query query = session.createQuery(hql); 
         query.setParameter(0, shoppingGuideId);
         return (int)query.uniqueResult();
@@ -103,7 +103,7 @@ public class VipUserDaoImpl implements VipUserDao {
 	@Override
 	public int getVipuserCount() {
 		Session session = this.getSessionFactory().getCurrentSession();
-		final String hql = " select count(u) from User u"; 
+		final String hql = " select count(u) from Vipuser u"; 
         final Query query = session.createQuery(hql); 
         return (int)query.uniqueResult();
 	}

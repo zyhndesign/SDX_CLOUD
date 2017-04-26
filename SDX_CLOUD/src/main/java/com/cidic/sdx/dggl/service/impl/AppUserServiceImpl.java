@@ -144,4 +144,15 @@ public class AppUserServiceImpl implements AppUserService {
 		}
 	}
 
+	@Override
+	public int appUpdateData(String phone, String headicon, int id) {
+		try {
+			appUserDaoImpl.appUpdateData(phone, headicon, id);
+			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
+		} catch (Exception e) {
+			System.out.print(e.getMessage());
+			return ResponseCodeUtil.UESR_OPERATION_FAILURE;
+		}
+	}
+
 }

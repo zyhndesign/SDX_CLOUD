@@ -32,4 +32,6 @@ public interface AppUserDao {
     public void disableAccount(int userId);
     
     public void enableAccount(int userId);
+    
+    public void appUpdateData(String phone,String headicon, int id);
 }

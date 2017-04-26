@@ -260,6 +260,23 @@ public class AppUserController {
 		return listResultModel;
 	}
 
+	@RequestMapping(value = "/appUpdateUser", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel appUpdateUser(HttpServletRequest request, HttpServletResponse response, @RequestParam int userId,
+			@RequestParam String phone, @RequestParam String headicon) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		
+		int result = appUserServiceImpl.appUpdateData(phone, headicon, userId);
+		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
 	@RequestMapping(value = "/setAccountState", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel setAccountState(HttpServletRequest request, HttpServletResponse response,

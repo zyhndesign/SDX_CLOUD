@@ -28,4 +28,6 @@ public interface AppUserService {
     public int disableAccount(int userId);
     
     public int enableAccount(int userId);
+    
+    public int appUpdateData(String phone, String headicon, int id);
 }

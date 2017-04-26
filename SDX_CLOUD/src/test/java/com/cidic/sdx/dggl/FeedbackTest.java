@@ -51,7 +51,7 @@ public class FeedbackTest {
 			feedback.setMatchlist(matchList);
 
 			feedback.setCreatetime(new Date());
-			feedbackServiceImpl.createFeedback(feedback);
+			//feedbackServiceImpl.createFeedback(feedback);
 		}
 		
 	}

@@ -203,10 +203,11 @@ public class AppUserController {
 	
 	@RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultModel updatePwd(HttpServletRequest request, HttpServletResponse response, @RequestParam String serialnumber, @RequestParam String password) {
+	public ResultModel updatePwd(HttpServletRequest request, HttpServletResponse response, @RequestParam int userId, 
+			@RequestParam String password,@RequestParam String newPwd) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
-		int result = appUserServiceImpl.updatePwd(serialnumber, password);
+		int result = appUserServiceImpl.updatePwd(userId, password);
 		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

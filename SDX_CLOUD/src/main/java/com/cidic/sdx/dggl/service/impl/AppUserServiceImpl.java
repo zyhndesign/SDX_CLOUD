@@ -106,13 +106,13 @@ public class AppUserServiceImpl implements AppUserService {
 	}
 
 	@Override
-	public int updatePwd(String serialnumber, String password) {
+	public int updatePwd(int userId, String password) {
 		try {
 			User user = new User();
-			user.setSerialnumber(serialnumber);
+			user.setId(userId);
 			user.setPassword(password);
 			PasswordHelper.encryptAppPassword(user);
-			appUserDaoImpl.updatePwd(serialnumber, user.getPassword(), user.getSlot());
+			appUserDaoImpl.updatePwd(userId, user.getPassword(), user.getSlot());
 			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
 
 		} catch (Exception e) {

@@ -118,6 +118,7 @@
 				/dggl/appVipUser/getVipuserByShoppingGuideId=authc
 				/dggl/appUser/updatePwd=authc
 				/app/hpManage/*=anon
+				/dggl/appHelper/*=anon
 			</value>
 		</property>
 	</bean>	

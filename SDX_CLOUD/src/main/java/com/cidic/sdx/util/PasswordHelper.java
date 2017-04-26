@@ -31,7 +31,7 @@ public class PasswordHelper {
     public static void encryptAppPassword(User user) {
 
         user.setSlot(randomNumberGenerator.nextBytes().toHex());
-
+        System.out.println(user.getCredentialsSalt());
         String newPassword = new SimpleHash(
                 algorithmName,
                 user.getPassword(),

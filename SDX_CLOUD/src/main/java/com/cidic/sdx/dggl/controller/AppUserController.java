@@ -204,15 +204,21 @@ public class AppUserController {
 	@RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel updatePwd(HttpServletRequest request, HttpServletResponse response, @RequestParam int userId, 
-			@RequestParam String password,@RequestParam String newPwd) {
+			@RequestParam String password,@RequestParam String newPwd, @RequestParam String username) {
+		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
-		int result = appUserServiceImpl.updatePwd(userId, password);
+		int result = appUserServiceImpl.updatePwd(userId, password, newPwd, username);
 		if (result == ResponseCodeUtil.UESR_OPERATION_SUCESS) {
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
 			return resultModel;
-		} else {
+		} 
+		else if (result == ResponseCodeUtil.USER_OLDPWD_ERROR){
+			resultModel.setResultCode(300);
+			resultModel.setSuccess(true);
+			return resultModel;
+		}else {
 			throw new SdxException(500, "操作失败");
 		}
 	}

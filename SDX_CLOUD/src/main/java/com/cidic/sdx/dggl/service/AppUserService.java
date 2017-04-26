@@ -23,7 +23,7 @@ public interface AppUserService {
     
     public UserListModel getUserListByCondition(int shopId, String username, int iDisplayStart, int iDisplayLength);
     
-    public int updatePwd(int userId, String password);
+    public int updatePwd(int userId, String password, String newPwd, String username);
     
     public int disableAccount(int userId);
     

@@ -3,6 +3,10 @@ package com.cidic.sdx.dggl.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -106,14 +110,28 @@ public class AppUserServiceImpl implements AppUserService {
 	}
 
 	@Override
-	public int updatePwd(int userId, String password) {
+	public int updatePwd(int userId, String password, String newPwd, String username) {
 		try {
-			User user = new User();
-			user.setId(userId);
-			user.setPassword(password);
-			PasswordHelper.encryptAppPassword(user);
-			appUserDaoImpl.updatePwd(userId, user.getPassword(), user.getSlot());
-			return ResponseCodeUtil.UESR_OPERATION_SUCESS;
+			Subject subject = SecurityUtils.getSubject();
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			token.setRememberMe(true);
+			try {
+				subject.login(token);
+				if (subject.isAuthenticated()) {
+					User user = new User();
+					user.setId(userId);
+					user.setPassword(newPwd);
+					user.setUsername(username);
+					PasswordHelper.encryptAppPassword(user);
+
+					appUserDaoImpl.updatePwd(userId, user.getPassword(), user.getSlot());
+					return ResponseCodeUtil.UESR_OPERATION_SUCESS;
+				} else {
+					return ResponseCodeUtil.USER_OLDPWD_ERROR;
+				}
+			} catch (IncorrectCredentialsException e) {
+				return ResponseCodeUtil.USER_OLDPWD_ERROR;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -35,8 +35,7 @@ public class MatchServiceImpl implements MatchService {
 			for (Matchlist mListObj : match.getMatchlists()){
 				mListObj.setMatch(match);
 			}
-			matchDaoImpl.createMatch(match);
-			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
+			return matchDaoImpl.createMatch(match);
 		}
 		catch(Exception e){
 			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;

@@ -385,6 +385,7 @@ public class HpManageDaoImpl implements HpManageDao {
 		hpModel.setHp_num(resultMap.get("hp_num"));
 		hpModel.setBrand(resultMap.get("brand"));
 		hpModel.setCategory(resultMap.get("category"));
+		hpModel.setHpName(resultMap.get("hpName"));
 		hpModel.setSize(resultMap.get("size"));
 		hpModel.setColor(resultMap.get("color"));
 		hpModel.setPrice(resultMap.get("price"));

@@ -23,9 +23,9 @@ public class MatchDaoImpl implements MatchDao {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public void createMatch(Match match) {
+	public int createMatch(Match match) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(match);
+		return (int) session.save(match);
 	}
 
 	@Override

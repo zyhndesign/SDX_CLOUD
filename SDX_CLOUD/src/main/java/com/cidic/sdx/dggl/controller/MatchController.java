@@ -108,9 +108,10 @@ public class MatchController {
 		resultModel = new ResultModel();
 		
 		int result = matchServiceImpl.createMatch(match);
-		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
+		if (result > 0) {
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
+			resultModel.setObject(result);
 			return resultModel;
 		} else {
 			throw new SdxException(500, "操作失败");

@@ -6,7 +6,7 @@ import com.cidic.sdx.dggl.model.Match;
 
 public interface MatchDao {
 
-	public void createMatch(Match match);
+	public int createMatch(Match match);
 	
     public void updateMatch(Match match);
     

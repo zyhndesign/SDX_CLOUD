@@ -31,11 +31,11 @@
                     <img style="width: 100%;height: auto" src="${hp.imageUrl2}" ng-style="imgStyle">
                 </div>
             </ion-slide>
-            <ion-slide>
+            <!--<ion-slide>
                 <div class="box" ng-style="boxStyle">
                     <img style="width: 100%;height: auto" src="${hp.imageUrl3}" ng-style="imgStyle">
                 </div>
-            </ion-slide>
+            </ion-slide>-->
         </ion-slide-box>
 
         <ion-list class="ownList">

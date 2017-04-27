@@ -12,7 +12,8 @@
     font-size: 14px;
 }
 .detail .mainImage{
-    width: 80%;
+    height:100%;
+    width: auto;
     margin: 0px auto;
     display: block;
 }

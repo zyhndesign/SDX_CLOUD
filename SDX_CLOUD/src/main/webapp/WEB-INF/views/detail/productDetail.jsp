@@ -10,10 +10,8 @@
         <base href="<%=request.getContextPath() %>/" />
     <link href="resources/detail/js/lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="resources/detail/css/src/productDetail.css" rel="stylesheet">
-    <!-- ionic/angularjs js -->
     <script src="resources/detail/js/lib/ionic/js/ionic.bundle.js"></script>
-    <!-- your app's js -->
-    <script src="resources/detail/js/src/pDetail.js"></script>
+        <script src="resources/detail/js/src/pDetail.js"></script>
 
         <script>
             var type="${hp.categoryList}";
@@ -67,5 +65,6 @@
             </ion-item>-->
         </ion-list>
     </ion-content>
-</body>
+
+        </body>
 </html>

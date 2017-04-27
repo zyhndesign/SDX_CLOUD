@@ -14,24 +14,28 @@
     <script src="resources/detail/js/lib/ionic/js/ionic.bundle.js"></script>
     <!-- your app's js -->
     <script src="resources/detail/js/src/pDetail.js"></script>
+
+        <script>
+            var type="${hp.categoryList}";
+        </script>
 </head>
 
 <body ng-controller="super">
     <ion-content>
         <ion-slide-box style="margin:1%;">
             <ion-slide>
-                <div class="box">
-                    <img style="width: 100%;height: auto" src="${hp.imageUrl1}">
+                <div class="box" ng-style="boxStyle">
+                    <img image-load style="width: 100%;height: auto" src="${hp.imageUrl1}" ng-style="imgStyle">
                 </div>
             </ion-slide>
             <ion-slide>
-                <div class="box">
-                    <img style="width: 100%;height: auto" src="${hp.imageUrl2}">
+                <div class="box" ng-style="boxStyle">
+                    <img style="width: 100%;height: auto" src="${hp.imageUrl2}" ng-style="imgStyle">
                 </div>
             </ion-slide>
             <ion-slide>
-                <div class="box">
-                    <img style="width: 100%;height: auto" src="${hp.imageUrl3}">
+                <div class="box" ng-style="boxStyle">
+                    <img style="width: 100%;height: auto" src="${hp.imageUrl3}" ng-style="imgStyle">
                 </div>
             </ion-slide>
         </ion-slide-box>

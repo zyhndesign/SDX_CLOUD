@@ -14,9 +14,32 @@ app.run(function($ionicPlatform) {
             StatusBar.styleDefault();
         }
     });
-});
-app.controller("super",["$scope",function($scope){
+})
+    .controller("super",["$scope",function($scope){
 
     $scope.images=["data/pDetail/1.png","data/pDetail/2.png","data/pDetail/3.png","data/pDetail/4.png"];
 
-}]);
+    $scope.imgStyle={"margin-top":"-20%"};
+    if(type.indexOf("裤")!=-1){
+        $scope.type=1;
+        $scope.imgStyle={"margin-top":"-100%"};
+    }
+    $scope.boxStyle={height:"200px"};
+
+}]).
+    directive('imageLoad', [function () {
+        return {
+            link: function (scope, el, attrs, ctrl) {
+                var height= 0,elO=el[0],realHeight;
+                el.bind("load",function(){
+                    height=elO.height;
+                    realHeight=height/2;
+                    if(scope.type==1){
+                        realHeight=height*2/3;
+                    }
+
+                    scope.boxStyle={height:realHeight+"px"};
+                });
+            }
+        }
+    }]);

@@ -115,6 +115,19 @@ public class HpManageController {
 		return view;
 	}
 	
+	@RequestMapping(value = "/productDetail/{id}", method = RequestMethod.GET)
+	public ModelAndView pDetail(HttpServletRequest request, @PathVariable int id) {
+
+		HPModel hpModel = null;
+		if (id > 0) {
+			hpModel = hpManageServiceImpl.getHpDataById(id);
+		}
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/detail/productDetail");
+		view.addObject("hp", hpModel);
+		return view;
+	}
+	
 	@RequestMapping(value = "/getData", method = RequestMethod.GET)
 	@ResponseBody
 	public ListResultModel getData(HttpServletRequest request, HttpServletResponse response, @RequestParam int iDisplayLength, @RequestParam int iDisplayStart,@RequestParam String sEcho) {

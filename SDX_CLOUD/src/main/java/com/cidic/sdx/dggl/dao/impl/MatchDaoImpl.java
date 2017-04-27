@@ -42,6 +42,7 @@ public class MatchDaoImpl implements MatchDao {
 		session.delete(match);
 	}
 
+	
 	@Override
 	public List<Match> findMatchByUser(int userId, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
@@ -249,6 +250,12 @@ public class MatchDaoImpl implements MatchDao {
         @SuppressWarnings("unchecked")
         List<Match> list = query.list();
 		return list;
+	}
+
+	@Override
+	public Match findMatchByMatchId(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		return (Match) session.load(Match.class, id);
 	}
 	
 }

@@ -14,6 +14,8 @@ public interface MatchDao {
     
     public List<Match> findMatchByUser(int userId, int offset, int limit);
     
+    public Match findMatchByMatchId(int id);
+    
     public int getAppMatchShareCountByUser(int userId, int shareStatus);
  
     public int getMatchShareCountByUser(int userId,int shareStatus);

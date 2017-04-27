@@ -114,4 +114,9 @@ public class MatchServiceImpl implements MatchService {
 		return matchDaoImpl.getAppMatchByBackStatus(userId, backStatus, offset, limit);
 	}
 
+	@Override
+	public Match findMatchByMatchId(int id) {
+		return matchDaoImpl.findMatchByMatchId(id);
+	}
+
 }

@@ -27,6 +27,7 @@ import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.service.AppUserService;
 import com.cidic.sdx.dggl.service.MatchService;
 import com.cidic.sdx.exception.SdxException;
+import com.cidic.sdx.hpgl.model.HPModel;
 import com.cidic.sdx.hpgl.model.ListResultModel;
 import com.cidic.sdx.hpgl.model.ResultModel;
 import com.cidic.sdx.util.ResponseCodeUtil;
@@ -58,6 +59,19 @@ public class MatchController {
 	@RequestMapping(value = "/matchMgr", method = RequestMethod.GET)
 	public String matchMgr(Locale locale, Model model) {
 		return "matchMgr";
+	}
+	
+	@RequestMapping(value = "/matchDetail/{id}", method = RequestMethod.GET)
+	public ModelAndView pDetail(HttpServletRequest request, @PathVariable int id) {
+
+		Match match = null;
+		if (id > 0) {
+			match = matchServiceImpl.findMatchByMatchId(id);
+		}
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/detail/matchDetail");
+		view.addObject("match", match);
+		return view;
 	}
 	
 	@RequestMapping(value = "/matchOfGuide/{id}", method = RequestMethod.GET)

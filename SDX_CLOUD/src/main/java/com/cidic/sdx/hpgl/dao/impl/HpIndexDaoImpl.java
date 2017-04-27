@@ -412,9 +412,9 @@ public class HpIndexDaoImpl implements HpIndexDao {
 		Map<Object, Object> map = hashOperations.getOperations()
 				.boundHashOps(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id).entries();
 		CostumeModel costumeModel = new CostumeModel();
-		costumeModel.setProductImageUrl(map.get("imageUrl1").toString());
-		costumeModel.setFrontViewUrl(map.get("imageUrl2").toString());
-		costumeModel.setBackViewUrl(map.get("imageUrl3").toString());
+		costumeModel.setProductImageUrl(map.get("imageUrl3").toString());
+		costumeModel.setFrontViewUrl(map.get("imageUrl1").toString());
+		costumeModel.setBackViewUrl(map.get("imageUrl2").toString());
 		return costumeModel;
 	}
 

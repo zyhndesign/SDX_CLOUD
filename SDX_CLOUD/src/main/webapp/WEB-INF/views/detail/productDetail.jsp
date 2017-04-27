@@ -45,8 +45,11 @@
             </ion-item>
             <ion-item>
                 <label class="ownLabel">颜色</label>
-                <div class="ownContent ownColors">
+                <!--<div class="ownContent ownColors">
                     <span class="ownColor"></span>
+                </div>-->
+                <div class="ownContent">
+                    ${hp.colorList}
                 </div>
             </ion-item>
             <!--<ion-item>

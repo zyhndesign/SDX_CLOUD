@@ -72,7 +72,7 @@
 			<value>
 				/hpgl/security/*=anon
 				/hpgl/tag/*=authc
-				/hpgl/hpManage/*=authc
+				/hpgl/hpManage/*=anon
 				/hpgl/brand/*=authc
 				/hpgl/category/*=authc
 				/hpgl/color/*=authc

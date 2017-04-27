@@ -255,7 +255,7 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public Match findMatchByMatchId(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		return (Match) session.load(Match.class, id);
+		return (Match) session.get(Match.class, id);
 	}
 	
 }

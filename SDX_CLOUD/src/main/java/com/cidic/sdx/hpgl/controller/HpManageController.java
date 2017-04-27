@@ -128,6 +128,19 @@ public class HpManageController {
 		return view;
 	}
 	
+	@RequestMapping(value = "/getProductDetailById", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getProductDetailById(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int id) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(hpManageServiceImpl.getHpDataById(id));
+		return resultModel;
+	}
+	
 	@RequestMapping(value = "/getData", method = RequestMethod.GET)
 	@ResponseBody
 	public ListResultModel getData(HttpServletRequest request, HttpServletResponse response, @RequestParam int iDisplayLength, @RequestParam int iDisplayStart,@RequestParam String sEcho) {

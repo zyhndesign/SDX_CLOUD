@@ -74,6 +74,19 @@ public class MatchController {
 		return view;
 	}
 	
+	@RequestMapping(value = "/getDataByMatchId", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getDataByMatchId(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int id) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(matchServiceImpl.findMatchByMatchId(id));
+		return resultModel;
+	}
+	
 	@RequestMapping(value = "/matchOfGuide/{id}", method = RequestMethod.GET)
     public ModelAndView matchOfGuide(HttpServletRequest request, @PathVariable int id) {
 
@@ -93,10 +106,7 @@ public class MatchController {
 			@RequestBody Match match) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
-		Set<Matchlist> matchlist = match.getMatchlists();
-		for (Matchlist m : matchlist ){
-			System.out.println(m.getModelurl());
-		}
+		
 		int result = matchServiceImpl.createMatch(match);
 		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);

@@ -1,0 +1,38 @@
+.detail{
+    padding: 0px 10px;
+}
+.detail .title{
+    font-size: 18px;
+}
+.detail .date{
+    font-size: 14px;
+    color: #ccc;
+}
+.detail .excerpt{
+    font-size: 14px;
+}
+.detail .mainImage{
+    width: 80%;
+    margin: 0px auto;
+    display: block;
+}
+.detail .images{
+    width: 90%;
+    margin: 15px auto 0px auto;
+    text-align: center;
+    font-size: 0px;
+}
+.detail .images .image{
+    display: inline-block;
+    width: 31%;
+    margin-right: 2%;
+}
+.detail .zan{
+    width: 30px;
+    height: 28px;
+    margin: 20px auto;
+    background: url(../../images/like1.png) no-repeat;
+}
+.detail .zan.active{
+    background: url(../../images/like.png) no-repeat;
+}

@@ -1,49 +1,15 @@
-<!DOCTYPE html>
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
+             pageEncoding="UTF-8"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+    <!DOCTYPE html>
 <html ng-app="app">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-    <style type="text/css">
-        .detail{
-            padding: 0px 10px;
-        }
-        .detail .title{
-            font-size: 18px;
-        }
-        .detail .date{
-            font-size: 14px;
-            color: #ccc;
-        }
-        .detail .excerpt{
-            font-size: 14px;
-        }
-        .detail .mainImage{
-            width: 80%;
-            margin: 0px auto;
-            display: block;
-        }
-        .detail .images{
-            width: 90%;
-            margin: 15px auto 0px auto;
-            text-align: center;
-            font-size: 0px;
-        }
-        .detail .images .image{
-            display: inline-block;
-            width: 31%;
-            margin-right: 2%;
-        }
-        .detail .zan{
-            width: 30px;
-            height: 28px;
-            margin: 20px auto;
-            background: url(images/like1.png) no-repeat;
-        }
-        .detail .zan.active{
-            background: url(images/like.png) no-repeat;
-        }
-    </style>
+    <base href="<%=request.getContextPath() %>/" />
+    <link href="resources/detail/css/src/matchDetail.css" rel="stylesheet">
 </head>
 <body>
     <div class="detail">

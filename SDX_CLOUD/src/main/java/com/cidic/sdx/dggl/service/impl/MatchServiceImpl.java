@@ -16,6 +16,7 @@ import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.MatchListModel;
 import com.cidic.sdx.dggl.model.Matchlist;
 import com.cidic.sdx.dggl.service.MatchService;
+import com.cidic.sdx.hpgl.dao.HpIndexDao;
 import com.cidic.sdx.util.ResponseCodeUtil;
 
 @Repository
@@ -27,6 +28,10 @@ public class MatchServiceImpl implements MatchService {
 	@Autowired
 	@Qualifier("matchDaoImpl")
 	private MatchDao matchDaoImpl;
+	
+	@Autowired
+	@Qualifier(value = "hpIndexDaoImpl")
+	private HpIndexDao hpIndexDaoImpl;
 	
 	@Override
 	public int createMatch(Match match) {
@@ -60,7 +65,6 @@ public class MatchServiceImpl implements MatchService {
 			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
 		}
 		catch(Exception e){
-			System.out.println("========:"+e.getMessage());
 			e.printStackTrace();
 			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
 		}
@@ -115,7 +119,14 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public Match findMatchByMatchId(int id) {
-		return matchDaoImpl.findMatchByMatchId(id);
+		Match match = matchDaoImpl.findMatchByMatchId(id);
+		for (Matchlist mList : match.getMatchlists()){
+			mList.setInnerClothUrl(hpIndexDaoImpl.getClothUrl(mList.getInnerClothId()).getProductImageUrl());
+			mList.setOutClothUrl(hpIndexDaoImpl.getClothUrl(mList.getOutClothId()).getProductImageUrl());
+			mList.setTrousersUrl(hpIndexDaoImpl.getClothUrl(mList.getTrousersId()).getProductImageUrl());	
+		}
+		
+		return match;
 	}
 
 }

@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -43,6 +44,11 @@ public class Matchlist implements java.io.Serializable {
 	private Date createtime;
 	private Set<Feedback> feedbacks = new HashSet<Feedback>(0);
 
+	private String innerClothUrl;
+	private String outClothUrl;
+	private String trousersUrl;
+	
+	
 	public Matchlist() {
 	}
 
@@ -153,4 +159,32 @@ public class Matchlist implements java.io.Serializable {
 		this.feedbacks = feedbacks;
 	}
 
+	@Transient
+	public String getInnerClothUrl() {
+		return innerClothUrl;
+	}
+
+	public void setInnerClothUrl(String innerClothUrl) {
+		this.innerClothUrl = innerClothUrl;
+	}
+
+	@Transient
+	public String getOutClothUrl() {
+		return outClothUrl;
+	}
+
+	public void setOutClothUrl(String outClothUrl) {
+		this.outClothUrl = outClothUrl;
+	}
+
+	@Transient
+	public String getTrousersUrl() {
+		return trousersUrl;
+	}
+
+	public void setTrousersUrl(String trousersUrl) {
+		this.trousersUrl = trousersUrl;
+	}
+
+	
 }

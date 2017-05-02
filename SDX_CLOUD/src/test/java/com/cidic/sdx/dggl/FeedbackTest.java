@@ -25,7 +25,7 @@ public class FeedbackTest {
 	@Qualifier("feedbackServiceImpl")
 	private FeedbackService feedbackServiceImpl;
 	
-	@Test
+	//@Test
 	public void createFeedback(){
 		/*
 		Feedback feedback = new Feedback();
@@ -78,5 +78,16 @@ public class FeedbackTest {
 		feedback.setMatchlist(matchList);
 		
 		System.out.println(feedbackServiceImpl.updateFeedback(feedback));
+	}
+	
+	@Test
+	public void getFeedbackByVipIdAndMatchIds(){
+		String[] array = {"1175","888","1375","13123324"};
+		
+		List<Integer> list = feedbackServiceImpl.getFeedbackDataByVipIdAndMatchlistIds(array, 16, 122);
+		
+		for (Integer i : list){
+			System.out.println(i);
+		}
 	}
 }

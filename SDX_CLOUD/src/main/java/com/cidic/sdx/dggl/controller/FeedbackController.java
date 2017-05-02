@@ -140,4 +140,21 @@ public class FeedbackController {
 		return resultModel;
 
 	}
+	
+	@RequestMapping(value = "/getFeedbackDataByVipIdAndMatchlistIds", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getFeedbackDataByVipIdAndMatchlistIds(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int userId, @RequestParam int vipId, @RequestParam String matchlistIds) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		String[] matchlistIdsArray = matchlistIds.split(",");
+		List<Integer> feedBackIds = feedbackServiceImpl.getFeedbackDataByVipIdAndMatchlistIds(matchlistIdsArray,vipId,userId);
+
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(feedBackIds);
+		return resultModel;
+
+	}
+	
 }

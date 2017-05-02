@@ -146,4 +146,17 @@ public class FeedbackDaoImpl implements FeedbackDao {
         }
         return listResult;
 	}
+
+	@Override
+	public List<Feedback> getFeedbackDataByVipIdAndMatchlistIds(List<Integer> ids, int vipId, int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Feedback f where f.vipId = (:vipId) and f.userId = (:userId) and f.matchlist.id in (:ids)";
+		Query query = session.createQuery(hql);
+		query.setParameter("vipId", vipId);
+        query.setParameterList("ids", ids);
+        query.setParameter("userId", userId);
+        @SuppressWarnings("unchecked")
+        List<Feedback> list = query.list();
+		return list;
+	}
 }

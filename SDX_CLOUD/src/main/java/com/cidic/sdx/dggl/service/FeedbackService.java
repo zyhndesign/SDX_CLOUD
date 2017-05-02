@@ -17,4 +17,6 @@ public interface FeedbackService {
 	public List<HotMatchModel> getTopThreeDataByUserId(int userId);
 	
 	public Map<Integer,List<String>> getFeedbackVipName(int userId, String matchlistIds);
+	
+	public List<Integer> getFeedbackDataByVipIdAndMatchlistIds(String[] matchlistIdsArray, int vipId, int userId);
 }

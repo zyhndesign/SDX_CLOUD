@@ -146,7 +146,7 @@ public class MatchTest {
 		matchServiceImpl.deleteMatch(2);
 	}
 	
-	@Test
+	//@Test
 	public void findMatch(){
 		List<Match> matchList = matchServiceImpl.findMatchByUser(6, 0, 10);
 		for (Match match : matchList){
@@ -161,5 +161,16 @@ public class MatchTest {
 			System.out.println();
 			System.out.println();
 		}
+	}
+	
+	//@Test 
+	public void findMatchByVipnames(){
+		/*
+		List<Match> list = matchServiceImpl.getMatchByPushHistory("jack", 121);
+		
+		for (Match match : list){
+			System.out.println(match.getSeriesname());
+		}
+		*/
 	}
 }

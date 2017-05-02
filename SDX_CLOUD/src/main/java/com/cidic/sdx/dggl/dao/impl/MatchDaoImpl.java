@@ -257,5 +257,16 @@ public class MatchDaoImpl implements MatchDao {
 		Session session = sessionFactory.getCurrentSession();
 		return (Match) session.get(Match.class, id);
 	}
+
+	@Override
+	public List<Match> getMatchByIds(List<Integer> ids) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Match m where m.id in (:ids)";
+		Query query = session.createQuery(hql);
+        query.setParameterList("ids", ids);
+        @SuppressWarnings("unchecked")
+        List<Match> list = query.list();
+		return list;
+	}
 	
 }

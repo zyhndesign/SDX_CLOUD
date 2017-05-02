@@ -27,4 +27,6 @@ public interface MatchService {
     public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit);
     
     public Match findMatchByMatchId(int id);
+    
+    public List<Match> getMatchByPushHistory(String vipName,int userId,int limit, int offset);
 }

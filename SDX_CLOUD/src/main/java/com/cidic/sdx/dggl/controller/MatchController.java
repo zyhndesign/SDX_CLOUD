@@ -266,4 +266,23 @@ public class MatchController {
 		resultModel.setObject(matchList);
 		return resultModel;
     }
+	
+	@RequestMapping(value = "/getPushHistoryByVipNameAndUserId", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getPushHistoryByVipNameAndUserId(HttpServletRequest request, HttpServletResponse response,
+    		@RequestParam int userId, @RequestParam String vipName, @RequestParam int limit, @RequestParam int offset){
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ResultModel resultModel = new ResultModel();
+		try {
+		    List<Match> matchList = matchServiceImpl.getMatchByPushHistory(vipName, userId, limit, offset);
+		    resultModel.setObject(matchList);
+			resultModel.setSuccess(true);
+			resultModel.setResultCode(200);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			resultModel.setSuccess(false);
+		}
+		return resultModel;
+	}
 }

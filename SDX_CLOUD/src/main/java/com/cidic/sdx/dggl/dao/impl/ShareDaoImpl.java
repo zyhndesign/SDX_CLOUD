@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.ShareDao;
+import com.cidic.sdx.dggl.model.HotMatchModel;
+import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.Share;
 
 @Repository
@@ -42,5 +45,16 @@ public class ShareDaoImpl implements ShareDao {
 		return query.list();
 	}
 
-	
+	@Override
+	public List<Integer> getVipuserShareList(int userId, String vipName, int limit, int offset) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " select s.match.id from Share s where s.user.id = ? and s.sharedlist like ?";
+		Query query = session.createQuery(hql);
+        query.setParameter(0, userId); 
+        query.setParameter(1, "%"+vipName +"%");
+        query.setFirstResult(offset);    
+        query.setMaxResults(limit);
+		List<Integer> list = query.list();
+        return list;
+	}	
 }

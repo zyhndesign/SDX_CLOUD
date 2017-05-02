@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.MatchDao;
+import com.cidic.sdx.dggl.dao.ShareDao;
 import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.MatchListModel;
 import com.cidic.sdx.dggl.model.Matchlist;
@@ -32,6 +33,10 @@ public class MatchServiceImpl implements MatchService {
 	@Autowired
 	@Qualifier(value = "hpIndexDaoImpl")
 	private HpIndexDao hpIndexDaoImpl;
+	
+	@Autowired
+	@Qualifier("shareDaoImpl")
+	private ShareDao shareDaoImpl;
 	
 	@Override
 	public int createMatch(Match match) {
@@ -127,6 +132,18 @@ public class MatchServiceImpl implements MatchService {
 		}
 		
 		return match;
+	}
+
+	@Override
+	public List<Match> getMatchByPushHistory(String vipName, int userId,int limit, int offset) {
+		List<Integer> matchIds = shareDaoImpl.getVipuserShareList(userId, vipName, limit, offset);
+		if (matchIds.size() > 0){
+			List<Match> list = matchDaoImpl.getMatchByIds(matchIds);
+			return list;
+		}
+		else{
+			return null;
+		}
 	}
 
 }

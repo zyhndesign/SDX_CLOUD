@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,5 +108,20 @@ public class FeedbackServiceImpl implements FeedbackService {
 			map.put(Integer.parseInt(matchlistId.toString()), feedbackDaoImpl.getFeedbackVipName(userId, Integer.parseInt(matchlistId.toString())));
 		}
 		return map;
+	}
+
+	@Override
+	public List<Integer> getFeedbackDataByVipIdAndMatchlistIds(String[] matchlistIdsArray, int vipId, int userId) {
+		List<Integer> conditionIdList = new ArrayList<>(4);
+		for (String s : matchlistIdsArray){
+			conditionIdList.add(Integer.parseInt(s));
+		}
+		
+		List<Feedback> feedbackList = feedbackDaoImpl.getFeedbackDataByVipIdAndMatchlistIds(conditionIdList, vipId,userId);
+		List<Integer> idList = new ArrayList<>(4);
+		for (Feedback feedBack : feedbackList){
+			idList.add(feedBack.getMatchlist().getId());
+		}
+		return idList;
 	}
 }

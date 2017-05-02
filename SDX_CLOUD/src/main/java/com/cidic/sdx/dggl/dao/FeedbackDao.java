@@ -19,4 +19,6 @@ public interface FeedbackDao {
 	public int deleteFeedback(int userId, int matchlistId);
 	
 	public List<String> getFeedbackVipName(int userId,int matchlistId);
+	
+	public List<Feedback> getFeedbackDataByVipIdAndMatchlistIds(List<Integer> ids, int vipId, int userId);
 }

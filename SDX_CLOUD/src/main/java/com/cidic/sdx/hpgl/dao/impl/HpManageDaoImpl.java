@@ -394,6 +394,7 @@ public class HpManageDaoImpl implements HpManageDao {
 		hpModel.setImageUrl3(resultMap.get("imageUrl3"));
 		hpModel.setCreateTime(resultMap.get("createTime"));
 		hpModel.setTimeCategory(resultMap.get("timeCategory"));
+		hpModel.setProductUrl(resultMap.get("productURL"));
 		StringBuilder brandList = new StringBuilder();
 		StringBuilder categoryList  = new StringBuilder();
 		StringBuilder sizeList = new StringBuilder();

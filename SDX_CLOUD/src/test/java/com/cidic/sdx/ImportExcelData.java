@@ -357,7 +357,7 @@ public class ImportExcelData {
 	public void testInsertHp() {
 
 		try {
-			List<HPModel> list = this.readXlsx("d:\\sdx3.xlsx");
+			List<HPModel> list = this.readXlsx("d:\\sdx4.xlsx");
 			System.out.println("总共有:" + list.size() + "条数据");
 			/*
 			 * if (list.size() > 1){ HPModel HPModel = list.get(0);

@@ -1,6 +1,7 @@
 package com.cidic.sdx.dggl.controller;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,14 +12,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cidic.sdx.dggl.model.MatchListModel;
+import com.cidic.sdx.dggl.model.Shop;
 import com.cidic.sdx.dggl.model.Vipuser;
 import com.cidic.sdx.dggl.model.VipuserModel;
 import com.cidic.sdx.dggl.service.VipUserService;
@@ -41,6 +46,31 @@ public class VipUserController {
 
 	private ResultModel resultModel = null;
 
+	@RequestMapping(value = "/vipCustomerMgr", method = RequestMethod.GET)
+	public String vipCustomerMgr(Locale locale, Model model) {
+		return "vipCustomerMgr";
+	}
+	
+	@RequestMapping(value = "/vipCustomerCOU", method = RequestMethod.GET)
+	public ModelAndView shopCOU(Locale locale, Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("vipCustomerCOU");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/vipCustomerCOU/{id}", method = RequestMethod.GET)
+    public ModelAndView updateShopCOU(HttpServletRequest request, @PathVariable int id) {
+
+		Vipuser vipuser = null;
+        if (id > 0) {
+        	vipuser = vipUserServiceImpl.loadVipCustomerById(id);
+        }
+        ModelAndView view = new ModelAndView();
+        view.setViewName("vipCustomerCOU");
+        view.addObject("vipuser", vipuser);
+        return view;
+    }
+	
 	@ExceptionHandler(SdxException.class)
 	public @ResponseBody ResultModel handleCustomException(SdxException ex) {
 		ResultModel resultModel = new ResultModel();

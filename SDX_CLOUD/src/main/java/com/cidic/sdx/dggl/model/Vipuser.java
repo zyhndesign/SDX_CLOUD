@@ -42,11 +42,11 @@ public class Vipuser implements java.io.Serializable {
 	private byte gender;
 	private Date birthday;
 	private String phonenumber;
-	private Short integral;
-	private Short consumenumber;
-	private BigDecimal consumesum;
+	private Short integral;  //积分
+	private Short consumenumber; //消费次数
+	private BigDecimal consumesum; //累计消费金额
 	private int valid; //用户有效标志
-	private char rank;
+	private char rank; //
 	
 	public Vipuser() {
 	}

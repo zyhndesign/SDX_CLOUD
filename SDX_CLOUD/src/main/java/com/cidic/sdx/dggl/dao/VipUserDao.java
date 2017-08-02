@@ -3,6 +3,7 @@ package com.cidic.sdx.dggl.dao;
 import java.util.List;
 import java.util.Optional;
 
+import com.cidic.sdx.dggl.model.Shop;
 import com.cidic.sdx.dggl.model.Vipuser;
 
 public interface VipUserDao {
@@ -26,4 +27,6 @@ public interface VipUserDao {
     
     //统计当前导购有多少客户
     public int getCountVipuserByShoppingGuideId(int shoppingGuideId);
+    
+    public Vipuser loadVipCustomerById(int id);
 }

@@ -101,4 +101,9 @@ public class VipUserServiceImpl implements VipUserService {
 		}
 	}
 
+	@Override
+	public Vipuser loadVipCustomerById(int id) {
+		return vipUserDaoImpl.loadVipCustomerById(id);
+	}
+
 }

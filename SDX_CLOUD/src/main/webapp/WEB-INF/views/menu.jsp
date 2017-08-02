@@ -35,6 +35,8 @@
 			<li class="sItem">
 				<a class="sLink" href="dggl/appUser/guideMgr">导购管理</a>
 			</li>
-			
+			<li class="sItem">
+				<a class="sLink" href="dggl/appVipUser/vipCustomerMgr">VIP客户管理</a>
+			</li>
 		</ul></li>
 </ul>

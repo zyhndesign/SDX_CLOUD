@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.cidic.sdx.dggl.dao.VipUserDao;
+import com.cidic.sdx.dggl.model.Shop;
 import com.cidic.sdx.dggl.model.Vipuser;
 
 @Repository
@@ -106,6 +107,12 @@ public class VipUserDaoImpl implements VipUserDao {
 		final String hql = " select count(u) from Vipuser u"; 
         final Query query = session.createQuery(hql); 
         return (int)query.uniqueResult();
+	}
+
+	@Override
+	public Vipuser loadVipCustomerById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		return (Vipuser)session.get(Vipuser.class, id);
 	}
 
 	

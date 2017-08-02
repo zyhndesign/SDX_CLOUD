@@ -54,8 +54,10 @@ var config={
         guideDelete:"dggl/appUser/setAccountState",
         shopGetAll:"dggl/shop/getData",
         shopDelete:"dggl/shop/delete",
-        matchGetAll:"dggl/match/getMatchByShareStatus"
-
+        matchGetAll:"dggl/match/getMatchByShareStatus",
+        vipCustomerGetAll:"/dggl/appVipUser/getVipuserByPage",
+        vipCustomerGetByCardNumber:"/dggl/appVipUser/getVipuserByCardNumber",
+        vipCustomerGetShoppingGuideId:"/dggl/appVipUser/getVipuserByShoppingGuideId"
     },
     dataTable:{
         langUrl:"resources/lang/de_DE.txt"

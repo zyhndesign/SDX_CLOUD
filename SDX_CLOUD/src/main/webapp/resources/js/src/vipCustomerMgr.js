@@ -4,6 +4,7 @@ $(document).ready(function(){
         removeUrl:config.ajaxUrls.vipUserDelete,
         ownTable:function(){
             var ownTable=$("#myTable").dataTable({
+            	"bPaginate" : true,
                 "bServerSide": true,
                 "sAjaxSource": config.ajaxUrls.vipCustomerGetAll,
                 "bInfo":true,

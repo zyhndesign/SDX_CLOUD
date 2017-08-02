@@ -1,13 +1,7 @@
-var shopMgr=(function(config,functions){
-    return {
-
-    }
-})(config,functions);
-
 $(document).ready(function(){
 
     var table=new ZYTableHandler({
-        removeUrl:config.ajaxUrls.shopDelete,
+        removeUrl:config.ajaxUrls.vipUserDelete,
         ownTable:function(){
             var ownTable=$("#myTable").dataTable({
                 "bServerSide": true,
@@ -24,10 +18,14 @@ $(document).ready(function(){
                     "sUrl":config.dataTable.langUrl
                 },
                 "aoColumns": [
-                    { "mDataProp": "shopname" },
+                    { "mDataProp": "cardnumber" },
+                    { "mDataProp": "vipname" },
+                    { "mDataProp": "gender" },
+                    { "mDataProp": "integral" },
+                    { "mDataProp": "user" },
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
-                            return  '<a href="/dggl/appVipUser/vipCustomerCOU'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;';
+                            return  '<a href="dggl/appVipUser/vipCustomerCOU'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;';
                         }
                     }
                 ] ,

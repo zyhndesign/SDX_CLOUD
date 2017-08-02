@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cidic.sdx.dggl.model.MatchListModel;
-import com.cidic.sdx.dggl.model.Shop;
 import com.cidic.sdx.dggl.model.Vipuser;
 import com.cidic.sdx.dggl.model.VipuserModel;
 import com.cidic.sdx.dggl.service.VipUserService;

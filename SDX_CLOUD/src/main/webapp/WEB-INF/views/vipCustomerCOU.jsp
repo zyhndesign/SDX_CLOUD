@@ -106,12 +106,14 @@
 	<%@ include file="loading.jsp"%>
 
 	<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
-	<script src="resources/js/lib/jquery.dataTables.min.js"></script>
+	<script src="resources/js/lib/jquery.form.js"></script>
+	<script src="resources/js/lib/jquery.validate.min.js"></script>
+	<script src="resources/js/lib/jquery.serialize-object.min.js"></script>
 	<script src="resources/js/lib/bootstrap.min.js"></script>
 	<script src="resources/js/lib/jquery.toastmessage.js"></script>
 	<script src="resources/js/src/config.js"></script>
 	<script src="resources/js/src/functions.js"></script>
-	<script src="resources/js/src/ZYTableHandler.js"></script>
+	<script src="resources/js/src/ZYFormHandler.js"></script>
 	<script src="resources/js/src/vipCustomerCOU.js"></script>
 </body>
 </html>

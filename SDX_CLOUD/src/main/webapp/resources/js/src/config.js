@@ -55,9 +55,10 @@ var config={
         shopGetAll:"dggl/shop/getData",
         shopDelete:"dggl/shop/delete",
         matchGetAll:"dggl/match/getMatchByShareStatus",
-        vipCustomerGetAll:"/dggl/appVipUser/getVipuserByPage",
-        vipCustomerGetByCardNumber:"/dggl/appVipUser/getVipuserByCardNumber",
-        vipCustomerGetShoppingGuideId:"/dggl/appVipUser/getVipuserByShoppingGuideId"
+        vipCustomerGetAll:"dggl/appVipUser/getVipuserByPage",
+        vipCustomerGetByCardNumber:"dggl/appVipUser/getVipuserByCardNumber",
+        vipCustomerGetShoppingGuideId:"dggl/appVipUser/getVipuserByShoppingGuideId",
+        vipUserDelete:"dggl/appVipUser/delete"
     },
     dataTable:{
         langUrl:"resources/lang/de_DE.txt"

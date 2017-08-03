@@ -3,7 +3,7 @@ $(document).ready(function(){
         redirectUrl:"dggl/appVipUser/vipCustomerMgr",
         submitUrl:"#"
     })
-
+    
     $("#myForm").validate({
         ignore:[],
         rules:{

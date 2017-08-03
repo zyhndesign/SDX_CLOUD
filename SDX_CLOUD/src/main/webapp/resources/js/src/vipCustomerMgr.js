@@ -20,9 +20,19 @@ $(document).ready(function(){
                 "aoColumns": [
                     { "mDataProp": "cardnumber" },
                     { "mDataProp": "vipname" },
-                    { "mDataProp": "gender" },
+                    { 
+                    	"mDataProp": "gender",
+                    	"fnRender":function(oObj){
+                    		if (oObj.aData.gender == 0){
+                    			return '女';
+                    		}
+                    		else if (oObj.aData.gender == 1){
+                    			return '男';
+                    		}
+                        }
+                    },
                     { "mDataProp": "integral" },
-                    { "mDataProp": "user" },
+                    { "mDataProp": "user.username" },
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
                             return  '<a href="dggl/appVipUser/vipCustomerCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;';

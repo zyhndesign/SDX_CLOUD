@@ -74,7 +74,6 @@ public class VipUserDaoImpl implements VipUserDao {
         query.setMaxResults(limit); 
         @SuppressWarnings("unchecked")
 		final List<Vipuser> list = query.list(); 
-        System.out.println("***********************:"+list.size());
 		return list;
 	}
 

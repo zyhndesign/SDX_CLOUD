@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "user", catalog = "sdx_cloud")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class User implements java.io.Serializable {
 
 	/**
@@ -132,8 +134,9 @@ public class User implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "shopId", nullable = false)
+	@JsonIgnore
 	public Shop getShop() {
 		return this.shop;
 	}

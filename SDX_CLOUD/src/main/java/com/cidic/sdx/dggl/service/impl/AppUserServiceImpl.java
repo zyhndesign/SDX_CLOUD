@@ -173,4 +173,9 @@ public class AppUserServiceImpl implements AppUserService {
 		}
 	}
 
+	@Override
+	public List<User> getAllUserForSelect() {
+		return appUserDaoImpl.getAllUserForSelect();
+	}
+
 }

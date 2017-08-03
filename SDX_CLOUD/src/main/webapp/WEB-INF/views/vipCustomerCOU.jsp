@@ -62,7 +62,17 @@
 						<div class="form-group col-md-6">
 							<label for="mgr_username" class="control-label col-md-4">维护人*</label> 
 							<select id="mgr_username" class="form-control col-md-2">
-								<option></option>
+								<c:if test="${empty users}">
+									<c:forEach items="${users}" var="user">
+										<c:when test="${user.id == vipuser.user.id}">
+											<option value="${user.id}" selected>${user.username}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${user.id}">${user.username}</option>
+										</c:otherwise>
+										
+									</c:forEach>
+								</c:if>
 							</select>
 							
 						</div>
@@ -70,8 +80,17 @@
 					<div class="form-inline">
 						<div class="form-group col-md-6">
 							<label for="gender" class="control-label col-md-4">性别录入</label>
-							<input type="radio" value="${vipuser.gender}" name="gender">男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" value="${vipuser.gender}" name="gender">女
+							<c:choose>
+							   <c:when test="${vipuser.gender == 1}">   
+									<input type="radio" value="${vipuser.gender}" name="gender" checked>男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="radio" value="${vipuser.gender}" name="gender">女
+							   </c:when>  
+   							   <c:otherwise>
+   									<input type="radio" value="${vipuser.gender}" name="gender">男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   									<input type="radio" value="${vipuser.gender}" name="gender" checked>女
+  							   </c:otherwise>
+							</c:choose> 
+							
 						</div>
 						<div class="form-group col-md-6">
 							<label for="consumesum" class="control-label col-md-4">累计消费金额*</label> <input type="text" id="consumesum" class="form-control col-md-2" value="${vipuser.consumesum}"

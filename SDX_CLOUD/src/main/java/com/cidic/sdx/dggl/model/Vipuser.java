@@ -86,7 +86,7 @@ public class Vipuser implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "guideId", unique = true, nullable = false)
-	@JsonIgnore
+	//@JsonIgnore
 	public User getUser() {
 		return this.user;
 	}

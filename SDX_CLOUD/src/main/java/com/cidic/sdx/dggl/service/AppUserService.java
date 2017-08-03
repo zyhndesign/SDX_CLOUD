@@ -1,5 +1,6 @@
 package com.cidic.sdx.dggl.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.cidic.sdx.dggl.model.User;
@@ -30,4 +31,6 @@ public interface AppUserService {
     public int enableAccount(int userId);
     
     public int appUpdateData(String phone, String headicon, int id);
+    
+    public List<User> getAllUserForSelect();
 }

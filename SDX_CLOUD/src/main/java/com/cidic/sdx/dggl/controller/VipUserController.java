@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.model.Vipuser;
 import com.cidic.sdx.dggl.model.VipuserModel;
+import com.cidic.sdx.dggl.service.AppUserService;
 import com.cidic.sdx.dggl.service.VipUserService;
 import com.cidic.sdx.exception.SdxException;
 import com.cidic.sdx.hpgl.controller.BrandSettingController;
@@ -42,6 +44,10 @@ public class VipUserController {
 	@Qualifier(value = "vipUserServiceImpl")
 	private VipUserService vipUserServiceImpl;
 
+	@Autowired
+	@Qualifier(value = "appUserServiceImpl")
+	private AppUserService appUserServiceImpl;
+	
 	private ResultModel resultModel = null;
 
 	@RequestMapping(value = "/vipCustomerMgr", method = RequestMethod.GET)
@@ -50,22 +56,27 @@ public class VipUserController {
 	}
 	
 	@RequestMapping(value = "/vipCustomerCOU", method = RequestMethod.GET)
-	public ModelAndView shopCOU(Locale locale, Model model) {
+	public ModelAndView vipCustomerCOU(Locale locale, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("vipCustomerCOU");
+		List<User> userList = appUserServiceImpl.getAllUserForSelect();
+		modelAndView.addObject("users", userList);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/vipCustomerCOU/{id}", method = RequestMethod.GET)
-    public ModelAndView updateShopCOU(HttpServletRequest request, @PathVariable int id) {
+    public ModelAndView updatevipCustomerCOU(HttpServletRequest request, @PathVariable int id) {
 
 		Vipuser vipuser = null;
         if (id > 0) {
         	vipuser = vipUserServiceImpl.loadVipCustomerById(id);
         }
+        List<User> userList = appUserServiceImpl.getAllUserForSelect();
+		
         ModelAndView view = new ModelAndView();
         view.setViewName("vipCustomerCOU");
         view.addObject("vipuser", vipuser);
+        view.addObject("users", userList);
         return view;
     }
 	

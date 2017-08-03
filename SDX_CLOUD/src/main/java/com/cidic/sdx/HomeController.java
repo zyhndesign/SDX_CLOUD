@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -27,13 +28,17 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/")
-	public String home(HttpServletRequest request, Model model) {
-		return "login";
+	public ModelAndView home(HttpServletRequest request, Model model) {
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName("login");
+        return modelView;
 	}
 	
 	@RequestMapping(value = "/login")
-	public String login(HttpServletRequest request, Model model) {
-		return "login";
+	public ModelAndView login(HttpServletRequest request, Model model) {
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName("login");
+        return modelView;
 	}
 
 	@RequestMapping(value = "/dologin")

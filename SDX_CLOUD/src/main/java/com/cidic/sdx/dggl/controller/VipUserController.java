@@ -142,14 +142,14 @@ public class VipUserController {
 	}
 
 	// 用于后台管理VIP客户
-	@RequestMapping(value = "/getVipuserByPage", method = RequestMethod.POST)
+	@RequestMapping(value = "/getVipuserByPage", method = RequestMethod.GET)
 	@ResponseBody
 	public ListResultModel getVipuserByPage(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int iDisplayStart, @RequestParam int iDisplayLength,@RequestParam String sEcho) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
 		try {
-			VipuserModel vipuserModel = vipUserServiceImpl.getVipuserByPage(iDisplayStart, iDisplayLength);
+			VipuserModel vipuserModel = vipUserServiceImpl.getVipuserByPage(iDisplayLength,iDisplayStart);
 			listResultModel.setAaData(vipuserModel.getList());
 			listResultModel.setsEcho(sEcho);
 			listResultModel.setiTotalRecords(vipuserModel.getCount());

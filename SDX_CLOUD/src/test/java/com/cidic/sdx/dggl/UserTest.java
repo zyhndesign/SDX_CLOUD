@@ -13,7 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.model.UserListModel;
+import com.cidic.sdx.dggl.model.Vipuser;
+import com.cidic.sdx.dggl.model.VipuserModel;
 import com.cidic.sdx.dggl.service.AppUserService;
+import com.cidic.sdx.dggl.service.VipUserService;
 import com.cidic.sdx.util.ResponseCodeUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,6 +26,10 @@ public class UserTest {
 	@Autowired
 	@Qualifier("appUserServiceImpl")
 	private AppUserService appUserServiceImpl;
+	
+	@Autowired
+	@Qualifier(value = "vipUserServiceImpl")
+	private VipUserService vipUserServiceImpl;
 	
 	//@Test
 	public void createUser(){
@@ -85,12 +92,20 @@ public class UserTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void getUserByCondition(){
 		UserListModel list = appUserServiceImpl.getUserListByCondition(0,null,10, 0);
 		for (User user : list.getList()){
 			System.out.println(user.getUsername());
 			System.out.println(user.getShop().getShopname());
+		}
+	}
+	
+	@Test
+	public void getVipCustomerByPage(){
+		VipuserModel vipuserModel = vipUserServiceImpl.getVipuserByPage(10, 0);
+		for (Vipuser  vipUser : vipuserModel.getList()){
+			System.out.println(vipUser.getCardnumber());
 		}
 	}
 }

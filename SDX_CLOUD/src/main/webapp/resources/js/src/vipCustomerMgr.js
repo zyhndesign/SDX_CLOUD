@@ -4,13 +4,12 @@ $(document).ready(function(){
         removeUrl:config.ajaxUrls.vipUserDelete,
         ownTable:function(){
             var ownTable=$("#myTable").dataTable({
-            	"bPaginate" : true,
                 "bServerSide": true,
                 "sAjaxSource": config.ajaxUrls.vipCustomerGetAll,
                 "bInfo":true,
-                "bProcessing":true,
                 "bLengthChange": false,
                 "bFilter": false,
+                "bProcessing":true,
                 "bSort":false,
                 "bAutoWidth": false,
                 "iDisplayLength":config.perLoadCounts.table,
@@ -26,7 +25,7 @@ $(document).ready(function(){
                     { "mDataProp": "user" },
                     { "mDataProp": "opt",
                         "fnRender":function(oObj){
-                            return  '<a href="dggl/appVipUser/vipCustomerCOU'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;';
+                            return  '<a href="dggl/appVipUser/vipCustomerCOU/'+oObj.aData.id+'">编辑</a>&nbsp;&nbsp;';
                         }
                     }
                 ] ,
@@ -38,7 +37,7 @@ $(document).ready(function(){
                     //回调函数
                     $.ajax({
                         "dataType":'json',
-                        "type":"post",
+                        "type":"get",
                         "url":sSource,
                         "data":aoData,
                         "success": function (response) {

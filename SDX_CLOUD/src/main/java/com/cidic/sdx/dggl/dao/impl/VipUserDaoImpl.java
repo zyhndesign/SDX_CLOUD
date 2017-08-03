@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cidic.sdx.dggl.dao.VipUserDao;
 import com.cidic.sdx.dggl.model.Shop;
+import com.cidic.sdx.dggl.model.User;
 import com.cidic.sdx.dggl.model.Vipuser;
 
 @Repository
@@ -65,13 +66,15 @@ public class VipUserDaoImpl implements VipUserDao {
 
 	@Override
 	public List<Vipuser> getVipuserByPage(int limit, int offset) {
+		
 		Session session = this.getSessionFactory().getCurrentSession();
 		final String hql = " from Vipuser "; 
-        final Query query = session.createQuery(hql); 
-        query.setFirstResult(offset);    
+        Query query = session.createQuery(hql);
+        query.setFirstResult(offset);  
         query.setMaxResults(limit); 
         @SuppressWarnings("unchecked")
 		final List<Vipuser> list = query.list(); 
+        System.out.println("***********************:"+list.size());
 		return list;
 	}
 
@@ -98,7 +101,8 @@ public class VipUserDaoImpl implements VipUserDao {
 		final String hql = " select count(u) from Vipuser u where u.user.id = ?"; 
         final Query query = session.createQuery(hql); 
         query.setParameter(0, shoppingGuideId);
-        return (int)query.uniqueResult();
+        Number num = (Number)query.uniqueResult();
+        return num.intValue();
 	}
 
 	@Override
@@ -106,7 +110,8 @@ public class VipUserDaoImpl implements VipUserDao {
 		Session session = this.getSessionFactory().getCurrentSession();
 		final String hql = " select count(u) from Vipuser u"; 
         final Query query = session.createQuery(hql); 
-        return (int)query.uniqueResult();
+        Number num = (Number)query.uniqueResult();
+        return num.intValue();
 	}
 
 	@Override

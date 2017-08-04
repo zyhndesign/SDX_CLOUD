@@ -60,7 +60,8 @@ $(document).ready(function(){
                     },
                     { "mDataProp": "username",
                         "fnRender":function(oObj){
-                            return oObj.aData.username+"<p>"+oObj.aData.shop.shopname+"</p>";
+                            //return oObj.aData.username+"<p>"+oObj.aData.shop.shopname+"</p>";
+                        	return oObj.aData.username;//+"<p>"+oObj.aData.shop.shopname+"</p>";
                         }
                     },
                     { "mDataProp": "valid",

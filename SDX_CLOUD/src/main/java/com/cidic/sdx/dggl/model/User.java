@@ -78,6 +78,11 @@ public class User implements java.io.Serializable {
 		this.matches = matches;
 	}
 	
+	public User(int id, String username){
+		this.username = username;
+		this.id = id;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "Id", unique = true, nullable = false)

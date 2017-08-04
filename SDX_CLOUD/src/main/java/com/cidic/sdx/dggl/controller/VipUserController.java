@@ -95,6 +95,9 @@ public class VipUserController {
 			@RequestBody Vipuser user) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
+		User u = new User();
+		u.setId(user.getGuideId());
+		user.setUser(u);
 		int result = vipUserServiceImpl.createVipUser(user);
 		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
@@ -111,6 +114,9 @@ public class VipUserController {
 			@RequestBody Vipuser user) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
+		User u = new User();
+		u.setId(user.getGuideId());
+		user.setUser(u);
 		int result = vipUserServiceImpl.updateVipUser(user);
 		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);

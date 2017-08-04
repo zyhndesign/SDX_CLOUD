@@ -68,7 +68,7 @@ public class VipUserDaoImpl implements VipUserDao {
 	public List<Vipuser> getVipuserByPage(int limit, int offset) {
 		
 		Session session = this.getSessionFactory().getCurrentSession();
-		final String hql = " from Vipuser "; 
+		final String hql = " from Vipuser order by id desc"; 
         Query query = session.createQuery(hql);
         query.setFirstResult(offset);  
         query.setMaxResults(limit); 

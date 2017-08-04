@@ -10,12 +10,43 @@ $(document).ready(function(){
             shopname:{
                 required:true,
                 maxlength:32
+            },
+            cardnumber:{
+            	required:true,
+                maxlength:20
+            },
+            vipname:{
+            	required:true,
+                maxlength:20
+            },
+            phonenumber:{
+            	required:true,
+                maxlength:15
+            },
+            birthday:{
+            	 required:true
             }
         },
         messages:{
             shopname:{
                 required:config.validErrors.required,
                 maxlength:config.validErrors.maxLength.replace("${max}",32)
+            },
+            cardnumber:{
+                required:config.validErrors.required,
+                maxlength:config.validErrors.maxLength.replace("${max}",32)
+            },
+            vipname:{
+                required:config.validErrors.required,
+                maxlength:config.validErrors.maxLength.replace("${max}",20)
+            },
+            phonenumber:{
+                required:config.validErrors.required,
+                maxlength:config.validErrors.maxLength.replace("${max}",15)
+            },
+            birthday:{
+                required:config.validErrors.required,
+                maxlength:config.validErrors.maxLength.replace("${max}",10)
             }
         },
         submitHandler:function(form) {

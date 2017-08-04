@@ -259,7 +259,7 @@ public class AppUserDaoImpl implements AppUserDao {
 	@Override
 	public List<User> getAllUserForSelect() {
 		Session session = this.getSessionFactory().getCurrentSession();
-		final String hql = "select id,username from User order by createtime desc"; 
+		final String hql = "select new User(id,username) from User order by createtime desc"; 
         final Query query = session.createQuery(hql); 
         @SuppressWarnings("unchecked")
 		final List<User> list = query.list(); 

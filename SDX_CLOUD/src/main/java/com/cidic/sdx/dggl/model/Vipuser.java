@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -47,6 +48,7 @@ public class Vipuser implements java.io.Serializable {
 	private BigDecimal consumesum; //累计消费金额
 	private int valid; //用户有效标志
 	private char rank; //
+	private int guideId;
 	
 	public Vipuser() {
 	}
@@ -194,4 +196,14 @@ public class Vipuser implements java.io.Serializable {
 	public void setRank(char rank) {
 		this.rank = rank;
 	}
+
+	@Transient
+	public int getGuideId() {
+		return guideId;
+	}
+
+	public void setGuideId(int guideId) {
+		this.guideId = guideId;
+	}
+	
 }

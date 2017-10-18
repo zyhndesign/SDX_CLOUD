@@ -9,4 +9,6 @@ public interface ShareService {
 	public int createShare(Share share);
 	
 	public List<Share> getShareList(int matchId, int userId);
+	
+	public Share getShareByCode(String code);
 }

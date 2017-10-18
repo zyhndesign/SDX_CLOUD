@@ -30,6 +30,9 @@ public class Share implements java.io.Serializable {
 	private Integer id;
 	private Match match;
 	private User user;
+	private String shareTitle;
+	private String style;
+	private String code;
 	private String shareContent;
 	private String sharedlist;
 	private Date createtime;
@@ -102,6 +105,33 @@ public class Share implements java.io.Serializable {
 
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+	}
+
+	@Column(name = "sharedTitle")
+	public String getShareTitle() {
+		return shareTitle;
+	}
+
+	public void setShareTitle(String shareTitle) {
+		this.shareTitle = shareTitle;
+	}
+
+	@Column(name = "style")
+	public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
+	@Column(name = "code")
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.cidic.sdx.dggl.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.Share;
@@ -45,7 +48,8 @@ public class ShareController {
 	@RequestMapping(value = "/createShare", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel createFeedback(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int userId, @RequestParam int matchId,@RequestParam String shareContent,@RequestParam String sharedlist) {
+			@RequestParam int userId, @RequestParam int matchId,@RequestParam String shareContent,
+			@RequestParam String sharedlist,@RequestParam String shareTitle,@RequestParam String style) {
 		
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
@@ -58,10 +62,15 @@ public class ShareController {
 		share.setMatch(match);
 		share.setShareContent(shareContent);
 		share.setSharedlist(sharedlist);
+		String code = UUID.randomUUID().toString().replaceAll("-","");
+		share.setCode(code);
+		share.setShareTitle(shareTitle);
+		share.setStyle(style);
 		
 		int result = shareServiceImpl.createShare(share);
 		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
+			resultModel.setObject(code);
 			resultModel.setSuccess(true);
 			return resultModel;
 		} else if (result == ResponseCodeUtil.FEEDBACK_OPERATION_EXIST) {
@@ -90,5 +99,16 @@ public class ShareController {
 		} catch(Exception e) {
 			throw new SdxException(500, "操作失败");
 		}
+	}
+	
+	@RequestMapping(value = "/shareDetail/{code}", method = RequestMethod.GET)
+	public ModelAndView getShareDetail(HttpServletRequest request, @PathVariable String code) {
+
+		Share share = shareServiceImpl.getShareByCode(code);
+			
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/shareResult");
+		view.addObject("share", share);
+		return view;
 	}
 }

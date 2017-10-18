@@ -40,4 +40,10 @@ public class ShareServiceImpl implements ShareService {
 		return shareDaoImpl.getShareList(matchId, userId);
 	}
 
+	@Override
+	public Share getShareByCode(String code) {
+		// TODO Auto-generated method stub
+		return shareDaoImpl.getShareByCode(code);
+	}
+
 }

@@ -11,4 +11,6 @@ public interface ShareDao {
 	public List<Share> getShareList(int matchId, int userId);
 	
 	public List<Integer> getVipuserShareList(int userId, String vipName,int limit, int offset);
+	
+	public Share getShareByCode(String code);
 }

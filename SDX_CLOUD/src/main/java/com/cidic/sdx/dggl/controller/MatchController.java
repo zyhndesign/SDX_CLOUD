@@ -71,6 +71,20 @@ public class MatchController {
 		return view;
 	}
 	
+	@RequestMapping(value = "/shareDetail/{id}", method = RequestMethod.GET)
+	public ModelAndView shareDetail(HttpServletRequest request, @PathVariable int id) {
+
+		Match match = null;
+		if (id > 0) {
+			match = matchServiceImpl.findMatchByMatchId(id);
+		}
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/share");
+		view.addObject("match", match);
+		return view;
+	}
+	
+	
 	@RequestMapping(value = "/getDataByMatchId", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel getDataByMatchId(HttpServletRequest request, HttpServletResponse response,

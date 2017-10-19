@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cidic.sdx.dggl.dao.MatchDao;
 import com.cidic.sdx.dggl.dao.ShareDao;
+import com.cidic.sdx.dggl.model.CostumeModel;
 import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.MatchListModel;
 import com.cidic.sdx.dggl.model.Matchlist;
@@ -126,9 +127,21 @@ public class MatchServiceImpl implements MatchService {
 	public Match findMatchByMatchId(int id) {
 		Match match = matchDaoImpl.findMatchByMatchId(id);
 		for (Matchlist mList : match.getMatchlists()){
-			mList.setInnerClothUrl(hpIndexDaoImpl.getClothUrl(mList.getInnerClothId()).getProductImageUrl());
-			mList.setOutClothUrl(hpIndexDaoImpl.getClothUrl(mList.getOutClothId()).getProductImageUrl());
-			mList.setTrousersUrl(hpIndexDaoImpl.getClothUrl(mList.getTrousersId()).getProductImageUrl());	
+			
+			CostumeModel inner = hpIndexDaoImpl.getData(mList.getInnerClothId());
+			CostumeModel outter = hpIndexDaoImpl.getData(mList.getOutClothId());
+			CostumeModel trouser = hpIndexDaoImpl.getData(mList.getTrousersId());
+			
+			mList.setInnerClothUrl(inner.getProductImageUrl());
+			mList.setOutClothUrl(outter.getProductImageUrl());
+			mList.setTrousersUrl(trouser.getProductImageUrl());	
+			
+			mList.setInnerClothName(inner.getHpName());
+			mList.setInnerClothShopUrl(inner.getShopURL());
+			mList.setOutClothName(outter.getHpName());
+			mList.setOutClothShopUrl(outter.getShopURL());
+			mList.setTrouserName(trouser.getHpName());
+			mList.setTrouserShopUrl(trouser.getShopURL());
 		}
 		
 		return match;

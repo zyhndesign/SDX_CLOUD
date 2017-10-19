@@ -27,7 +27,7 @@ public interface HpIndexDao {
 	//获取 裤装（1），外套（2），内搭 （3）列表数据
 	public HPListModel getMatchListByCategoryType(int categoryType, int offset, int limit);
 	
-	public CostumeModel getClothUrl(int id);
+	public CostumeModel getData(int id);
 	
 	public List<HPModel> getAppIndexDataByTag(Map<String,List<String>> mapTagList);
 }

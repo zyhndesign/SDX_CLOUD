@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>分享</title>
+<base href="<%=request.getContextPath()%>/" />
 <style type="text/css">
 #title {
 	width: 96%;
@@ -134,135 +135,41 @@
 </style>
 </head>
 <body>
-	<input id="title" type="text" placeholder="设置标题" required="required" />
-	<textarea id="shareContent" placeholder="添加导购推荐语（增加客户感兴趣程度，解释搭配详情内容）" rows="3" required="required"></textarea>
+	<input id="title" type="text" placeholder="设置标题" readonly="true" value="${share.shareTitle}"/>
+	<textarea id="shareContent" placeholder="添加导购推荐语（增加客户感兴趣程度，解释搭配详情内容）" rows="3" readonly="true"></textarea>
 
-	<c:forEach items="${match.matchlists}" var="match" varStatus="status">
-	<c:if test="${status.index == 0}">
-		<select id="keyWord1" class="keyWord">
-			<option value="" disabled selected>搭配一：穿搭风格关键字</option>
-			<option value="休闲">休闲</option>
-			<option value="商务">商务</option>
-			<option value="时尚">时尚</option>
-		</select>
-		<div id="content1" class="content">
-			<img class="modelImg" src="${m.modelurl}" />
-			<div id="modelContent" class="modelContent">
-				<div class="modelContent_title">【商务风格】</div>
-	
-				<div class="list">
-					<i class="casualClothIcon"></i> <input type="text" class="shop" value="商务正装西服外套" readonly="true" /> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-	
-				<div class="list">
-					<i class="weddingClothIcon"></i> <input type="text" class="shop" value="休闲衬衫印花长袖" readonly="true"> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-	
-				<div class="list">
-					<i class="pantsClothIcon"></i> <input type="text" class="shop" value="商务修身白色牛仔裤" readonly="true" /> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-			</div>
-		</div>
-	</c:if>
-
-	<c:if test="${status.index == 1}">
-		<select id="keyWord2" class="keyWord">
-			<option value="" disabled selected>搭配二：穿搭风格关键字</option>
-			<option value="休闲">休闲</option>
-			<option value="商务">商务</option>
-			<option value="时尚">时尚</option>
-		</select>
-		<div id="content2" class="content">
-			<img class="modelImg" src="${m.modelurl}" />
-			<div class="modelContent">
-				<div class="modelContent_title">【商务风格】</div>
-	
-				<div class="list">
-					<i class="casualClothIcon"></i> <input type="text" class="shop" value="商务正装西服外套" readonly="true" /> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-	
-				<div class="list">
-					<i class="weddingClothIcon"></i> <input type="text" class="shop" value="休闲衬衫印花长袖" readonly="true"> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-	
-				<div class="list">
-					<i class="pantsClothIcon"></i> <input type="text" class="shop" value="商务修身白色牛仔裤" readonly="true" /> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-			</div>
-		</div>
-	</c:if>
-	
-	<c:if test="${status.index == 2}">
-		<select id="keyWord3" class="keyWord">
-			<option value="" disabled selected>搭配三：穿搭风格关键字</option>
-			<option value="休闲">休闲</option>
-			<option value="商务">商务</option>
-			<option value="时尚">时尚</option>
-		</select>
-		<div id="content3" class="content">
-			<img class="modelImg" src="${m.modelurl}" />
-			<div class="modelContent">
-				<div class="modelContent_title">【商务风格】</div>
-	
-				<div class="list">
-					<i class="casualClothIcon"></i> <input type="text" class="shop" value="商务正装西服外套" readonly="true" /> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-	
-				<div class="list">
-					<i class="weddingClothIcon"></i> <input type="text" class="shop" value="休闲衬衫印花长袖" readonly="true"> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-	
-				<div class="list">
-					<i class="pantsClothIcon"></i> <input type="text" class="shop" value="商务修身白色牛仔裤" readonly="true" /> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-			</div>
-		</div>
-	</c:if>
-	
-	<c:if test="${status.index == 3}">
-		<select id="keyWord4" class="keyWord">
-			<option value="" disabled selected>搭配四：穿搭风格关键字</option>
-			<option value="休闲">休闲</option>
-			<option value="商务">商务</option>
-			<option value="时尚">时尚</option>
-		</select>
-		<div id="content4" class="content">
-			<img class="modelImg" src="${m.modelurl}" />
-			<div class="modelContent">
-				<div class="modelContent_title">【商务风格】</div>
-	
-				<div class="list">
-					<i class="casualClothIcon"></i> <input type="text" class="shop" value="商务正装西服外套" readonly="true" /> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-	
-				<div class="list">
-					<i class="weddingClothIcon"></i> <input type="text" class="shop" value="休闲衬衫印花长袖" readonly="true"> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-	
-				<div class="list">
-					<i class="pantsClothIcon"></i> <input type="text" class="shop" value="商务修身白色牛仔裤" readonly="true" /> <img class="shopIcon"
-						src="resources/images/app/shopping-cart-black-shape@1.5x.png">
-				</div>
-			</div>
-		</div>
-	</c:if>
-	
-	</c:forEach>
-	
 	<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript">
-	
+		$("#shareContent").val("${share.shareContent}");
+		var styleJsonString = '${share.style}';
+		
+		var styleObj = JSON.parse(styleJsonString);
+		
+		for (var i = 0; i < styleObj.length; i++){
+			styleObj[i].outClothName
+			styleObj[i].outClothShopUrl
+			styleObj[i].innerClothName
+			styleObj[i].innerClothShopUrl
+			styleObj[i].trouserName
+			styleObj[i].trouserShopUrl
+			styleObj[i].styleValue
+
+			var html = '<div class="content">' +
+				'<img class="modelImg" src="'+styleObj[i].modelurl+'" />' +
+					'<div class="modelContent">' +
+						'<div id="style4" class="modelContent_title">【'+styleObj[i].styleValue+'风格】</div>'+
+						'<div class="list">'+
+							'<i class="casualClothIcon"></i> <input type="text" class="shop" value="'+styleObj[i].outClothName+'" readonly="true" /><a href="'+styleObj[i].innerClothShopUrl+'" target="_blank"> <img class="shopIcon" src="resources/images/app/yellow@1.5x.png"></a>'+ 
+						'</div>' +
+						'<div class="list">'+
+							'<i class="weddingClothIcon"></i> <input type="text" class="shop" value="'+styleObj[i].innerClothName+'" readonly="true"><a href="'+styleObj[i].outClothShopUrl+'" target="_blank"> <img class="shopIcon" src="resources/images/app/yellow@1.5x.png"></a>'+ 
+						'</div>' +
+						'<div class="list">' +
+							'<i class="pantsClothIcon"></i> <input type="text" class="shop" value="'+styleObj[i].trouserName+'" readonly="true" /><a href="'+styleObj[i].trouserShopUrl+'" target="_blank"><img class="shopIcon" src="resources/images/app/yellow@1.5x.png"></a> '+
+						'</div></div></div>';
+			$(document.body).append(html);
+		}
+		
 	</script>
 </body>
 

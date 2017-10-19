@@ -64,9 +64,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 		List<HotMatchModel> list = feedbackDaoImpl.getFeedbackListPageByUserId(userId, limit, offset);
 	
 		for (HotMatchModel hotMatchModel : list){
-			hotMatchModel.setInnerClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getInnerClothId()));
-			hotMatchModel.setOutClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getOutClothId()));
-			hotMatchModel.setTrousersClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getTrousersId()));
+			hotMatchModel.setInnerClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getInnerClothId()));
+			hotMatchModel.setOutClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getOutClothId()));
+			hotMatchModel.setTrousersClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getTrousersId()));
 		}
 		return list;
 	}
@@ -76,9 +76,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 		List<HotMatchModel> list = feedbackDaoImpl.getTopThreeDataByUserId(userId);
 		
 		for (HotMatchModel hotMatchModel : list){
-			hotMatchModel.setInnerClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getInnerClothId()));
-			hotMatchModel.setOutClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getOutClothId()));
-			hotMatchModel.setTrousersClothUrl(hpIndexDaoImpl.getClothUrl(hotMatchModel.getTrousersId()));
+			hotMatchModel.setInnerClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getInnerClothId()));
+			hotMatchModel.setOutClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getOutClothId()));
+			hotMatchModel.setTrousersClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getTrousersId()));
 		}
 		
 		return list;

@@ -47,7 +47,12 @@ public class Matchlist implements java.io.Serializable {
 	private String innerClothUrl;
 	private String outClothUrl;
 	private String trousersUrl;
-	
+	private String innerClothName;
+	private String outClothName;
+	private String trouserName;
+	private String innerClothShopUrl;
+	private String outClothShopUrl;
+	private String trouserShopUrl;
 	
 	public Matchlist() {
 	}
@@ -184,6 +189,60 @@ public class Matchlist implements java.io.Serializable {
 
 	public void setTrousersUrl(String trousersUrl) {
 		this.trousersUrl = trousersUrl;
+	}
+
+	@Transient
+	public String getInnerClothName() {
+		return innerClothName;
+	}
+
+	public void setInnerClothName(String innerClothName) {
+		this.innerClothName = innerClothName;
+	}
+
+	@Transient
+	public String getOutClothName() {
+		return outClothName;
+	}
+
+	public void setOutClothName(String outClothName) {
+		this.outClothName = outClothName;
+	}
+
+	@Transient
+	public String getTrouserName() {
+		return trouserName;
+	}
+
+	public void setTrouserName(String trouserName) {
+		this.trouserName = trouserName;
+	}
+
+	@Transient
+	public String getInnerClothShopUrl() {
+		return innerClothShopUrl;
+	}
+
+	public void setInnerClothShopUrl(String innerClothShopUrl) {
+		this.innerClothShopUrl = innerClothShopUrl;
+	}
+
+	@Transient
+	public String getOutClothShopUrl() {
+		return outClothShopUrl;
+	}
+
+	public void setOutClothShopUrl(String outClothShopUrl) {
+		this.outClothShopUrl = outClothShopUrl;
+	}
+
+	@Transient
+	public String getTrouserShopUrl() {
+		return trouserShopUrl;
+	}
+
+	public void setTrouserShopUrl(String trouserShopUrl) {
+		this.trouserShopUrl = trouserShopUrl;
 	}
 
 	

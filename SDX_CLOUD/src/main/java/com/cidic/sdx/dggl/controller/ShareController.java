@@ -47,7 +47,7 @@ public class ShareController {
 	
 	@RequestMapping(value = "/createShare", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultModel createFeedback(HttpServletRequest request, HttpServletResponse response,
+	public ResultModel createShare(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int userId, @RequestParam int matchId,@RequestParam String shareContent,
 			@RequestParam String sharedlist,@RequestParam String shareTitle,@RequestParam String style) {
 		
@@ -105,7 +105,6 @@ public class ShareController {
 	public ModelAndView getShareDetail(HttpServletRequest request, @PathVariable String code) {
 
 		Share share = shareServiceImpl.getShareByCode(code);
-			
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/shareResult");
 		view.addObject("share", share);

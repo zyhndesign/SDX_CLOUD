@@ -107,7 +107,7 @@ public class Share implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	@Column(name = "sharedTitle")
+	@Column(name = "shareTitle")
 	public String getShareTitle() {
 		return shareTitle;
 	}

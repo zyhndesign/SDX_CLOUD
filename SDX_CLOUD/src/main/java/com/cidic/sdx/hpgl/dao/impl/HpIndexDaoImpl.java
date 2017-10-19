@@ -408,13 +408,16 @@ public class HpIndexDaoImpl implements HpIndexDao {
 	}
 
 	@Override
-	public CostumeModel getClothUrl(int id) {
+	public CostumeModel getData(int id) {
 		Map<Object, Object> map = hashOperations.getOperations()
 				.boundHashOps(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id).entries();
 		CostumeModel costumeModel = new CostumeModel();
 		costumeModel.setProductImageUrl(map.get("imageUrl3").toString());
 		costumeModel.setFrontViewUrl(map.get("imageUrl1").toString());
 		costumeModel.setBackViewUrl(map.get("imageUrl2").toString());
+		costumeModel.setShopURL(map.get("productURL").toString());
+		costumeModel.setHpName(map.get("hpName").toString());
+		
 		return costumeModel;
 	}
 

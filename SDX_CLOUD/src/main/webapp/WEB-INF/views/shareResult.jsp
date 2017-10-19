@@ -7,14 +7,15 @@
 <title>分享</title>
 <base href="<%=request.getContextPath()%>/" />
 <style type="text/css">
-#title {
+.shareTitle {
 	width: 96%;
 	display: block;
 	margin: 10px auto;
+	text-align:center;
 	padding: 10px;
 }
 
-#shareContent {
+.shareContent {
 	width: 96%;
 	display: block;
 	margin: 10px auto;
@@ -135,12 +136,13 @@
 </style>
 </head>
 <body>
-	<input id="title" type="text" placeholder="设置标题" readonly="true" value="${share.shareTitle}"/>
-	<textarea id="shareContent" placeholder="添加导购推荐语（增加客户感兴趣程度，解释搭配详情内容）" rows="3" readonly="true"></textarea>
-
+	<p class="shareTitle">${share.shareTitle}</p>
+	<p class="shareContent">${share.shareContent}</p>
+	
 	<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript">
-		$("#shareContent").val("${share.shareContent}");
+
+
 		var styleJsonString = '${share.style}';
 		
 		var styleObj = JSON.parse(styleJsonString);

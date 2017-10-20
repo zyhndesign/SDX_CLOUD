@@ -42,7 +42,7 @@
 
 .modelContent {
 	float: right;
-	margin-right: 10px;
+	margin-right: 0px;
 	font-size: 14px;
 }
 
@@ -62,7 +62,7 @@
 
 .shop {
 	position: relative;
-	width: 120px;
+	width: 110px;
 	padding: 10px 10px 10px 30px;
 	border: 1px solid;
 	border-color: #E2E1E0;
@@ -281,14 +281,17 @@
 		var shareContent = $("#shareContent").val();
 		var shareTitle = $("#title").val();
 		
-		if (shareContent == ""){
-			 $("#shareContent").attr('placeholder',"请输入分享内容！");
-			 $("#shareContent").addClass("invalid");
-		}
-		
 		if (shareTitle == ""){
 			 $("#title").attr('placeholder',"请输入分享标题！");
 			 $("#title").addClass("invalid");
+			 return;
+		}
+		
+		
+		if (shareContent == ""){
+			 $("#shareContent").attr('placeholder',"请输入分享内容！");
+			 $("#shareContent").addClass("invalid");
+			 return;
 		}
 		
         jsonStyles = JSON.stringify(styles); 

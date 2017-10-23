@@ -49,6 +49,12 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="control-label col-md-3">货品名称*</label>
+							<div class="col-md-9 input-group">
+								<input type="text" class="form-control" value="${hp.hpName}" name="hpName">
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="control-label col-md-3">品牌*</label>
 							<div class="col-md-9 input-group">
 								<input type="text" id="brand" class="form-control" value="${hp.brandList}"> <input type="hidden" id="brandId" name="brand" value="${hp.brand}">

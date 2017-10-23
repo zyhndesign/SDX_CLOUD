@@ -186,7 +186,7 @@ public class HpManageController {
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultModel insert(HttpServletRequest request, HttpServletResponse response, @RequestParam String hp_num,
+	public ResultModel insert(HttpServletRequest request, HttpServletResponse response, @RequestParam String hp_num,@RequestParam String hpName,
 			@RequestParam String brand, @RequestParam String category, @RequestParam String size,@RequestParam String timeCategory,
 			@RequestParam String color, @RequestParam(value="") String price, @RequestParam(value="") String imageUrl1,
 			@RequestParam(value="") String imageUrl2, @RequestParam(value="") String imageUrl3) {
@@ -197,6 +197,7 @@ public class HpManageController {
 			HPModel hpModel = new HPModel();
 			HpModelUtil.FilterNullString(hpModel);
 			hpModel.setHp_num(hp_num);
+			hpModel.setHpName(hpName);
 			hpModel.setBrand(brand);
 			hpModel.setCategory(category);
 			hpModel.setSize(size);

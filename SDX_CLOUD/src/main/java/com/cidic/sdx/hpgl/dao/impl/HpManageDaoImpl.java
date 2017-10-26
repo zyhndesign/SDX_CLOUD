@@ -209,6 +209,7 @@ public class HpManageDaoImpl implements HpManageDao {
 
 				byte[] hKey = ser.serialize(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id);
 				connection.hSet(hKey,ser.serialize("hp_num"), ser.serialize(hpModel.getHp_num()));
+				connection.hSet(hKey,ser.serialize("hpName"), ser.serialize(hpModel.getHpName()));
 				connection.hSet(hKey,ser.serialize("price"), ser.serialize(hpModel.getPrice()));
 				
 				if (hpModel.getImageUrl1() != null){

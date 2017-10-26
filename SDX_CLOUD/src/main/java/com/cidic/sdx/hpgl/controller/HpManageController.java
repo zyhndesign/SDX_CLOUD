@@ -222,7 +222,7 @@ public class HpManageController {
 	@ResponseBody
 	public ResultModel update(HttpServletRequest request, HttpServletResponse response, @RequestParam String id,
 			@RequestParam String hp_num, @RequestParam String brand, @RequestParam String category, 
-			@RequestParam String size,@RequestParam String timeCategory,
+			@RequestParam String size,@RequestParam String timeCategory,@RequestParam String hpName,
 			@RequestParam String color,@RequestParam String price, @RequestParam String imageUrl1,
 			@RequestParam String imageUrl2, @RequestParam String imageUrl3,@RequestParam String productUrl) {
 
@@ -232,6 +232,7 @@ public class HpManageController {
 			HPModel hpModel = new HPModel();
 			hpModel.setId(Integer.parseInt(id));
 			hpModel.setHp_num(hp_num);
+			hpModel.setHpName(hpName);
 			hpModel.setBrand(brand);
 			hpModel.setCategory(category);
 			hpModel.setSize(size);

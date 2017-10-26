@@ -12,6 +12,7 @@
 	var preSize = "${hp.size}";
 	var preColor = "${hp.color}";
 	var preSeason = "${hp.timeCategory}";
+	var hpName = "${hp.hpName}";
 </script>
 </head>
 <body>

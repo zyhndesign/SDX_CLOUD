@@ -225,6 +225,9 @@ public class HpManageDaoImpl implements HpManageDao {
 				if (hpModel.getProductUrl() != null){
 					connection.hSet(hKey,ser.serialize("productURL"), ser.serialize(hpModel.getProductUrl()));
 				}
+
+				connection.hSet(hKey,ser.serialize("timeCategory"), ser.serialize(hpModel.getTimeCategory()));
+				
 				
 				int imageSign = RedisVariableUtil.DATA_STATUS_INTEGRITY;
 				if (hpModel.getImageUrl1() != null && !hpModel.getImageUrl1().equals("")

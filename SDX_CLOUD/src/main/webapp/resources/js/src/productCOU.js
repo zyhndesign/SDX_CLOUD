@@ -187,7 +187,7 @@ var productCOU=(function(config,functions){
                 //如果是在录入页面，直接设置值即可
                 preValue[currentSetType]=valueArray;
                 $("#"+currentSetType).val(valueNameArray.join("/"));
-                $("#"+currentSetType+"Id").val(valueArray.join(","));
+                $("#"+currentSetType+"Id").val(valueArray.join(","));             
                 $("#showTreeModal").modal("hide");
             }else{
                 functions.showLoading();
@@ -207,6 +207,7 @@ var productCOU=(function(config,functions){
                             functions.hideLoading();
                             preValue[currentSetType]=valueArray;
                             $("#"+currentSetType).val(valueNameArray.join("/"));
+                            $("#"+currentSetType+"Id").val(valueArray.join(","));
                             $("#showTreeModal").modal("hide");
                         }else{
                             functions.ajaxReturnErrorHandler(response.error_code);

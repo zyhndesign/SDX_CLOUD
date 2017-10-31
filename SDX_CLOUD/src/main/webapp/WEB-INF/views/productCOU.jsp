@@ -12,7 +12,6 @@
 	var preSize = "${hp.size}";
 	var preColor = "${hp.color}";
 	var preSeason = "${hp.timeCategory}";
-	var hpName = "${hp.hpName}";
 </script>
 </head>
 <body>
@@ -119,8 +118,8 @@
 						<div class="form-group">
 							<label class="control-label col-md-3">时间*</label>
 							<div class="col-md-9 input-group">
-								<input type="text" id="season" class="form-control" value="${hp.timeCategoryList}"> <input type="hidden" id="seasonId" name="timeCategory"
-									value="${hp.timeCategory}">
+								<input type="text" id="season" class="form-control" value="${hp.timeCategoryList}">
+								<input type="hidden" id="seasonId" name="timeCategory" value="${hp.timeCategory}">
 								<c:if test="${!empty hp.id}">
 									<input type="hidden" id="seasonOld" value="${hp.timeCategory}">
 								</c:if>

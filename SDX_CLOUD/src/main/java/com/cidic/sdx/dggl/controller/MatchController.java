@@ -2,6 +2,7 @@ package com.cidic.sdx.dggl.controller;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -163,6 +164,70 @@ public class MatchController {
 		}
 	}
 	
+	@RequestMapping(value = "/updateShareStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel updateShareStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int matchId, @RequestParam int shareStatus) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		int result = matchServiceImpl.updateShareStatus(matchId, shareStatus);
+		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/updateDraftStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel updateDraftStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int matchId, @RequestParam int draftStatus) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		int result = matchServiceImpl.updateDraftStatus(matchId, draftStatus);
+		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/updateBackStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel updateBackStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int matchId, @RequestParam int backStatus) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		int result = matchServiceImpl.updateBackStatus(matchId, backStatus);
+		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/updateShareAndDraftStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel updateShareAndDraftStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int matchId, @RequestParam int draftStatus, @RequestParam int shareStatus) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+		int result = matchServiceImpl.updateShareAndDraftStatus(matchId, shareStatus, draftStatus);
+		if (result == ResponseCodeUtil.MATCH_OPERATION_SUCCESS) {
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		} else {
+			throw new SdxException(500, "操作失败");
+		}
+	}
+	
 	@RequestMapping(value = "/getDataByUserId", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel getDataByUserId(HttpServletRequest request, HttpServletResponse response,
@@ -280,6 +345,63 @@ public class MatchController {
 		resultModel.setObject(matchList);
 		return resultModel;
     }
+	
+	@RequestMapping(value = "/getStatisticsDataByWeek", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultModel getStatisticsDataByWeek(HttpServletRequest request, HttpServletResponse response,
+    		@RequestParam int userId){
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ResultModel resultModel = new ResultModel();
+		try {
+		    Map<String,Integer> map = matchServiceImpl.getStatisticsDataByWeek(userId);
+		    resultModel.setObject(map);
+			resultModel.setSuccess(true);
+			resultModel.setResultCode(200);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			resultModel.setSuccess(false);
+		}
+		return resultModel;
+	}
+	
+	@RequestMapping(value = "/getStatisticsDataByMonth", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultModel getStatisticsDataByMonth(HttpServletRequest request, HttpServletResponse response,
+    		@RequestParam int userId){
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ResultModel resultModel = new ResultModel();
+		try {
+			Map<String,Integer> map = matchServiceImpl.getStatisticsDataByMonth(userId);
+		    resultModel.setObject(map);
+			resultModel.setSuccess(true);
+			resultModel.setResultCode(200);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			resultModel.setSuccess(false);
+		}
+		return resultModel;
+	}
+	
+	@RequestMapping(value = "/getStatisticsDataByYear", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel getStatisticsDataByYear(HttpServletRequest request, HttpServletResponse response,
+    		@RequestParam int userId){
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		ResultModel resultModel = new ResultModel();
+		try {
+			Map<String,Integer> map = matchServiceImpl.getStatisticsDataByYear(userId);
+		    resultModel.setObject(map);
+			resultModel.setSuccess(true);
+			resultModel.setResultCode(200);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			resultModel.setSuccess(false);
+		}
+		return resultModel;
+	}
 	
 	@RequestMapping(value = "/getPushHistoryByVipNameAndUserId", method = RequestMethod.POST)
 	@ResponseBody

@@ -1,6 +1,7 @@
 package com.cidic.sdx.dggl.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cidic.sdx.dggl.model.Match;
 
@@ -26,6 +27,8 @@ public interface MatchDao {
     
     public void updateBackStatus(int matchId, int backStatus);
     
+    public void updateShareAndDraftStatus(int matchId, int shareStatus, int draftStatus);
+    
     public List<Match> getMatchByShareStatus(int userId,int shareStatus, int offset, int limit);
     
     public List<Match> getAppMatchByShareStatus(int userId, int shareStatus, int offset, int limit);
@@ -39,4 +42,11 @@ public interface MatchDao {
     public List<Match> getMatchByDraftStatus(int userId, int offset, int limit);
     
     public List<Match> getMatchByIds(List<Integer> ids);
+    
+    public Map<String,Integer> getStatisticsDataByWeek(int userId);
+    
+    public Map<String,Integer> getStatisticsDataByMonth(int userId);
+    
+    public Map<String,Integer> getStatisticsDataByYear(int userId);
+    
 }

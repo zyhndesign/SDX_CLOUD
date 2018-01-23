@@ -1,6 +1,8 @@
 package com.cidic.sdx.dggl.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -267,6 +269,74 @@ public class MatchDaoImpl implements MatchDao {
         @SuppressWarnings("unchecked")
         List<Match> list = query.list();
 		return list;
+	}
+
+	@Override
+	public void updateShareAndDraftStatus(int matchId, int shareStatus, int draftStatus) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " update from Match set draftstatus = ?, sharestatus = ? where matchId = ?";
+		final Query query = session.createQuery(hql); 
+		query.setParameter(2, matchId);
+		query.setParameter(1, shareStatus);
+		query.setParameter(0, draftStatus);
+		query.executeUpdate();
+	}
+
+	@Override
+	public Map<String, Integer> getStatisticsDataByWeek(int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "SELECT DATE_FORMAT(createtime,'%Y-%u') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ? GROUP BY  time";
+		Query query = session.createSQLQuery(sql);
+		query.setParameter(0, userId);
+		List list = query.list();
+		Map<String, Integer> map = null;
+		for(int i = 0; i < list.size(); i++)
+        {
+			map = new HashMap<String, Integer>();
+			Object []o = (Object[])list.get(i);
+			String groupName = (String)o[0];
+			int count = (Integer)o[1];
+			map.put(groupName, count);
+        }
+		return map;
+	}
+
+	@Override
+	public Map<String, Integer> getStatisticsDataByMonth(int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "SELECT DATE_FORMAT(createtime,'%Y-%m') as time,sum(Id)  matchCount FROM sdx_cloud.match userId = ?  GROUP BY  time";
+		Query query = session.createSQLQuery(sql);
+		query.setParameter(0, userId);
+		List list = query.list();
+		Map<String, Integer> map = null;
+		for(int i = 0; i < list.size(); i++)
+        {
+			map = new HashMap<String, Integer>();
+			Object []o = (Object[])list.get(i);
+			String groupName = (String)o[0];
+			int count = (Integer)o[1];
+			map.put(groupName, count);
+        }
+		return map;
+	}
+
+	@Override
+	public Map<String, Integer> getStatisticsDataByYear(int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "SELECT DATE_FORMAT(createtime,'%Y') as time,sum(Id)  matchCount FROM sdx_cloud.match userId = ?  GROUP BY  time";
+		Query query = session.createSQLQuery(sql);
+		query.setParameter(0, userId);
+		List list = query.list();
+		Map<String, Integer> map = null;
+		for(int i = 0; i < list.size(); i++)
+        {
+			map = new HashMap<String, Integer>();
+			Object []o = (Object[])list.get(i);
+			String groupName = (String)o[0];
+			int count = (Integer)o[1];
+			map.put(groupName, count);
+        }
+		return map;
 	}
 	
 }

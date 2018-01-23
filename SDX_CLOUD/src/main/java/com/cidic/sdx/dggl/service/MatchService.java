@@ -1,6 +1,8 @@
 package com.cidic.sdx.dggl.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.cidic.sdx.dggl.model.Match;
 import com.cidic.sdx.dggl.model.MatchListModel;
 
@@ -14,7 +16,13 @@ public interface MatchService {
     
     public List<Match> findMatchByUser(int userId, int offset, int limit);
     
-    public void updateShareStatus(int userId, int shareStatus);
+    public int updateShareStatus(int userId, int shareStatus);
+    
+    public int updateDraftStatus(int matchId, int draftStatus);
+    
+    public int updateBackStatus(int matchId, int backStatus);
+    
+    public int updateShareAndDraftStatus(int matchId, int shareStatus, int draftStatus);
     
     public MatchListModel getMatchByShareStatus(int userId,int shareStatus, int offset, int limit);
     
@@ -29,4 +37,10 @@ public interface MatchService {
     public Match findMatchByMatchId(int id);
     
     public List<Match> getMatchByPushHistory(String vipName,int userId,int limit, int offset);
+    
+    public Map<String,Integer> getStatisticsDataByWeek(int userId);
+    
+    public Map<String,Integer> getStatisticsDataByMonth(int userId);
+    
+    public Map<String,Integer> getStatisticsDataByYear(int userId);
 }

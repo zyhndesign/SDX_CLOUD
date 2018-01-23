@@ -2,6 +2,7 @@ package com.cidic.sdx.dggl.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -84,8 +85,15 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public void updateShareStatus(int userId, int shareStatus) {
-		matchDaoImpl.updateShareStatus(userId, shareStatus);
+	public int updateShareStatus(int matchId, int shareStatus) {
+		
+		try{
+			matchDaoImpl.updateShareStatus(matchId, shareStatus);
+			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
+		}
 	}
 
 	@Override
@@ -157,6 +165,56 @@ public class MatchServiceImpl implements MatchService {
 		else{
 			return null;
 		}
+	}
+
+	@Override
+	public int updateDraftStatus(int matchId, int draftStatus) {
+		try{
+			matchDaoImpl.updateDraftStatus(matchId, draftStatus);
+			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
+		}
+	}
+
+	@Override
+	public int updateBackStatus(int matchId, int backStatus) {
+		
+		try{
+			matchDaoImpl.updateBackStatus(matchId, backStatus);
+			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
+		}
+	}
+
+	@Override
+	public int updateShareAndDraftStatus(int matchId, int shareStatus, int draftStatus) {
+		
+		try{
+			matchDaoImpl.updateShareAndDraftStatus(matchId, shareStatus, draftStatus);
+			return ResponseCodeUtil.MATCH_OPERATION_SUCCESS;
+		}
+		catch(Exception e){
+			return ResponseCodeUtil.MATCH_OPERATION_FAILURE;
+		}
+	}
+
+	@Override
+	public Map<String, Integer> getStatisticsDataByWeek(int userId) {
+		return matchDaoImpl.getStatisticsDataByWeek(userId);
+	}
+
+	@Override
+	public Map<String, Integer> getStatisticsDataByMonth(int userId) {
+		return matchDaoImpl.getStatisticsDataByMonth(userId);
+	}
+
+	@Override
+	public Map<String, Integer> getStatisticsDataByYear(int userId) {
+		return matchDaoImpl.getStatisticsDataByYear(userId);
 	}
 
 }

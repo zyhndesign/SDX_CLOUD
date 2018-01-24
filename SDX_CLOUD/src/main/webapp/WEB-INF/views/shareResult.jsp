@@ -273,7 +273,9 @@ table {
 			styleObj[i].trouserName
 			styleObj[i].trouserShopUrl
 			styleObj[i].styleValue
-
+			styleObj[i].innerClothNum
+			styleObj[i].outClothNum
+			styleObj[i].trouserClothNum
 			var html = '<li><div class="content">' +
 				'<img class="modelImg" src="'+styleObj[i].modelurl+'" />' +
 					'<div class="modelContent">' +

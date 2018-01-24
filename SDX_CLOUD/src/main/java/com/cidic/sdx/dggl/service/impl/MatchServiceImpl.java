@@ -150,6 +150,10 @@ public class MatchServiceImpl implements MatchService {
 			mList.setOutClothShopUrl(outter.getShopURL());
 			mList.setTrouserName(trouser.getHpName());
 			mList.setTrouserShopUrl(trouser.getShopURL());
+			
+			mList.setInnerClothNum(inner.getHpNum());
+			mList.setOutClothNum(outter.getHpNum());
+			mList.setTrouserClothNum(trouser.getHpNum());
 		}
 		
 		return match;

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>分享</title>
+<title>圣得西服饰搭配</title>
 <base href="<%=request.getContextPath()%>/" />
 <style type="text/css">
 .shareTitle {
@@ -13,13 +13,15 @@
 	margin: 10px auto;
 	text-align:center;
 	padding: 10px;
+	font-size: 46px;
 }
 
 .shareContent {
-	width: 96%;
+	width: 90%;
 	display: block;
 	margin: 10px auto;
 	padding: 10px;
+	font-size: 36px;
 }
 
 .keyWord {
@@ -37,7 +39,7 @@
 .modelImg {
 	float: left;
 	width: auto;
-	height: 240px;
+	height: 700px;
 	margin: 10px;
 }
 
@@ -49,7 +51,7 @@
 
 .content {
 	width: 98%;
-	height: 260px;
+	height: 720px;
 	margin: 10px auto;
 	background-color: #F2F2F2;
 	font-size: 16px;
@@ -133,13 +135,129 @@
 	width: 20px;
 	height: 20px;
 }
+
+
+/*--------------SLIDER----------------*/
+
+#slider {
+	width: 90%;
+	margin: 0 auto;
+}
+
+
+/*--------------CONTROLS--------------*/
+
+/*position controls*/
+.controls li {
+	top: 50%;
+	margin-top: -30px;
+}
+
+.controls li:nth-child(1) {
+	left: 0;
+}
+
+.controls li:nth-child(2) {
+	right: 0;
+}
+
+
+/*------------PAGINATION------------*/
+
+/*style pagination*/
+.pagination li {
+	background-color: #ddd;
+}
+
+.pagination li.active {
+	background-color: #000;
+}
+
+
+/*-------------HELPERS----------------*/
+
+.responsive {
+	width: 100%;
+	height: auto;
+}
+
+.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+img {
+	display: block;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 </style>
 </head>
 <body>
 	<p class="shareTitle">${share.shareTitle}</p>
 	<p class="shareContent">${share.shareContent}</p>
 	
+	<div id="slider">
+			<ul class="slides">
+				
+			</ul>
+			<ul class="controls">
+				<li><img src="resources/images/app/prev.png" alt="previous"></li>
+				<li><img src="resources/images/app/next.png" alt="next"></li>
+			</ul>
+			<ul class="pagination">
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		
 	<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
+	<script src="resources/js/lib/easySlider.js"></script>
 	<script type="text/javascript">
 
 
@@ -156,7 +274,7 @@
 			styleObj[i].trouserShopUrl
 			styleObj[i].styleValue
 
-			var html = '<div class="content">' +
+			var html = '<li><div class="content">' +
 				'<img class="modelImg" src="'+styleObj[i].modelurl+'" />' +
 					'<div class="modelContent">' +
 						'<div id="style4" class="modelContent_title">【'+styleObj[i].styleValue+'风格】</div>'+
@@ -168,10 +286,20 @@
 						'</div>' +
 						'<div class="list">' +
 							'<i class="pantsClothIcon"></i> <input type="text" class="shop" value="'+styleObj[i].trouserName+'" readonly="true" /><a href="'+styleObj[i].trouserShopUrl+'" target="_blank"><img class="shopIcon" src="resources/images/app/yellow@1.5x.png"></a> '+
-						'</div></div></div>';
-			$(document.body).append(html);
+						'</div></div></div></li>';
+			$(".slides").append(html);
 		}
 		
+		$("#slider").easySlider( {
+				slideSpeed: 500,
+				autoSlide: false,
+				paginationSpacing: "15px",
+				paginationDiameter: "10px",
+				paginationPositionFromBottom: "0px",
+				slidesClass: ".slides",
+				controlsClass: ".controls",
+				paginationClass: ".pagination"					
+		});
 	</script>
 </body>
 

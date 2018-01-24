@@ -7,6 +7,7 @@ public class CostumeModel {
 	private String backViewUrl; //背视图
 	private String shopURL;
 	private String hpName;
+	private String hpNum;
 	
 	public String getProductImageUrl() {
 		return productImageUrl;
@@ -38,6 +39,12 @@ public class CostumeModel {
 	}
 	public void setShopURL(String shopURL) {
 		this.shopURL = shopURL;
+	}
+	public String getHpNum() {
+		return hpNum;
+	}
+	public void setHpNum(String hpNum) {
+		this.hpNum = hpNum;
 	}
 	
 	

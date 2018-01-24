@@ -47,13 +47,46 @@ public class Matchlist implements java.io.Serializable {
 	private String innerClothUrl;
 	private String outClothUrl;
 	private String trousersUrl;
+	
 	private String innerClothName;
 	private String outClothName;
 	private String trouserName;
+	
 	private String innerClothShopUrl;
 	private String outClothShopUrl;
 	private String trouserShopUrl;
 	
+	private String innerClothNum;
+	private String outClothNum;
+	private String trouserClothNum;
+	
+	@Transient
+	public String getInnerClothNum() {
+		return innerClothNum;
+	}
+
+	public void setInnerClothNum(String innerClothNum) {
+		this.innerClothNum = innerClothNum;
+	}
+
+	@Transient
+	public String getOutClothNum() {
+		return outClothNum;
+	}
+
+	public void setOutClothNum(String outClothNum) {
+		this.outClothNum = outClothNum;
+	}
+
+	@Transient
+	public String getTrouserClothNum() {
+		return trouserClothNum;
+	}
+
+	public void setTrouserClothNum(String trouserClothNum) {
+		this.trouserClothNum = trouserClothNum;
+	}
+
 	public Matchlist() {
 	}
 

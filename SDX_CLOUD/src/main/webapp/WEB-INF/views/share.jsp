@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>分享</title>
+<title>圣得西服饰搭配</title>
 <base href="<%=request.getContextPath()%>/" />
 <style type="text/css">
 #title {
@@ -133,6 +133,8 @@
 	width: 25px;
 	height: 25px;
 }
+
+
 </style>
 </head>
 <body>

@@ -417,7 +417,7 @@ public class HpIndexDaoImpl implements HpIndexDao {
 		costumeModel.setBackViewUrl(map.get("imageUrl2").toString());
 		costumeModel.setShopURL(map.get("productURL").toString());
 		costumeModel.setHpName(map.get("hpName").toString());
-		
+		costumeModel.setHpNum(map.get("hp_num").toString());
 		return costumeModel;
 	}
 

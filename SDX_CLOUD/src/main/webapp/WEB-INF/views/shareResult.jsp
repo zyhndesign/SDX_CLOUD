@@ -292,16 +292,50 @@ table {
 			$(".slides").append(html);
 		}
 		
-		$("#slider").easySlider( {
-				slideSpeed: 500,
-				autoSlide: false,
-				paginationSpacing: "15px",
-				paginationDiameter: "10px",
-				paginationPositionFromBottom: "0px",
-				slidesClass: ".slides",
-				controlsClass: ".controls",
-				paginationClass: ".pagination"					
+		
+		
+		$(document).ready(function(){
+			$(".scrollBar1_p1").addClass("pYellow");
+			
+			var swiper1 = new Swiper('.swiper-container', {
+			    roundLengths : true, 
+				initialSlide :0,
+				speed:600,
+				slidesPerView:"auto",
+				centeredSlides : true,
+				followFinger : false,
+				on:{
+					
+					slideChangeTransitionEnd: function(){
+					      if(this.activeIndex == 0){
+					      	$(".scrollBar1_p1").addClass("pYellow");
+					      	$(".scrollBar1_p2").addClass("pNormal");
+					      	$(".scrollBar1_p1").removeClass("pNormal");
+					      	$(".scrollBar1_p2").removeClass("pYellow");
+					      	$(".scrollBar1_line1").removeClass("lineYellow");
+					      }
+					      else if (this.activeIndex == 1){
+					      	$(".scrollBar1_p2").removeClass("pNormal");
+					      	$(".scrollBar1_p2").addClass("pYellow");
+					      	$(".scrollBar1_p3").removeClass("pYellow");
+					      	$(".scrollBar1_line1").addClass("lineYellow");
+					      	$(".scrollBar1_line2").removeClass("lineYellow");
+					      }
+					      else if (this.activeIndex == 2){
+					      	$(".scrollBar1_p3").addClass("pYellow");
+					      	$(".scrollBar1_p4").removeClass("pYellow");
+					      	$(".scrollBar1_line2").addClass("lineYellow");
+					      	$(".scrollBar1_line3").removeClass("lineYellow");
+					      }
+					      else if (this.activeIndex == 3){
+					      	$(".scrollBar1_p4").addClass("pYellow");
+					      	$(".scrollBar1_line3").addClass("lineYellow");
+					      }
+					},
+				}
+			});
 		});
+		
 	</script>
 </body>
 

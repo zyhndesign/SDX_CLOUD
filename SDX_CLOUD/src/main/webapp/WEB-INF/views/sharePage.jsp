@@ -195,6 +195,21 @@
 
 		$(document).ready(function() {
 
+			var matchLists = '${match.matchlists}';
+			
+			if (matchLists.length == 4){
+				$("scrollBar2").hide();
+				$("scrollBar3").hide();
+			}
+			else if (matchLists.length == 3){
+				$("scrollBar1").hide();
+				$("scrollBar3").hide();
+			}
+			else if (matchLists.length == 2){
+				$("scrollBar1").hide();
+				$("scrollBar2").hide();
+			}
+			
 			$("#keyWord1").bind("change", function() {
 				style1 = $(this).val();
 				$('#style1').empty();

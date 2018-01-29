@@ -214,7 +214,18 @@
 		$(document).ready(function() {
 			$(".scrollBar1_p1").addClass("pYellow");
 			
-			
+			if (styleObj.length == 4){
+				$("scrollBar2").hide();
+				$("scrollBar3").hide();
+			}
+			else if (styleObj.length == 3){
+				$("scrollBar1").hide();
+				$("scrollBar3").hide();
+			}
+			else if (styleObj.length == 2){
+				$("scrollBar1").hide();
+				$("scrollBar2").hide();
+			}
 		});
 	</script>
 </body>

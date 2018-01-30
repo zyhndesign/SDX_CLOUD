@@ -80,7 +80,7 @@ public class MatchController {
 			match = matchServiceImpl.findMatchByMatchId(id);
 		}
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/share");
+		view.setViewName("/sharePage");
 		view.addObject("match", match);
 		return view;
 	}

@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="format-detection" content="telephone=no" />
 <title>圣得西服饰搭配</title>
 <base href="<%=request.getContextPath()%>/" />
 <link rel="stylesheet" href="resources/css/src/swiper.min.css" />
@@ -12,8 +12,7 @@
 </head>
 <body>
 	<input id="title" type="text" placeholder="设置标题" required="required" />
-	<textarea id="shareContent" placeholder="添加导购推荐语（增加客户感兴趣程度，解释搭配详情内容）"
-		rows="3" required="required"></textarea>
+	<textarea id="shareContent" placeholder="添加导购推荐语（增加客户感兴趣程度，解释搭配详情内容）" rows="3" required="required"></textarea>
 	<div class="keyWord">
 		<select id="keyWordSelect">
 			<option value="" disabled selected>搭配一：穿搭风格关键字</option>
@@ -33,7 +32,7 @@
 		<p class="progressP scrollBar1_p4"></p>
 	</div>
 
-	<div id="scrollBar2">
+	<div id="scrollBar2" style="display:none;">
 		<p class="progressP scrollBar2_p1"></p>
 		<div class="scrollBar2_line scrollBar2_line1"></div>
 		<p class="progressP scrollBar2_p2"></p>
@@ -41,7 +40,7 @@
 		<p class="progressP scrollBar2_p3"></p>
 	</div>
 
-	<div id="scrollBar3">
+	<div id="scrollBar3" style="display:none;">
 		<p class="progressP scrollBar3_p1"></p>
 		<div class="scrollBar3_line scrollBar3_line1"></div>
 		<p class="progressP scrollBar3_p2"></p>
@@ -54,10 +53,10 @@
 				<div class="swiper-slide">
 					<div id="imgContent">
 						<img src="${match.modelurl}"
-							style="max-height: 100%; max-width: 100%;" />
+							style="display:block;width:100%;" />
 					</div>
 					<div id="txtContent">
-						<p class="txtContentTitle">时尚风</p>
+						<p id="txtContentTitle${i}" class="txtContentTitle">时尚风</p>
 
 						<div class="titleDiv">
 							<p class="contentLine" />
@@ -71,7 +70,7 @@
 								<p class="clothTitleText">${match.innerClothName}</p>
 								<p class="clothNumText">${match.innerClothNum}</p>
 							</div>
-							<a href="${match.innerClothShopUrl}" target="_blank"><img src="img/shopping@1.5x.png" class="shopping" /></a>
+							<a href="${match.innerClothShopUrl}" target="_blank"><img src="resources/images/app/shopping@1.5x.png" class="shopping" /></a>
 
 						</div>
 
@@ -89,7 +88,7 @@
 								<p class="clothTitleText">${match.outClothName}</p>
 								<p class="clothNumText">${match.outClothNum}</p>
 							</div>
-							 <a href="${match.innerClothShopUrl}" target="_blank"><img src="img/shopping@1.5x.png" class="shopping" /></a>
+							 <a href="${match.innerClothShopUrl}" target="_blank"><img src="resources/images/app/shopping@1.5x.png" class="shopping" /></a>
 
 						</div>
 
@@ -107,13 +106,12 @@
 								<p class="clothTitleText">${match.trouserName}</p>
 								<p class="clothNumText">${match.trouserClothNum}</p>
 							</div>
-							<a href="${match.trouserShopUrl}" target="_blank"><img src="img/shopping@1.5x.png" class="shopping" /></a>
+							<a href="${match.trouserShopUrl}" target="_blank"><img src="resources/images/app/shopping@1.5x.png" class="shopping" /></a>
 
 						</div>
 
 						<p class="contentBottomLine" />
 
-						<img class="like" src="resources/images/app/like@1.5x.png" />
 					</div>
 				</div>
 
@@ -122,6 +120,11 @@
 		</div>
 	</div>
 
+	<div class="bottomBar">
+		<img src="resources/images/app/likeNormal@1.5x.png" class="likeBtn"/>
+		<p class="likeText">快来点赞我吧！</p>
+		<div class="orderBtn">一键下单</div>
+	</div>
 	<!-- <input id="uploadData" type="button" value="click"/> -->
 
 	<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
@@ -135,7 +138,8 @@
 		var matchId = 0;
 		var userId = 0;
 		var styles = [];
-
+		var activeIndex = 0;
+		
 		function uploadShareContent() {
 
 			var result = "";
@@ -176,8 +180,7 @@
 				success : function(data, textStatus, jqXHR) {
 
 					if (data.object != null) {
-						result = result + data.object + "|" + shareTitle + "|"
-								+ shareContent;
+						result = result + data.object + "|" + shareTitle + "|" + shareContent;
 					}
 
 				},
@@ -193,50 +196,126 @@
 			return result;
 		}
 
+		
+		
 		$(document).ready(function() {
 
-			var matchLists = '${match.matchlists}';
+			var matchListsLength = '${match.matchlists.size()}';
+			$(".scrollBar1_p1").addClass("pYellow");
 			
-			if (matchLists.length == 4){
-				$("scrollBar2").hide();
-				$("scrollBar3").hide();
+			var swiper1 = new Swiper('.swiper-container', {
+				roundLengths : true,
+				initialSlide : 0,
+				speed : 600,
+				slidesPerView : "auto",
+				centeredSlides : true,
+				followFinger : false,
+				on : {
+
+					slideChangeTransitionEnd : function() {
+						activeIndex = this.activeIndex;
+						if (matchListsLength == 4) {
+							if (this.activeIndex == 0) {
+								$(".scrollBar1_p1").addClass("pYellow");
+								$(".scrollBar1_p2").addClass("pNormal");
+								$(".scrollBar1_p1").removeClass("pNormal");
+								$(".scrollBar1_p2").removeClass("pYellow");
+								$(".scrollBar1_line1").removeClass("lineYellow");
+							} else if (this.activeIndex == 1) {
+								$(".scrollBar1_p2").removeClass("pNormal");
+								$(".scrollBar1_p2").addClass("pYellow");
+								$(".scrollBar1_p3").removeClass("pYellow");
+								$(".scrollBar1_line1").addClass("lineYellow");
+								$(".scrollBar1_line2").removeClass("lineYellow");
+							} else if (this.activeIndex == 2) {
+								$(".scrollBar1_p3").addClass("pYellow");
+								$(".scrollBar1_p4").removeClass("pYellow");
+								$(".scrollBar1_line2").addClass("lineYellow");
+								$(".scrollBar1_line3").removeClass("lineYellow");
+							} else if (this.activeIndex == 3) {
+								$(".scrollBar1_p4").addClass("pYellow");
+								$(".scrollBar1_line3").addClass("lineYellow");
+							}
+						} else if (matchListsLength == 3) {
+							if (this.activeIndex == 0) {
+								$(".scrollBar2_p1").addClass("pYellow");
+								$(".scrollBar2_p2").addClass("pNormal");
+								$(".scrollBar2_p1").removeClass("pNormal");
+								$(".scrollBar2_p2").removeClass("pYellow");
+								$(".scrollBar2_line1").removeClass("lineYellow");
+							} else if (this.activeIndex == 1) {
+								$(".scrollBar2_p2").removeClass("pNormal");
+								$(".scrollBar2_p2").addClass("pYellow");
+								$(".scrollBar2_p3").removeClass("pYellow");
+								$(".scrollBar2_line1").addClass("lineYellow");
+								$(".scrollBar2_line2").removeClass("lineYellow");
+							} else if (this.activeIndex == 2) {
+								$(".scrollBar2_p3").addClass("pYellow");
+								$(".scrollBar2_line2").addClass("lineYellow");
+							}
+						} else if (matchListsLength == 2) {
+							if (this.activeIndex == 0) {
+								$(".scrollBar3_p1").addClass("pYellow");
+								$(".scrollBar3_p2").addClass("pNormal");
+								$(".scrollBar3_p1").removeClass("pNormal");
+								$(".scrollBar3_p2").removeClass("pYellow");
+								$(".scrollBar3_line1").removeClass("lineYellow");
+							} else if (this.activeIndex == 1) {
+								$(".scrollBar3_p2").removeClass("pNormal");
+								$(".scrollBar3_p2").addClass("pYellow");
+								$(".scrollBar3_line1").addClass("lineYellow");
+							}
+						}
+
+					},
+				}
+			});
+						
+			if (matchListsLength == 4){
+				$("#scrollBar2").hide();
+				$("#scrollBar3").hide();
 			}
-			else if (matchLists.length == 3){
-				$("scrollBar1").hide();
-				$("scrollBar3").hide();
+			else if (matchListsLength == 3){
+				$("#scrollBar1").hide();
+				$("#scrollBar3").hide();
 			}
-			else if (matchLists.length == 2){
-				$("scrollBar1").hide();
-				$("scrollBar2").hide();
+			else if (matchListsLength == 2){
+				$("#scrollBar1").hide();
+				$("#scrollBar2").hide();
+			}
+			else{
+				$("#scrollBar1").hide();
+				$("#scrollBar2").hide();
+				$("#scrollBar3").hide();
 			}
 			
-			$("#keyWord1").bind("change", function() {
-				style1 = $(this).val();
-				$('#style1').empty();
-				$('#style1').append("【" + style1 + "风格】");
-				styles[0].styleValue = style1;
+			$("#keyWordSelect").bind("change", function() {
+				
+				if (activeIndex == 0){
+					style1 = $(this).val();
+					$('#txtContentTitle0').empty();
+					$('#txtContentTitle0').append("" + style1 + "风");
+					styles[0].styleValue = style1;
+				}
+				else if (activeIndex == 1){
+					style2 = $(this).val();
+					$('#txtContentTitle0').empty();
+					$('#txtContentTitle0').append("" + style2 + "风");
+					styles[1].styleValue = style2;
+				}
+				else if (activeIndex == 2){
+					style3 = $(this).val();
+					$('#txtContentTitle0').empty();
+					$('#txtContentTitle0').append("" + style3 + "风");
+					styles[2].styleValue = style3;
+				}
+				else if (activeIndex == 3){
+					style4 = $(this).val();
+					$('#txtContentTitle0').empty();
+					$('#txtContentTitle0').append("" + style4 + "风");
+					styles[3].styleValue = style4;
+				}
 
-			});
-
-			$("#keyWord2").bind("change", function() {
-				style2 = $(this).val();
-				$('#style2').empty();
-				$('#style2').append("【" + style2 + "风格】");
-				styles[1].styleValue = style2;
-			});
-
-			$("#keyWord3").bind("change", function() {
-				style3 = $(this).val();
-				$('#style3').empty();
-				$('#style3').append("【" + style3 + "风格】");
-				styles[2].styleValue = style3;
-			});
-
-			$("#keyWord4").bind("change", function() {
-				style4 = $(this).val();
-				$('#style4').empty();
-				$('#style4').append("【" + style4 + "风格】");
-				styles[3].styleValue = style4;
 			});
 
 			matchId = "${match.id}";

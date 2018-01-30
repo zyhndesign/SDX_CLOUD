@@ -106,7 +106,7 @@ public class ShareController {
 
 		Share share = shareServiceImpl.getShareByCode(code);
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/shareResult");
+		view.setViewName("/userSharePage");
 		view.addObject("share", share);
 		return view;
 	}

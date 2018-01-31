@@ -73,7 +73,7 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public void updateShareStatus(int matchId, int shareStatus) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " update from Match set sharestatus = ? where matchId = ?";
+		String hql = " update from Match set sharestatus = ? where id = ?";
 		final Query query = session.createQuery(hql); 
 		query.setParameter(1, matchId);
 		query.setParameter(0, shareStatus);
@@ -235,7 +235,7 @@ public class MatchDaoImpl implements MatchDao {
 		String hql = " update from Match set backstatus = ? where matchId = ?";
 		final Query query = session.createQuery(hql); 
 		query.setParameter(1, userId);
-		query.setParameter(0, backStatus);
+		query.setParameter(0, (byte)backStatus);
 		query.executeUpdate();
 	}
 

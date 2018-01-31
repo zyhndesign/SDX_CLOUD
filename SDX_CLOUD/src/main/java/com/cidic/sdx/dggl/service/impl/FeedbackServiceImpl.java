@@ -42,7 +42,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Transactional(readOnly = false, rollbackFor = Exception.class)
 	public int createFeedback(Feedback feedback,int matchId) {
 		try{
-			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getUserId(), feedback.getMatchlist().getId());
+			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getUserId(), feedback.getMatchlist().getId(),feedback.getVipId());
 			if(feedbackObj.isPresent()){
 				return ResponseCodeUtil.FEEDBACK_OPERATION_EXIST; //已经点赞过
 			}
@@ -87,7 +87,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public int updateFeedback(Feedback feedback){
 		try{
-			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getUserId(), feedback.getMatchlist().getId());
+			Optional<Feedback> feedbackObj = feedbackDaoImpl.getFeedbackByUserIdAndMatchlistID(feedback.getUserId(), feedback.getMatchlist().getId(), feedback.getVipId());
 			feedbackObj.ifPresent((feed)->{
 				feedbackDaoImpl.deleteFeedback(feed.getUserId(), feed.getMatchlist().getId() );
 			});

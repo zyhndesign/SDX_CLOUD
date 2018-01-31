@@ -47,7 +47,7 @@ public class FeedbackController {
 	@RequestMapping(value = "/createFeedback", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel createFeedback(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int userId, @RequestParam int matchlistId,@RequestParam int matchId) {
+			@RequestParam int userId, @RequestParam int matchlistId,@RequestParam int matchId, @RequestParam int vipId) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		resultModel = new ResultModel();
 		Feedback feedback = new Feedback();
@@ -56,8 +56,9 @@ public class FeedbackController {
 		matchList.setId(matchlistId);
 		feedback.setMatchlist(matchList);
 		feedback.setCreatetime(new Date());
+		feedback.setVipId(vipId);
 		
-		int result = feedbackServiceImpl.createFeedback(feedback,matchId);
+		int result = feedbackServiceImpl.createFeedback(feedback, matchId);
 		if (result == ResponseCodeUtil.FEEDBACK_OPERATION_SUCCESS) {
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

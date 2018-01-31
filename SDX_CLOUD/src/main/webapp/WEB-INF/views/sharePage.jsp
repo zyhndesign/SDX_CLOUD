@@ -50,13 +50,14 @@
 		<div class="swiper-wrapper">
 
 			<c:forEach items="${match.matchlists}" var="match" varStatus="status">
+				
 				<div class="swiper-slide">
 					<div id="imgContent">
 						<img src="${match.modelurl}"
 							style="display:block;width:100%;" />
 					</div>
 					<div id="txtContent">
-						<p id="txtContentTitle${i}" class="txtContentTitle">时尚风</p>
+						<p id="txtContentTitle${status.count}" class="txtContentTitle">时尚风</p>
 
 						<div class="titleDiv">
 							<p class="contentLine" />
@@ -120,11 +121,7 @@
 		</div>
 	</div>
 
-	<div class="bottomBar">
-		<img src="resources/images/app/likeNormal@1.5x.png" class="likeBtn"/>
-		<p class="likeText">快来点赞我吧！</p>
-		<div class="orderBtn">一键下单</div>
-	</div>
+	
 	<!-- <input id="uploadData" type="button" value="click"/> -->
 
 	<script src="resources/js/lib/jquery-2.0.3.min.js"></script>
@@ -290,30 +287,28 @@
 			}
 			
 			$("#keyWordSelect").bind("change", function() {
+				console.log(activeIndex);
 				
 				if (activeIndex == 0){
 					style1 = $(this).val();
-					$('#txtContentTitle0').empty();
-					$('#txtContentTitle0').append("" + style1 + "风");
-					styles[0].styleValue = style1;
+					$('#txtContentTitle1').empty();
+					$('#txtContentTitle1').append("" + style1 + "风");
 				}
 				else if (activeIndex == 1){
 					style2 = $(this).val();
-					$('#txtContentTitle0').empty();
-					$('#txtContentTitle0').append("" + style2 + "风");
-					styles[1].styleValue = style2;
+					$('#txtContentTitle2').empty();
+					$('#txtContentTitle2').append("" + style2 + "风");
 				}
 				else if (activeIndex == 2){
 					style3 = $(this).val();
-					$('#txtContentTitle0').empty();
-					$('#txtContentTitle0').append("" + style3 + "风");
-					styles[2].styleValue = style3;
+					$('#txtContentTitle3').empty();
+					$('#txtContentTitle3').append("" + style3 + "风");
 				}
 				else if (activeIndex == 3){
 					style4 = $(this).val();
-					$('#txtContentTitle0').empty();
-					$('#txtContentTitle0').append("" + style4 + "风");
-					styles[3].styleValue = style4;
+					$('#txtContentTitle4').empty();
+					$('#txtContentTitle4').append("" + style4 + "风");
+					console.log("style4:" + style4);
 				}
 
 			});
@@ -326,10 +321,16 @@
 			styles.push({
 				"outClothName" : "${match.outClothName}",
 				"outClothShopUrl" : "${match.outClothShopUrl}",
+				"outClothNum" : "${match.outClothNum}",
+				"outClothUrl":"${match.outClothUrl}",
 				"innerClothName" : "${match.innerClothName}",
 				"innerClothShopUrl" : "${match.innerClothShopUrl}",
+				"innerClothNum" : "${match.innerClothNum}",
+				"innerClothUrl":"${match.innerClothUrl}",
 				"trouserName" : "${match.trouserName}",
 				"trouserShopUrl" : "${match.trouserShopUrl}",
+				"trouserClothNum":"${match.trouserClothNum}",
+				"trousersUrl":"${match.trousersUrl}",
 				"styleValue" : style1,
 				"modelurl" : "${match.modelurl}",
 				"id" : "${match.id}"
@@ -339,10 +340,16 @@
 			styles.push({
 				"outClothName" : "${match.outClothName}",
 				"outClothShopUrl" : "${match.outClothShopUrl}",
+				"outClothNum" : "${match.outClothNum}",
+				"outClothUrl":"${match.outClothUrl}",
 				"innerClothName" : "${match.innerClothName}",
 				"innerClothShopUrl" : "${match.innerClothShopUrl}",
+				"innerClothNum" : "${match.innerClothNum}",
+				"innerClothUrl":"${match.innerClothUrl}",
 				"trouserName" : "${match.trouserName}",
 				"trouserShopUrl" : "${match.trouserShopUrl}",
+				"trouserClothNum":"${match.trouserClothNum}",
+				"trousersUrl":"${match.trousersUrl}",
 				"id" : "${match.id}",
 				"modelurl" : "${match.modelurl}",
 				"styleValue" : style2
@@ -352,10 +359,16 @@
 			styles.push({
 				"outClothName" : "${match.outClothName}",
 				"outClothShopUrl" : "${match.outClothShopUrl}",
+				"outClothNum" : "${match.outClothNum}",
+				"outClothUrl":"${match.outClothUrl}",
 				"innerClothName" : "${match.innerClothName}",
 				"innerClothShopUrl" : "${match.innerClothShopUrl}",
+				"innerClothNum" : "${match.innerClothNum}",
+				"innerClothUrl":"${match.innerClothUrl}",
 				"trouserName" : "${match.trouserName}",
 				"trouserShopUrl" : "${match.trouserShopUrl}",
+				"trouserClothNum":"${match.trouserClothNum}",
+				"trousersUrl":"${match.trousersUrl}",
 				"id" : "${match.id}",
 				"modelurl" : "${match.modelurl}",
 				"styleValue" : style3
@@ -365,10 +378,16 @@
 			styles.push({
 				"outClothName" : "${match.outClothName}",
 				"outClothShopUrl" : "${match.outClothShopUrl}",
+				"outClothNum" : "${match.outClothNum}",
+				"outClothUrl":"${match.outClothUrl}",
 				"innerClothName" : "${match.innerClothName}",
 				"innerClothShopUrl" : "${match.innerClothShopUrl}",
+				"innerClothNum" : "${match.innerClothNum}",
+				"innerClothUrl":"${match.innerClothUrl}",
 				"trouserName" : "${match.trouserName}",
 				"trouserShopUrl" : "${match.trouserShopUrl}",
+				"trouserClothNum":"${match.trouserClothNum}",
+				"trousersUrl":"${match.trousersUrl}",
 				"id" : "${match.id}",
 				"modelurl" : "${match.modelurl}",
 				"styleValue" : style4

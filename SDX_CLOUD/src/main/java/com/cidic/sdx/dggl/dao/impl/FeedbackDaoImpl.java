@@ -107,12 +107,13 @@ public class FeedbackDaoImpl implements FeedbackDao {
         return hotList;
 	}
 	
-	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId){
+	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId, int vipId){
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Feedback where userId = ? and matchlistId = ?";
+		String hql = " from Feedback where userId = ? and matchlistId = ? and vipId = ?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, userId); 
         query.setParameter(1, matchlistId); 
+        query.setParameter(2, vipId); 
         query.setMaxResults(1);
         query.setCacheable(true);
         Optional<Feedback> optFeedback = Optional.ofNullable((Feedback)query.uniqueResult());

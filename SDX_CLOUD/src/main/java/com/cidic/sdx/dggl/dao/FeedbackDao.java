@@ -14,7 +14,7 @@ public interface FeedbackDao {
 
 	public List<HotMatchModel> getTopThreeDataByUserId(int userId);
 	
-	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId);
+	public Optional<Feedback> getFeedbackByUserIdAndMatchlistID(int userId, int matchlistId, int vipId);
 	
 	public int deleteFeedback(int userId, int matchlistId);
 	

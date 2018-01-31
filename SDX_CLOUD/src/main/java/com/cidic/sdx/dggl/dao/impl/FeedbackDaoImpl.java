@@ -82,7 +82,7 @@ public class FeedbackDaoImpl implements FeedbackDao {
         @SuppressWarnings("unchecked")
 		List list = query.list();
         
-        List<HotMatchModel> hotList = new ArrayList<HotMatchModel>(10);
+        List<HotMatchModel> hotList = new ArrayList<HotMatchModel>(3);
         HotMatchModel hotMatchModel = null;
         for(int i=0;i<list.size();i++)
         {

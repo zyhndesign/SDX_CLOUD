@@ -110,7 +110,7 @@ public class FeedbackController {
 
 	}
 	
-	@RequestMapping(value = "/getTopThreeDataByUserId", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTopThreeDataByUserId", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel getTopThreeDataByUserId(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int userId) {

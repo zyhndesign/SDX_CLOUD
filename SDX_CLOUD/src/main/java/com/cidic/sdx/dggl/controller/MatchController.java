@@ -384,7 +384,7 @@ public class MatchController {
 		return resultModel;
 	}
 	
-	@RequestMapping(value = "/getStatisticsDataByYear", method = RequestMethod.POST)
+	@RequestMapping(value = "/getStatisticsDataByYear", method = RequestMethod.GET)
 	@ResponseBody
 	public ResultModel getStatisticsDataByYear(HttpServletRequest request, HttpServletResponse response,
     		@RequestParam int userId){

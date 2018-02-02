@@ -289,13 +289,12 @@ public class MatchDaoImpl implements MatchDao {
 		Query query = session.createSQLQuery(sql);
 		query.setParameter(0, userId);
 		List list = query.list();
-		Map<String, Integer> map = null;
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		for(int i = 0; i < list.size(); i++)
         {
-			map = new HashMap<String, Integer>();
 			Object []o = (Object[])list.get(i);
 			String groupName = (String)o[0];
-			int count = (Integer)o[1];
+			int count = Integer.parseInt(o[1].toString());
 			map.put(groupName, count);
         }
 		return map;
@@ -304,17 +303,16 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public Map<String, Integer> getStatisticsDataByMonth(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "SELECT DATE_FORMAT(createtime,'%Y-%m') as time,sum(Id)  matchCount FROM sdx_cloud.match userId = ?  GROUP BY  time";
+		String sql = "SELECT DATE_FORMAT(createtime,'%Y-%m') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ?  GROUP BY  time";
 		Query query = session.createSQLQuery(sql);
 		query.setParameter(0, userId);
 		List list = query.list();
-		Map<String, Integer> map = null;
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		for(int i = 0; i < list.size(); i++)
         {
-			map = new HashMap<String, Integer>();
 			Object []o = (Object[])list.get(i);
 			String groupName = (String)o[0];
-			int count = (Integer)o[1];
+			int count = Integer.parseInt(o[1].toString());
 			map.put(groupName, count);
         }
 		return map;
@@ -323,17 +321,16 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public Map<String, Integer> getStatisticsDataByYear(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "SELECT DATE_FORMAT(createtime,'%Y') as time,sum(Id)  matchCount FROM sdx_cloud.match userId = ?  GROUP BY  time";
+		String sql = "SELECT DATE_FORMAT(createtime,'%Y') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ?  GROUP BY  time";
 		Query query = session.createSQLQuery(sql);
 		query.setParameter(0, userId);
 		List list = query.list();
-		Map<String, Integer> map = null;
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		for(int i = 0; i < list.size(); i++)
         {
-			map = new HashMap<String, Integer>();
 			Object []o = (Object[])list.get(i);
 			String groupName = (String)o[0];
-			int count = (Integer)o[1];
+			int count = Integer.parseInt(o[1].toString());
 			map.put(groupName, count);
         }
 		return map;

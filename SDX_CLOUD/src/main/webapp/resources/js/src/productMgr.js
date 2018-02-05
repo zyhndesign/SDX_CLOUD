@@ -26,6 +26,8 @@ var productMgr = (function (config, functions) {
 
 $(document).ready(function () {
 
+	var pageNum = 1;
+	
     var table = new ZYTableHandler({
         removeUrl: "#",
         ownTable: function () {
@@ -96,7 +98,12 @@ $(document).ready(function () {
                     })
                 },
                 "fnServerData": function (sSource, aoData, fnCallback) {
-
+                	console.log("************************");
+                	console.log(aoData.length);
+                	console.log(aoData[3].value);
+                	console.log(aoData[4].value);
+                	console.log(aoData[3].value/aoData[4].value + 1);
+                	console.log("************************");
                     //回调函数
                     $.ajax({
                         "dataType": 'json',

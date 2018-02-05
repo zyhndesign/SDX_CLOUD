@@ -72,7 +72,7 @@
 			var html = '<div class="swiper-slide">' + '<div id="imgContent">'
 					+ '<img src="'
 					+ styleObj[i].modelurl
-					+ '" style="display:block;width:100%;" /> '
+					+ '" style="display:block;width:90%;" /> '
 					+ '</div>'
 					+ '<div id="txtContent">'
 					+ '<p class="txtContentTitle">时尚风</p>'

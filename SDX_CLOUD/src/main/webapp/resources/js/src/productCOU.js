@@ -143,7 +143,7 @@ var productCOU=(function(config,functions){
                     if(response.success){
                         $().toastmessage("showSuccessToast",config.messages.optSuccess);
                         setTimeout(function(){
-                            window.location.href="hpgl/hpManage/productMgr";
+                            window.location.href="hpgl/hpManage/productMgr?pageNum="+pageNum;
                         },3000);
                     }else{
                         functions.ajaxReturnErrorHandler(response.message);

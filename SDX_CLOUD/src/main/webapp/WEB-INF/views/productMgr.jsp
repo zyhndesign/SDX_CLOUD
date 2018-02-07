@@ -4,6 +4,9 @@
 <html>
 <head>
 <%@ include file="head.jsp"%>
+<script>
+	var pageNum = "${pageNum}";
+</script>
 </head>
 <body>
 
@@ -151,7 +154,7 @@
 	<script src="resources/js/lib/jquery.toastmessage.js"></script>
 	<script src="resources/js/src/config.js"></script>
 	<script src="resources/js/src/functions.js"></script>
-	<script src="resources/js/src/ZYTableHandler.js"></script>
+	<script src="resources/js/src/productTableHandler.js"></script>
 	<script src="resources/js/src/productMgr.js"></script>
 </body>
 </html>

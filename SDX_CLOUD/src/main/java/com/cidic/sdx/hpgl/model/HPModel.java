@@ -63,6 +63,7 @@ public class HPModel implements Serializable{
 	
 	private String productUrl; //商品URL
 	private int dataStatus;//数据状态（完整 0，图片缺失 1，连接缺失 2，图片链接都缺失3）
+	private int pageNum;
 	
 	public String getHp_num() {
 		return hp_num;
@@ -357,6 +358,12 @@ public class HPModel implements Serializable{
 	}
 	public void setTimeCategoryList(String timeCategoryList) {
 		this.timeCategoryList = timeCategoryList;
+	}
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
 	
 }

@@ -71,7 +71,8 @@ public class HpIndexManagerController {
 
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ListResultModel listResultModel = new ListResultModel();
-
+		listResultModel.setiDisplayStart(iDisplayStart);
+		
 		try {
 			if (dataCategory == 0) {
 				if (hp_num == null || hp_num.equals("")) {

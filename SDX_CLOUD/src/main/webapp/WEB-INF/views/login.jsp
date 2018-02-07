@@ -19,7 +19,7 @@
 		<div class="logo">
 			<span class="icon"></span>
 		</div>
-		<h2 class="appTitle">服装货品数据管理系统</h2>
+		<h2 class="appTitle">成衣知识库管理系统</h2>
 		<div class="row">
 			<div>
 				<label class="ctrlLabel icon-portrait"></label>

@@ -25,8 +25,7 @@ var productMgr = (function (config, functions) {
 })(config, functions);
 
 $(document).ready(function () {
-
-	var pageNum = 1;
+	var init = 0;
 	
     var table = new ZYTableHandler({
         removeUrl: "#",
@@ -62,11 +61,8 @@ $(document).ready(function () {
                     },
                     { "mDataProp": "opt",
                         "fnRender": function (oObj) {
-                            /*return  '<a href="' + oObj.aData.id + '" class="check">查看</a>&nbsp;&nbsp;' +
-                                '<a href="hpgl/hpManage/productCOU/' + oObj.aData.id + '">编辑</a>&nbsp;&nbsp;' +
-                                '<a href="' + oObj.aData.id + '" class="remove">作废</a>';*/
                             return  '<a href="hpgl/hpManage/productDetail/' + oObj.aData.id + '" class="check">查看</a>&nbsp;&nbsp;' +
-                                '<a href="hpgl/hpManage/productCOU/' + oObj.aData.id + '">编辑</a>';
+                            '<a href="hpgl/hpManage/productCOU/' + oObj.aData.id + '?pageNum=' + pageNum + '">编辑</a>';
                         }
                     }
                 ],
@@ -96,44 +92,46 @@ $(document).ready(function () {
                         name: "color",
                         value: productMgr.searchParams.color.join(",")
                     })
+                    
                 },
                 "fnServerData": function (sSource, aoData, fnCallback) {
-                	console.log("************************");
-                	console.log(aoData.length);
-                	console.log(aoData[3].value);
-                	console.log(aoData[4].value);
-                	console.log(aoData[3].value/aoData[4].value + 1);
-                	console.log("************************");
-                    //回调函数
-                    $.ajax({
-                        "dataType": 'json',
-                        "type": "get",
-                        "url": sSource,
-                        "data": aoData,
-                        "success": function (response) {
-                            if (response.success === false) {
-                                functions.ajaxReturnErrorHandler(response.message);
-                            } else {
-                                var json = {
-                                    "sEcho": response.sEcho
-                                };
+                	var oSettings = ownTable.fnSettings();
+                    if (init != 0){
+                    	 //回调函数
+                        $.ajax({
+                            "dataType": 'json',
+                            "type": "get",
+                            "url": sSource,
+                            "data": aoData,
+                            "success": function (response) {
+                                if (response.success === false) {
+                                    functions.ajaxReturnErrorHandler(response.message);
+                                } else {
+                                    var json = {
+                                        "sEcho": response.sEcho
+                                    };
 
-                                productMgr.loadedData = {};
+                                    productMgr.loadedData = {};
 
-                                for (var i = 0, iLen = response.aaData.length; i < iLen; i++) {
-                                    response.aaData[i].opt = "opt";
-                                    response.aaData[i].dataStatusString=config.status.product[response.aaData[i].dataStatus];
-                                    productMgr.loadedData[response.aaData[i].id] = response.aaData[i];
+                                    for (var i = 0, iLen = response.aaData.length; i < iLen; i++) {
+                                        response.aaData[i].opt = "opt";
+                                        response.aaData[i].dataStatusString=config.status.product[response.aaData[i].dataStatus];
+                                        productMgr.loadedData[response.aaData[i].id] = response.aaData[i];
+                                    }
+                                    
+                                    json.aaData = response.aaData;
+                                    json.iTotalRecords = response.iTotalRecords;
+                                    json.iTotalDisplayRecords = response.iTotalDisplayRecords;
+                                    
+                                    pageNum = response.iDisplayStart/oSettings._iDisplayLength + 1;
+                                    
+                                    fnCallback(json);
                                 }
 
-                                json.aaData = response.aaData;
-                                json.iTotalRecords = response.iTotalRecords;
-                                json.iTotalDisplayRecords = response.iTotalDisplayRecords;
-                                fnCallback(json);
                             }
-
-                        }
-                    });
+                        });
+                    }      		
+                   
                 },
                 "fnFormatNumber": function (iIn) {
                     return iIn;
@@ -143,7 +141,20 @@ $(document).ready(function () {
             return ownTable;
         }
     });
-
+    
+    setTimeout(function(){
+    	if (pageNum > 0){
+    		init = 1;
+        	table.load(pageNum);
+        }
+        else{
+        	init = 1;
+        	table.load(1);
+        }
+        
+    },100);
+    
+    
     $("#myTable").on("click", "a.remove",function () {
         if (confirm(config.messages.confirmDelete)) {
             table.delete($(this).attr("href"));

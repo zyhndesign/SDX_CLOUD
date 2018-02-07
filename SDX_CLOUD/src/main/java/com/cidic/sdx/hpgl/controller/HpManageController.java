@@ -64,7 +64,8 @@ public class HpManageController {
 	}
 
 	@RequestMapping(value = "/productMgr", method = RequestMethod.GET)
-	public ModelAndView userMgr(Locale locale, Model model) {
+	public ModelAndView userMgr(HttpServletRequest request,Locale locale, Model model) {
+		String pageNumStr = request.getParameter("pageNum");
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/productMgr");
 		List<Map<String,String>> list = tagServiceImpl.getAllTag();
@@ -90,6 +91,9 @@ public class HpManageController {
 			
 			view.addObject(key,listModle);
 		});
+		if (pageNumStr != null){
+			view.addObject("pageNum",Integer.parseInt(pageNumStr));
+		}
 		
 		return view;
 	}
@@ -104,10 +108,14 @@ public class HpManageController {
 
 	@RequestMapping(value = "/productCOU/{id}", method = RequestMethod.GET)
 	public ModelAndView updateProductCOU(HttpServletRequest request, @PathVariable int id) {
-
+		String pageNumStr = request.getParameter("pageNum");
 		HPModel hpModel = null;
 		if (id > 0) {
 			hpModel = hpManageServiceImpl.getHpDataById(id);
+		}
+		if (hpModel != null && pageNumStr != null){
+			
+			hpModel.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/productCOU");

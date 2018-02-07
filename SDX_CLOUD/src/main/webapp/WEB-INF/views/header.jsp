@@ -3,7 +3,7 @@
 <div class="header">
 	<h1 class="logo">
 
-		<span class="icon"></span>服装货品数据管理系统
+		<span class="icon"></span>成衣知识库管理系统
 
 	</h1>
 	<nav class="topNav">

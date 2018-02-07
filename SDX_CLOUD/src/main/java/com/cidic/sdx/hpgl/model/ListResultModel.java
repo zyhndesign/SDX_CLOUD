@@ -8,6 +8,8 @@ public class ListResultModel {
 	private List aaData;
 	private int iTotalRecords;
 	private int iTotalDisplayRecords;
+	private int iDisplayStart;
+	
 	private String sEcho;
 	
 	public boolean isSuccess() {
@@ -39,6 +41,12 @@ public class ListResultModel {
 	}
 	public void setsEcho(String sEcho) {
 		this.sEcho = sEcho;
+	}
+	public int getiDisplayStart() {
+		return iDisplayStart;
+	}
+	public void setiDisplayStart(int iDisplayStart) {
+		this.iDisplayStart = iDisplayStart;
 	}
 	
 	

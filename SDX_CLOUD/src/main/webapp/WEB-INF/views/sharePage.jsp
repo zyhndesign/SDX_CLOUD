@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
 <title>圣得西服饰搭配</title>
 <base href="<%=request.getContextPath()%>/" />
 <link rel="stylesheet" href="resources/css/src/swiper.min.css" />

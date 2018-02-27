@@ -212,6 +212,19 @@
 
 					slideChangeTransitionEnd : function() {
 						activeIndex = this.activeIndex;
+						if (activeIndex == 0){
+							$('#keyWordSelect').val(style1);
+						}
+						else if (activeIndex == 1){
+							$('#keyWordSelect').val(style2);
+						}
+						else if (activeIndex == 2){
+							$('#keyWordSelect').val(style3);
+						}
+						else if (activeIndex == 3){
+							$('#keyWordSelect').val(style4);
+						}
+						
 						if (matchListsLength == 4) {
 							if (this.activeIndex == 0) {
 								$(".scrollBar1_p1").addClass("pYellow");

@@ -185,6 +185,18 @@
 										<input type="hidden" id="imageUrl3" value="${hp.imageUrl3}" name="imageUrl3">
 									</c:if>
 								</a>
+								<p class="help-block">
+									3.素材图，png/jpg格式
+									<!--，800x1200像素-->
+								</p>
+								<a href="#" id="uploadBtn4"> <c:if test="${empty hp.imageUrl4}">
+										<img id="image4" class="imgThumb" style="width: 100px" src="resources/images/app/defaultThumb.png" />
+										<input type="hidden" id="imageUrl4" name="imageUrl4">
+									</c:if> <c:if test="${!empty hp.imageUrl4}">
+										<img id="image4" class="imgThumb" style="width: 100px" src="${hp.imageUrl4}" />
+										<input type="hidden" id="imageUrl4" value="${hp.imageUrl4}" name="imageUrl4">
+									</c:if>
+								</a>
 							</div>
 						</div>
 					</div>

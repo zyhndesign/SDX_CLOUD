@@ -106,6 +106,9 @@ public class HpManageDaoImpl implements HpManageDao {
 					connection.hSet(hKey,ser.serialize("imageUrl3"), ser.serialize(hpModel.getImageUrl3()));
 				}
 				
+				if (hpModel.getImageUrl4() != null  && !hpModel.getImageUrl4().equals("")){
+					connection.hSet(hKey,ser.serialize("imageUrl4"), ser.serialize(hpModel.getImageUrl4()));
+				}
 				
 				String[] brandArray = hpModel.getBrand().split("\\,");
 				for (String s : brandArray){
@@ -185,12 +188,7 @@ public class HpManageDaoImpl implements HpManageDao {
 				
 				
 				List<Object> resultList = connection.exec();
-				
-				System.out.println("执行命令数量:"+ resultList.size());
-				resultList.stream().forEach((o)->{
-					System.out.println("命令执行结果:"+o.toString());
-				});
-				
+				logger.info("执行命令数量", resultList.size());				
 				return id;
 			}
 		});
@@ -222,6 +220,10 @@ public class HpManageDaoImpl implements HpManageDao {
 					connection.hSet(hKey,ser.serialize("imageUrl3"), ser.serialize(hpModel.getImageUrl3()));
 				}
 
+				if (hpModel.getImageUrl4() != null){
+					connection.hSet(hKey,ser.serialize("imageUrl4"), ser.serialize(hpModel.getImageUrl4()));
+				}
+				
 				if (hpModel.getProductUrl() != null){
 					connection.hSet(hKey,ser.serialize("productURL"), ser.serialize(hpModel.getProductUrl()));
 				}
@@ -270,7 +272,7 @@ public class HpManageDaoImpl implements HpManageDao {
 					connection.lRem(ser.serialize(RedisVariableUtil.DATA_INTEGRITY_LIST), 0, ser.serialize(String.valueOf(id)));
 				}
 				List<Object> resultList = connection.exec();
-				logger.info("执行命令数量�?", resultList.size());
+				logger.info("执行命令数量", resultList.size());
 				
 				return null;
 			}
@@ -299,9 +301,9 @@ public class HpManageDaoImpl implements HpManageDao {
 					connection.sRem(tagKey, ser.serialize(id));
 				}
 				List<Object> resultList = connection.exec();
-				logger.info("执行命令数量�?", resultList.size());
+				logger.info("执行命令数量", resultList.size());
 				resultList.stream().forEach((o)->{
-					logger.info("命令执行结果�?",o.toString());
+					logger.info("命令执行结果",o.toString());
 				});
 				return null;
 			}
@@ -396,6 +398,7 @@ public class HpManageDaoImpl implements HpManageDao {
 		hpModel.setImageUrl1(resultMap.get("imageUrl1"));
 		hpModel.setImageUrl2(resultMap.get("imageUrl2"));
 		hpModel.setImageUrl3(resultMap.get("imageUrl3"));
+		hpModel.setImageUrl4(resultMap.get("imageUrl4"));
 		hpModel.setCreateTime(resultMap.get("createTime"));
 		hpModel.setTimeCategory(resultMap.get("timeCategory"));
 		hpModel.setProductUrl(resultMap.get("productURL"));

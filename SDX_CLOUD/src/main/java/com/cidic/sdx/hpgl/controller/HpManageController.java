@@ -91,7 +91,7 @@ public class HpManageController {
 			
 			view.addObject(key,listModle);
 		});
-		if (pageNumStr != null){
+		if (pageNumStr != null && !pageNumStr.equals("")){
 			view.addObject("pageNum",Integer.parseInt(pageNumStr));
 		}
 		
@@ -197,7 +197,7 @@ public class HpManageController {
 	public ResultModel insert(HttpServletRequest request, HttpServletResponse response, @RequestParam String hp_num,@RequestParam String hpName,
 			@RequestParam String brand, @RequestParam String category, @RequestParam String size,@RequestParam String timeCategory,
 			@RequestParam String color, @RequestParam(value="") String price, @RequestParam(value="") String imageUrl1,
-			@RequestParam(value="") String imageUrl2, @RequestParam(value="") String imageUrl3) {
+			@RequestParam(value="") String imageUrl2, @RequestParam(value="") String imageUrl3,@RequestParam(value="") String imageUrl4) {
 
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 
@@ -215,6 +215,7 @@ public class HpManageController {
 			hpModel.setImageUrl1(imageUrl1);
 			hpModel.setImageUrl2(imageUrl2);
 			hpModel.setImageUrl3(imageUrl3);
+			hpModel.setImageUrl4(imageUrl4);
 			hpManageServiceImpl.insertHpData(hpModel);
 			resultModel = new ResultModel();
 			resultModel.setResultCode(200);
@@ -231,8 +232,9 @@ public class HpManageController {
 	public ResultModel update(HttpServletRequest request, HttpServletResponse response, @RequestParam String id,
 			@RequestParam String hp_num, @RequestParam String brand, @RequestParam String category, 
 			@RequestParam String size,@RequestParam String timeCategory,@RequestParam String hpName,
-			@RequestParam String color,@RequestParam String price, @RequestParam String imageUrl1,
-			@RequestParam String imageUrl2, @RequestParam String imageUrl3,@RequestParam String productUrl) {
+			@RequestParam String color,@RequestParam String price, @RequestParam(value="") String imageUrl1,
+			@RequestParam(value="") String imageUrl2, @RequestParam(value="") String imageUrl3,@RequestParam String productUrl,
+			@RequestParam(value="") String imageUrl4) {
 
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 
@@ -250,6 +252,7 @@ public class HpManageController {
 			hpModel.setImageUrl1(imageUrl1);
 			hpModel.setImageUrl2(imageUrl2);
 			hpModel.setImageUrl3(imageUrl3);
+			hpModel.setImageUrl4(imageUrl4);
 			hpModel.setProductUrl(productUrl);
 			hpManageServiceImpl.updateHpData(hpModel);
 			resultModel = new ResultModel();

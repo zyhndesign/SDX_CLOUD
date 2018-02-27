@@ -54,6 +54,7 @@ public class HPModel implements Serializable{
 	private String imageUrl1;//
 	private String imageUrl2;//
 	private String imageUrl3;//
+	private String imageUrl4;
 	
 	private String brandList;
 	private String categoryList;
@@ -364,6 +365,12 @@ public class HPModel implements Serializable{
 	}
 	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
+	}
+	public String getImageUrl4() {
+		return imageUrl4;
+	}
+	public void setImageUrl4(String imageUrl4) {
+		this.imageUrl4 = imageUrl4;
 	}
 	
 }

@@ -126,6 +126,23 @@ public class FeedbackController {
 
 	}
 	
+	@RequestMapping(value = "/getFeedbackListPage", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultModel getFeedbackListPage(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int limit, @RequestParam int offset) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
+		resultModel = new ResultModel();
+
+		List<HotMatchModel> feedBackList = feedbackServiceImpl.getFeedbackListPage(limit,offset);
+
+		resultModel.setResultCode(200);
+		resultModel.setSuccess(true);
+		resultModel.setObject(feedBackList);
+		return resultModel;
+
+	}
+	
+	
 	@RequestMapping(value = "/getFeedbackVipName", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultModel getFeedbackVipName(HttpServletRequest request, HttpServletResponse response,

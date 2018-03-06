@@ -124,4 +124,16 @@ public class FeedbackServiceImpl implements FeedbackService {
 		}
 		return idList;
 	}
+
+	@Override
+	public List<HotMatchModel> getFeedbackListPage(int limit, int offset) {
+		List<HotMatchModel> list = feedbackDaoImpl.getFeedbackListPage(limit, offset);
+		
+		for (HotMatchModel hotMatchModel : list){
+			hotMatchModel.setInnerClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getInnerClothId()));
+			hotMatchModel.setOutClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getOutClothId()));
+			hotMatchModel.setTrousersClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getTrousersId()));
+		}
+		return list;
+	}
 }

@@ -166,7 +166,7 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public List<Match> getMatchByDataStatus(int userId, int dataStatus, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Match where userId = ? and draftstatus = ? ";
+		String hql = " from Match where userId = ? and backstatus = ? ";
 		Query query = session.createQuery(hql);
         query.setParameter(0, userId);
         query.setParameter(0, (byte)dataStatus);
@@ -285,7 +285,13 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public Map<String, Integer> getStatisticsDataByWeek(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "SELECT DATE_FORMAT(createtime,'%Y-%u') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ? GROUP BY  time";
+		String sql = "";
+		if (userId > 0){
+			sql = "SELECT DATE_FORMAT(createtime,'%Y-%u') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ? GROUP BY  time";
+		}
+		else{
+			sql = "SELECT DATE_FORMAT(createtime,'%Y-%u') as time,sum(Id)  matchCount FROM sdx_cloud.match GROUP BY  time";
+		}
 		Query query = session.createSQLQuery(sql);
 		query.setParameter(0, userId);
 		List list = query.list();
@@ -303,7 +309,13 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public Map<String, Integer> getStatisticsDataByMonth(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "SELECT DATE_FORMAT(createtime,'%Y-%m') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ?  GROUP BY  time";
+		String sql = "";
+		if (userId > 0){
+			sql = "SELECT DATE_FORMAT(createtime,'%Y-%m') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ?  GROUP BY  time";
+		}
+		else{
+			sql = "SELECT DATE_FORMAT(createtime,'%Y-%m') as time,sum(Id)  matchCount FROM sdx_cloud.match GROUP BY  time";
+		}
 		Query query = session.createSQLQuery(sql);
 		query.setParameter(0, userId);
 		List list = query.list();
@@ -321,7 +333,14 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public Map<String, Integer> getStatisticsDataByYear(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "SELECT DATE_FORMAT(createtime,'%Y') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ?  GROUP BY  time";
+		String sql = "";
+		if (userId > 0){
+			sql = "SELECT DATE_FORMAT(createtime,'%Y') as time,sum(Id)  matchCount FROM sdx_cloud.match where userId = ?  GROUP BY  time";
+		}
+		else{
+			sql = "SELECT DATE_FORMAT(createtime,'%Y') as time,sum(Id)  matchCount FROM sdx_cloud.match GROUP BY  time";
+		}
+		
 		Query query = session.createSQLQuery(sql);
 		query.setParameter(0, userId);
 		List list = query.list();

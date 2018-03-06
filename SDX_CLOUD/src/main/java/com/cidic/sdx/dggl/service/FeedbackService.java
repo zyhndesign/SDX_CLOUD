@@ -12,6 +12,8 @@ public interface FeedbackService {
 	
 	public List<HotMatchModel> getFeedbackListPageByUserId(int userId,int limit, int offset);
 	
+	public List<HotMatchModel> getFeedbackListPage(int limit, int offset);
+	
 	public int updateFeedback(Feedback feedback);
 	
 	public List<HotMatchModel> getTopThreeDataByUserId(int userId);

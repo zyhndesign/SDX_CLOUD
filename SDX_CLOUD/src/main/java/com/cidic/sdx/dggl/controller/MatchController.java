@@ -349,10 +349,13 @@ public class MatchController {
 	@RequestMapping(value = "/getStatisticsDataByWeek", method = RequestMethod.GET)
 	@ResponseBody
 	public ResultModel getStatisticsDataByWeek(HttpServletRequest request, HttpServletResponse response,
-    		@RequestParam int userId){
+    		@RequestParam(required=false) Integer userId){
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ResultModel resultModel = new ResultModel();
 		try {
+			if (userId == null){
+				userId = 0;
+			}
 		    Map<String,Integer> map = matchServiceImpl.getStatisticsDataByWeek(userId);
 		    resultModel.setObject(map);
 			resultModel.setSuccess(true);
@@ -368,10 +371,13 @@ public class MatchController {
 	@RequestMapping(value = "/getStatisticsDataByMonth", method = RequestMethod.GET)
 	@ResponseBody
 	public ResultModel getStatisticsDataByMonth(HttpServletRequest request, HttpServletResponse response,
-    		@RequestParam int userId){
+    		@RequestParam(required=false) Integer userId){
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ResultModel resultModel = new ResultModel();
 		try {
+			if (userId == null){
+				userId = 0;
+			}
 			Map<String,Integer> map = matchServiceImpl.getStatisticsDataByMonth(userId);
 		    resultModel.setObject(map);
 			resultModel.setSuccess(true);
@@ -387,10 +393,13 @@ public class MatchController {
 	@RequestMapping(value = "/getStatisticsDataByYear", method = RequestMethod.GET)
 	@ResponseBody
 	public ResultModel getStatisticsDataByYear(HttpServletRequest request, HttpServletResponse response,
-    		@RequestParam int userId){
+    		@RequestParam(required=false) Integer userId){
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		ResultModel resultModel = new ResultModel();
 		try {
+			if (userId == null){
+				userId = 0;
+			}
 			Map<String,Integer> map = matchServiceImpl.getStatisticsDataByYear(userId);
 		    resultModel.setObject(map);
 			resultModel.setSuccess(true);

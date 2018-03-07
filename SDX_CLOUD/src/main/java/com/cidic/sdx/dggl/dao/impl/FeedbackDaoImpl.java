@@ -197,4 +197,14 @@ public class FeedbackDaoImpl implements FeedbackDao {
         }
         return hotList;
 	}
+
+	@Override
+	public int getFeedbackCount() {
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "select count(*) from (select count(*) from feedback feedback0_  inner join matchlist matchlist1 on feedback0_.matchlistId=matchlist1.Id  group by"
+				+ " feedback0_.matchlistId  ) countFeedback";
+		Query query = session.createSQLQuery(sql);
+                
+        return Integer.parseInt(query.uniqueResult().toString());
+	}
 }

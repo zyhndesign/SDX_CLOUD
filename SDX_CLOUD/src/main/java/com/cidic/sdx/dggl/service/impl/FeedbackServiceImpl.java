@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cidic.sdx.dggl.dao.FeedbackDao;
 import com.cidic.sdx.dggl.dao.MatchDao;
 import com.cidic.sdx.dggl.model.Feedback;
+import com.cidic.sdx.dggl.model.HotMatchListModel;
 import com.cidic.sdx.dggl.model.HotMatchModel;
 import com.cidic.sdx.dggl.service.FeedbackService;
 import com.cidic.sdx.hpgl.dao.HpIndexDao;
@@ -126,7 +127,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<HotMatchModel> getFeedbackListPage(int limit, int offset) {
+	public HotMatchListModel getFeedbackListPage(int limit, int offset) {
+		HotMatchListModel hotMatchListModel = new HotMatchListModel();
 		List<HotMatchModel> list = feedbackDaoImpl.getFeedbackListPage(limit, offset);
 		
 		for (HotMatchModel hotMatchModel : list){
@@ -134,6 +136,11 @@ public class FeedbackServiceImpl implements FeedbackService {
 			hotMatchModel.setOutClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getOutClothId()));
 			hotMatchModel.setTrousersClothUrl(hpIndexDaoImpl.getData(hotMatchModel.getTrousersId()));
 		}
-		return list;
+		
+		int count = feedbackDaoImpl.getFeedbackCount();
+		hotMatchListModel.setList(list);
+		hotMatchListModel.setCount(count);
+		
+		return hotMatchListModel;
 	}
 }

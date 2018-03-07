@@ -293,7 +293,10 @@ public class MatchDaoImpl implements MatchDao {
 			sql = "SELECT DATE_FORMAT(createtime,'%Y-%u') as time,sum(Id)  matchCount FROM sdx_cloud.match GROUP BY  time";
 		}
 		Query query = session.createSQLQuery(sql);
-		query.setParameter(0, userId);
+		if (userId > 0){
+			query.setParameter(0, userId);
+		}
+		
 		List list = query.list();
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for(int i = 0; i < list.size(); i++)
@@ -317,7 +320,9 @@ public class MatchDaoImpl implements MatchDao {
 			sql = "SELECT DATE_FORMAT(createtime,'%Y-%m') as time,sum(Id)  matchCount FROM sdx_cloud.match GROUP BY  time";
 		}
 		Query query = session.createSQLQuery(sql);
-		query.setParameter(0, userId);
+		if (userId > 0){
+			query.setParameter(0, userId);
+		}
 		List list = query.list();
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for(int i = 0; i < list.size(); i++)
@@ -342,7 +347,9 @@ public class MatchDaoImpl implements MatchDao {
 		}
 		
 		Query query = session.createSQLQuery(sql);
-		query.setParameter(0, userId);
+		if (userId > 0){
+			query.setParameter(0, userId);
+		}
 		List list = query.list();
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for(int i = 0; i < list.size(); i++)

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cidic.sdx.dggl.model.Feedback;
+import com.cidic.sdx.dggl.model.HotMatchListModel;
 import com.cidic.sdx.dggl.model.HotMatchModel;
 
 public interface FeedbackService {
@@ -12,7 +13,7 @@ public interface FeedbackService {
 	
 	public List<HotMatchModel> getFeedbackListPageByUserId(int userId,int limit, int offset);
 	
-	public List<HotMatchModel> getFeedbackListPage(int limit, int offset);
+	public HotMatchListModel getFeedbackListPage(int limit, int offset);
 	
 	public int updateFeedback(Feedback feedback);
 	

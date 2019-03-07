@@ -395,10 +395,22 @@ public class HpManageDaoImpl implements HpManageDao {
 		hpModel.setSize(resultMap.get("size"));
 		hpModel.setColor(resultMap.get("color"));
 		hpModel.setPrice(resultMap.get("price"));
-		hpModel.setImageUrl1(resultMap.get("imageUrl1"));
-		hpModel.setImageUrl2(resultMap.get("imageUrl2"));
-		hpModel.setImageUrl3(resultMap.get("imageUrl3"));
-		hpModel.setImageUrl4(resultMap.get("imageUrl4"));
+		if(resultMap.get("imageUrl1") != null){
+			hpModel.setImageUrl1(resultMap.get("imageUrl1").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+		}
+		
+		if(resultMap.get("imageUrl2") != null){
+			hpModel.setImageUrl2(resultMap.get("imageUrl2").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+		}
+		
+		if(resultMap.get("imageUrl3") != null){
+			hpModel.setImageUrl3(resultMap.get("imageUrl3").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));		
+		}
+		
+		if(resultMap.get("imageUrl4") != null){
+			hpModel.setImageUrl3(resultMap.get("imageUrl4").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));		
+		}
+		
 		hpModel.setCreateTime(resultMap.get("createTime"));
 		hpModel.setTimeCategory(resultMap.get("timeCategory"));
 		hpModel.setProductUrl(resultMap.get("productURL"));

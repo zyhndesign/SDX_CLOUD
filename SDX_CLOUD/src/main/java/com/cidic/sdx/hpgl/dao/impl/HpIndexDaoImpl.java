@@ -294,9 +294,17 @@ public class HpIndexDaoImpl implements HpIndexDao {
 			hpModel.setSize(String.valueOf(resultMap.get("size").charAt(0)));
 			hpModel.setColor(resultMap.get("color"));
 			hpModel.setPrice(resultMap.get("price"));
-			hpModel.setImageUrl1(resultMap.get("imageUrl1"));
-			hpModel.setImageUrl2(resultMap.get("imageUrl2"));
-			hpModel.setImageUrl3(resultMap.get("imageUrl3"));
+			
+			if (resultMap.get("imageUrl1") != null){
+				hpModel.setImageUrl1(resultMap.get("imageUrl1").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+			}
+			if (resultMap.get("imageUrl2") != null){
+				hpModel.setImageUrl2(resultMap.get("imageUrl2").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));				
+			}
+			if (resultMap.get("imageUrl3") != null){
+				hpModel.setImageUrl3(resultMap.get("imageUrl3").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+			}
+			
 			hpModel.setCreateTime(resultMap.get("createTime"));
 			hpModel.setTimeCategory(resultMap.get("timeCategory"));
 			hpModel.setDataStatus(Integer.parseInt(resultMap.get("dataStatus")));
@@ -412,9 +420,16 @@ public class HpIndexDaoImpl implements HpIndexDao {
 		Map<Object, Object> map = hashOperations.getOperations()
 				.boundHashOps(RedisVariableUtil.HP_RECORD_PREFIX + RedisVariableUtil.DIVISION_CHAR + id).entries();
 		CostumeModel costumeModel = new CostumeModel();
-		costumeModel.setProductImageUrl(map.get("imageUrl3").toString());
-		costumeModel.setFrontViewUrl(map.get("imageUrl1").toString());
-		costumeModel.setBackViewUrl(map.get("imageUrl2").toString());
+		if (map.get("imageUrl1") != null){
+			costumeModel.setFrontViewUrl(map.get("imageUrl1").toString().replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+		}
+		if (map.get("imageUrl2") != null){
+			costumeModel.setBackViewUrl(map.get("imageUrl2").toString().replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));			
+		}
+		if (map.get("imageUrl3") != null){
+			costumeModel.setProductImageUrl(map.get("imageUrl3").toString().replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+		}
+		
 		costumeModel.setShopURL(map.get("productURL").toString());
 		costumeModel.setHpName(map.get("hpName").toString());
 		costumeModel.setHpNum(map.get("hp_num").toString());

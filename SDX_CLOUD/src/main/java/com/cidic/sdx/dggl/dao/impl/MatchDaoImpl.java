@@ -83,7 +83,7 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public void updateDraftStatus(int matchId, int draftStatus) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " update from Match set draftstatus = ? where matchId = ?";
+		String hql = " update from Match set draftstatus = ? where id = ?";
 		final Query query = session.createQuery(hql); 
 		query.setParameter(1, matchId);
 		query.setParameter(0, draftStatus);
@@ -232,7 +232,7 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public void updateBackStatus(int userId, int backStatus) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " update from Match set backstatus = ? where matchId = ?";
+		String hql = " update from Match set backstatus = ? where id = ?";
 		final Query query = session.createQuery(hql); 
 		query.setParameter(1, userId);
 		query.setParameter(0, (byte)backStatus);

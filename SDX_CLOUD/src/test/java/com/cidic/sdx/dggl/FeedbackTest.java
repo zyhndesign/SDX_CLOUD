@@ -25,7 +25,7 @@ public class FeedbackTest {
 	@Qualifier("feedbackServiceImpl")
 	private FeedbackService feedbackServiceImpl;
 	
-	//@Test
+	@Test
 	public void createFeedback(){
 		/*
 		Feedback feedback = new Feedback();
@@ -38,20 +38,31 @@ public class FeedbackTest {
 		System.out.println(feedbackServiceImpl.createFeedback(feedback));
 		
 		*/
-		for (int i = 0; i < 1000; i++){
+		for (int i = 0; i < 100000; i++){
 			Random random1 = new Random();
-			IntStream intStream1 = random1.ints(805, 1608);
+			IntStream intStream1 = random1.ints(1, 88);
 			Random random2 = new Random();
 			IntStream intStream2 = random2.ints(120, 133);
 			Feedback feedback = new Feedback();
 			feedback.setUserId(intStream2.limit(1).sum());
-		
+			Random random3 = new Random();
+			IntStream intStream3 = random3.ints(1, 1000000);
+			
+			Random random4 = new Random();
+			IntStream intStream4 = random4.ints(1, 49);
+			
 			Matchlist matchList = new Matchlist();
-			matchList.setId(intStream1.limit(1).sum());
+			int matchListId = intStream1.limit(1).sum();
+			
+			matchList.setId(matchListId);
 			feedback.setMatchlist(matchList);
-
+			
+			feedback.setVipId(intStream3.limit(1).sum());
+			
+			int matchId = intStream4.limit(1).sum();
+				
 			feedback.setCreatetime(new Date());
-			//feedbackServiceImpl.createFeedback(feedback);
+			feedbackServiceImpl.createFeedback(feedback,matchId);
 		}
 		
 	}
@@ -80,7 +91,7 @@ public class FeedbackTest {
 		System.out.println(feedbackServiceImpl.updateFeedback(feedback));
 	}
 	
-	@Test
+	//@Test
 	public void getFeedbackByVipIdAndMatchIds(){
 		String[] array = {"1175","888","1375","13123324"};
 		

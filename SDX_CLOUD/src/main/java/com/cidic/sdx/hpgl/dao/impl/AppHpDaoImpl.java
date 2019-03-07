@@ -111,9 +111,20 @@ public class AppHpDaoImpl implements AppHpDao {
 				appHpModel.setHpNum(resultMap.get("hp_num"));
 
 				appHpModel.setPrice(resultMap.get("price"));
-				appHpModel.setImageUrl1(resultMap.get("imageUrl1"));
-				appHpModel.setImageUrl2(resultMap.get("imageUrl2"));
-				appHpModel.setImageUrl3(resultMap.get("imageUrl3"));
+//				appHpModel.setImageUrl1(resultMap.get("imageUrl1"));
+//				appHpModel.setImageUrl2(resultMap.get("imageUrl2"));
+//				appHpModel.setImageUrl3(resultMap.get("imageUrl3"));
+				if(resultMap.get("imageUrl1") != null){
+					appHpModel.setImageUrl1(resultMap.get("imageUrl1").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+				}
+				
+				if(resultMap.get("imageUrl2") != null){
+					appHpModel.setImageUrl2(resultMap.get("imageUrl2").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+				}
+				
+				if(resultMap.get("imageUrl3") != null){
+					appHpModel.setImageUrl3(resultMap.get("imageUrl3").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));		
+				}
 				appHpModel.setHpName(resultMap.get("hpName"));
 				return appHpModel;
 			}
@@ -138,9 +149,22 @@ public class AppHpDaoImpl implements AppHpDao {
 			appHpModel.setHpNum(resultMap.get("hp_num"));
 
 			appHpModel.setPrice(resultMap.get("price"));
-			appHpModel.setImageUrl1(resultMap.get("imageUrl1"));
-			appHpModel.setImageUrl2(resultMap.get("imageUrl2"));
-			appHpModel.setImageUrl3(resultMap.get("imageUrl3"));
+//			appHpModel.setImageUrl1(resultMap.get("imageUrl1"));
+//			appHpModel.setImageUrl2(resultMap.get("imageUrl2"));
+//			appHpModel.setImageUrl3(resultMap.get("imageUrl3"));
+			
+			if(resultMap.get("imageUrl1") != null){
+				appHpModel.setImageUrl1(resultMap.get("imageUrl1").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+			}
+			
+			if(resultMap.get("imageUrl2") != null){
+				appHpModel.setImageUrl2(resultMap.get("imageUrl2").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));
+			}
+			
+			if(resultMap.get("imageUrl3") != null){
+				appHpModel.setImageUrl3(resultMap.get("imageUrl3").replace("http://oaycvzlnh.bkt.clouddn.com", "http://sdx-hpgl.fzcloud.design-engine.org"));		
+			}
+			
 			appHpModel.setHpName(resultMap.get("hpName"));
 			hpModelList.add(appHpModel);
 		}
